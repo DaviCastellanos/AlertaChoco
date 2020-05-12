@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{4013A996-CDB4-44B7-BBC8-11820A134F1B}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+    <Files>
+      <File FileName="Program.cs" Line="15" Column="26" />
+      <File FileName="CoordinateCalculator.cs" Line="53" Column="44" />
+      <File FileName="Models/AlertLevel.cs" Line="10" Column="1" />
+      <File FileName="Haversine.cs" Line="22" Column="2" />
+      <File FileName="Models/Alert.cs" Line="19" Column="33" />
+      <File FileName="Models/Direction.cs" Line="15" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="CoordinatesCalculator" expanded="True">
+            <Node name="CoordinatesCalculator" expanded="True">
+              <Node name="Models" expanded="True" />
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.CoordinatesCalculator PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

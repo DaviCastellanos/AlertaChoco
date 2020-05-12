@@ -1,0 +1,11 @@
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/CoordinatesCalculator/bin/Debug/netcoreapp2.2/CoordinatesCalculator.deps.json
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/CoordinatesCalculator/bin/Debug/netcoreapp2.2/CoordinatesCalculator.runtimeconfig.json
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/CoordinatesCalculator/bin/Debug/netcoreapp2.2/CoordinatesCalculator.runtimeconfig.dev.json
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/CoordinatesCalculator/bin/Debug/netcoreapp2.2/CoordinatesCalculator.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/CoordinatesCalculator/bin/Debug/netcoreapp2.2/CoordinatesCalculator.pdb
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/CoordinatesCalculator/obj/Debug/netcoreapp2.2/CoordinatesCalculator.csprojAssemblyReference.cache
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/CoordinatesCalculator/obj/Debug/netcoreapp2.2/CoordinatesCalculator.csproj.CoreCompileInputs.cache
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/CoordinatesCalculator/obj/Debug/netcoreapp2.2/CoordinatesCalculator.AssemblyInfoInputs.cache
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/CoordinatesCalculator/obj/Debug/netcoreapp2.2/CoordinatesCalculator.AssemblyInfo.cs
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/CoordinatesCalculator/obj/Debug/netcoreapp2.2/CoordinatesCalculator.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/CoordinatesCalculator/obj/Debug/netcoreapp2.2/CoordinatesCalculator.pdb
