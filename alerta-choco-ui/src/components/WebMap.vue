@@ -1,0 +1,154 @@
+<template>
+  <div></div>
+</template>
+
+<script>
+import { loadModules } from 'esri-loader';
+import { mapState } from 'vuex'
+
+export default {
+  name: 'web-map',
+  computed: mapState(['mapCenter']),
+  watch: {
+    mapCenter(newValue) {
+      //console.log(`WebMap: Updating from ${oldValue[0] + " " + oldValue[1]} to ${newValue[0] + " " + newValue[1]}`);
+      this.gotTo(newValue)
+    },
+  },
+  methods: {
+      gotTo(pt) {
+        var opts = {
+          duration: 1000  // Duration of animation will be 2 seconds
+        };
+
+        // go to point at LOD 15 with custom duration
+        this.view.goTo({
+          target: pt,
+          zoom: 10
+        }, opts);
+      },
+      drawMap()
+      {
+            // lazy load the required ArcGIS API for JavaScript modules and CSS
+        loadModules(['esri/Map', 'esri/views/MapView', 'esri/layers/FeatureLayer'], { css: true })
+        .then(([ArcGISMap, MapView, FeatureLayer]) => {
+
+        const map = new ArcGISMap({
+        basemap: 'dark-gray-vector'
+        });
+
+        this.view = new MapView({
+        container: this.$el,
+        map: map,
+        center: [-76.781506677246, 5.9944065844109957], // longitude, latitude
+        zoom: 6
+        });
+
+        var municipiosRenderer = {
+            type: "simple",
+            symbol: {
+                    type: "picture-marker",
+                    url: "https://image.flaticon.com/icons/png/512/1001/1001022.png",
+                    width: "18px",
+                    height: "18px"
+            }
+        }
+
+        var municipiosLabels = {
+            symbol: {
+            type: "text",
+            color: "#FFFFF",
+            haloColor: "#ff0000",
+            haloSize: "0px",
+            font: {
+                size: "12px",
+                family: "Noto Sans",
+                style: "italic",
+                weight: "normal"
+            }
+            },
+            labelPlacement: "below-center",
+            labelExpressionInfo: {
+            expression: "$feature.municipio"
+            }
+        }
+
+        var alertRenderer = {
+            type: "simple",
+            symbol: {
+            type: "picture-marker",
+            url: "https://image.flaticon.com/icons/svg/599/599506.svg",
+            width: "25px",
+            height: "25px"
+            }
+        }
+        
+        var alertPopup = {
+            "title": "{threat}",
+            "content": "<b>Ubicación:</b> {location}<br><b>Nivel de Riesgo:</b> {level}<br><b>Fecha:</b> {date}"
+        }
+
+        var municipios = new FeatureLayer({
+            url: "https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/municipios_subregion_choco/FeatureServer/0",
+            renderer: municipiosRenderer,
+            labelingInfo: municipiosLabels
+        });
+
+        map.add(municipios);  
+
+        var alertas= new FeatureLayer({
+            url: "https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas_subregion_choco_ejemplo/FeatureServer/0",
+            renderer: alertRenderer,
+            outFields: ["threat", "location", "level", "date", "OBJECTID"],
+            popupTemplate: alertPopup
+        });
+
+        map.add(alertas); 
+
+         /*
+         this.view.whenLayerView(alertas).then(function(layerView){
+                layerView.watch("updating", function(value){
+                    // availableFields will become available
+                    // once the layer view finishes updating
+                    if (!value) {
+                    layerView.queryFeatures({
+                        outFields: layerView.availableFields,
+                        where: "OBJECTID > 0"
+                    })
+                    .then(function(results) {
+                        //this.features = results.features
+                        console.log("features length is " + results.features.length)
+                        //var  sortedDescending = results.features.sort((a, b) => new Date(a.date) - new Date(b.date)).reverse(); 
+                    })
+                    .catch(function(error) {
+                        console.log("query failed: ", error);
+                    });
+                    }
+                });
+            });
+          */
+        });       
+      }
+  },
+  mounted() {
+    this.drawMap()
+    //this.saveAlerts(alerts)
+  },
+  beforeDestroy() {
+    if (this.view) {
+      // destroy the map view
+      this.view.container = null;
+    }
+  }
+};
+
+</script>
+
+<style scoped>
+div {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
