@@ -4,18 +4,18 @@
         <web-map />
     </div>
     <div id="segment">
-        <alerts-list />
+        <alerts-table />
     </div>
     </div>
 </template>
 
 <script>
 import WebMap from './components/WebMap.vue';
-import AlertsList from './components/AlertsList.vue'
+import AlertsTable from './components/AlertsTable.vue'
 
 export default {
     name: 'App',
-    components: { WebMap, AlertsList }
+    components: { WebMap, AlertsTable }
 };
 </script>
 
