@@ -1,6 +1,6 @@
 <template>
   <div id="alert" >
-    <b-table striped hover dark :items="items" @row-clicked="rowClicked" :fields="fields"></b-table>
+    <b-table striped hover dark :items="items" @row-clicked="RowClicked" :fields="fields"></b-table>
   </div>
 </template>
     
@@ -19,15 +19,13 @@ export default {
       }
   },
   methods: {
-    rowClicked(item)
+    RowClicked(item)
     {
         this.$store.commit('CHANGE_MAP_CENTER', { lat: item.Lan, lon: item.Lon }) 
     },
     SetItems(features) {    
         for(var i = 0 ; i < features.length; i++)
         {
-
-
             this.items.push({ Fecha: this.FormatDate(features[i].attributes.date), 
                               Hora: this.FormatTime(features[i].attributes.date), 
                               Amenaza: features[i].attributes.threat,

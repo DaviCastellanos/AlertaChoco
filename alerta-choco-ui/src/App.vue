@@ -15,7 +15,7 @@ import AlertsTable from './components/AlertsTable.vue'
 
 export default {
     name: 'App',
-    components: { WebMap, AlertsTable }
+    components: { WebMap, AlertsTable}
 };
 </script>
 
@@ -37,7 +37,7 @@ html,body {
 }
 #segment {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 0;
   margin: 100;
   width: 100%;

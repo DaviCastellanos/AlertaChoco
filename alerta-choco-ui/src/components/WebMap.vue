@@ -1,24 +1,37 @@
 <template>
-  <div></div>
+  <div>
+  <b-button id="municipiosButton" :pressed.sync="municipiosVisible" variant="outline-light"> {{ setButtonText() }}  </b-button>
+  <div id="mapDiv">
+  </div>
+  </div>
 </template>
 
 <script>
 import { loadModules } from 'esri-loader';
 import { mapState } from 'vuex'
+import { BButton } from 'bootstrap-vue'
 
 export default {
   name: 'web-map',
+  components: { BButton },
+  data() { return { municipiosVisible: true }},
   computed: mapState(['mapCenter']),
   watch: {
     mapCenter(newValue) {
       //console.log(`WebMap: Updating from ${oldValue[0] + " " + oldValue[1]} to ${newValue[0] + " " + newValue[1]}`);
       this.gotTo(newValue)
     },
+    municipiosVisible() {
+      this.view.map.findLayerById('municipios').visible = !this.view.map.findLayerById('municipios').visible
+    }
   },
   methods: {
+      setButtonText() {
+        return this.municipiosVisible ? "Mostrar municipios PDET" : "Ocultar municipios PDET" 
+      },
       gotTo(pt) {
         var opts = {
-          duration: 1000  // Duration of animation will be 2 seconds
+          duration: 1000  // Duration of animation will be 1 seconds
         };
 
         // go to point at LOD 15 with custom duration
@@ -38,7 +51,7 @@ export default {
         });
 
         this.view = new MapView({
-        container: this.$el,
+        container: "mapDiv",
         map: map,
         center: [-76.781506677246, 5.9944065844109957], // longitude, latitude
         zoom: 6
@@ -91,7 +104,8 @@ export default {
         var municipios = new FeatureLayer({
             url: "https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/municipios_subregion_choco/FeatureServer/0",
             renderer: municipiosRenderer,
-            labelingInfo: municipiosLabels
+            labelingInfo: municipiosLabels,
+            id: 'municipios'
         });
 
         map.add(municipios);  
@@ -100,10 +114,13 @@ export default {
             url: "https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas_subregion_choco_ejemplo/FeatureServer/0",
             renderer: alertRenderer,
             outFields: ["threat", "location", "level", "date", "OBJECTID"],
-            popupTemplate: alertPopup
+            popupTemplate: alertPopup,
+            id: 'alertas'
         });
 
         map.add(alertas); 
+
+        this.view.map.findLayerById('municipios').visible = false;
 
          /*
          this.view.whenLayerView(alertas).then(function(layerView){
@@ -145,10 +162,16 @@ export default {
 </script>
 
 <style scoped>
-div {
+#municipiosButton {
   padding: 0;
   margin: 0;
   width: 100%;
-  height: 100%;
+  height: 50px;
+}
+#mapDiv {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 750px;
 }
 </style>
