@@ -1,6 +1,6 @@
 <template>
   <div>
-  <b-button id="municipiosButton" :pressed.sync="municipiosVisible" variant="outline-light"> {{ setButtonText() }}  </b-button>
+  <b-button id="municipiosButton"  squared :pressed.sync="municipiosVisible" variant="dark"> {{ setButtonText() }}  </b-button>
   <div id="mapDiv">
   </div>
   </div>
@@ -164,13 +164,13 @@ export default {
 <style scoped>
 #municipiosButton {
   padding: 0;
-  margin: 0;
+  margin: 1px;
   width: 100%;
   height: 50px;
 }
 #mapDiv {
   padding: 0;
-  margin: 0;
+  margin: 1px;
   width: 100%;
   height: 750px;
 }

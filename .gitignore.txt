@@ -1,0 +1,2 @@
+CoordinatesCalculator/.vs/
+alerta-choco-ui/node_modules/.cache/

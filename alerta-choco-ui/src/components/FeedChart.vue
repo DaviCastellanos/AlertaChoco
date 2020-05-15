@@ -55,7 +55,7 @@ export default {
 
 <style scoped>
 #chartHolder {
-  margin: 1px;
+  margin: 2px;
 }
 /*
 .highcharts-background {

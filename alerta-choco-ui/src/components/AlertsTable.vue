@@ -1,6 +1,6 @@
 <template>
-  <div id="alert" >
-    <b-table  fixed striped hover dark :items="items" @row-clicked="RowClicked" :fields="fields"></b-table>
+  <div id="table" >
+    <b-table sticky-header="390px" fixed striped hover dark :items="items" @row-clicked="RowClicked" :fields="fields"></b-table>
   </div>
 </template>
     
@@ -64,9 +64,9 @@ export default {
 </script>
 
 <style scoped>
-#alert {
+#table {
   padding: 0;
-  margin: 1px;
+  margin: 2px;
   width: 100%;
   height: 100%;
 }

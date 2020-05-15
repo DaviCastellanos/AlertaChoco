@@ -12,13 +12,13 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.config.productionTip = false
 
+Vue.use(VueAxios, axios)
+darkUnica(Highcharts);
+Vue.use(IconsPlugin)
+Vue.use(HighchartsVue)
+Vue.use(BootstrapVue)
+
 new Vue({
   store,
   render: h => h(App),
 }).$mount('#app')
-
-Vue.use(VueAxios, axios)
-darkUnica(Highcharts);
-Vue.use(HighchartsVue)
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
