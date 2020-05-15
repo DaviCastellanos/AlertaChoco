@@ -9,12 +9,12 @@ namespace CoordinatesCalculator
         static void Main(string[] args)
         {
             Alert alert = new Alert();
-            alert.originName = "Vigía del Fuerte";
-            alert.originCoordinates = new KeyValuePair<double, double>(-76.896253322753893, 6.5886683130826178);
-            alert.direction = Direction.Occidente;
-            alert.kms = 7.5;
-            alert.level = AlertLevel.Alto;
-            alert.threat = "Presencia de Grupo Armado";
+            alert.originName = "Istmina";
+            alert.originCoordinates = new KeyValuePair<double, double>(-76.685737084655727, 5.1516697763266253);
+            alert.direction = Direction.Norte;
+            alert.kms = 0.5;
+            alert.level = AlertLevel.Moderado;
+            alert.threat = "Panfletos con amenazas en contra de defensores de Derechos Humanos";
 
             new CoordinateCalculator(alert);
         }

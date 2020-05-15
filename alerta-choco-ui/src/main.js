@@ -4,6 +4,9 @@ import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import HighchartsVue from 'highcharts-vue'
+import Highcharts from "highcharts";
+import darkUnica from "highcharts/themes/dark-unica";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -15,8 +18,7 @@ new Vue({
 }).$mount('#app')
 
 Vue.use(VueAxios, axios)
-
-// Install BootstrapVue
+darkUnica(Highcharts);
+Vue.use(HighchartsVue)
 Vue.use(BootstrapVue)
-// Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)

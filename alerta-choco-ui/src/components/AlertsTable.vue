@@ -1,6 +1,6 @@
 <template>
   <div id="alert" >
-    <b-table striped hover dark :items="items" @row-clicked="RowClicked" :fields="fields"></b-table>
+    <b-table  fixed striped hover dark :items="items" @row-clicked="RowClicked" :fields="fields"></b-table>
   </div>
 </template>
     
@@ -66,8 +66,8 @@ export default {
 <style scoped>
 #alert {
   padding: 0;
-  margin: 1px   ;
+  margin: 1px;
   width: 100%;
-  height: 50px;
+  height: 100%;
 }
 </style>
