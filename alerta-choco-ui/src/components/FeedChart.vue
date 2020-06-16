@@ -18,7 +18,7 @@ export default {
       chartOptions: {
         chart: {
           //plotBackgroundColor: '#383939',
-          type: 'spline'
+          type: 'line'
         },
         title: {
           text: 'Alertas reportadas durante la última semana'
@@ -57,10 +57,4 @@ export default {
 #chartHolder {
   margin: 2px;
 }
-/*
-.highcharts-background {
-	fill: #383939;
-	stroke: #a4edba;
-	stroke-width: 2px;
-}*/
 </style>

@@ -1,13 +1,15 @@
 <template>
-    <div id="app">
-    <div id="segment">
+  <b-container fluid class="bv-example-row">
+    <b-row no-gutters>
+    <b-col sm="12" md="6">
         <web-map />
-    </div>
-    <div id="segment">
+    </b-col>
+    <b-col sm="12" md="6">
         <feed-chart />
         <alerts-table />
-    </div>
-    </div>
+    </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -28,22 +30,4 @@ html,body {
   height: 100%;	  
   width: 100%;
 }	
-
-#app {
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  background: white;
-}
-#segment {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
 </style>
