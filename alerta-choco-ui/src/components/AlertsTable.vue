@@ -14,7 +14,7 @@ export default {
     },
   data() {
       return {  
-        fields: ['Amenaza','Fecha', 'Hora'],  
+        fields: ['AMENAZA','FECHA', 'HORA'],  
         items: []
       }
   },
@@ -26,9 +26,9 @@ export default {
     SetItems(features) {    
         for(var i = 0 ; i < features.length; i++)
         {
-            this.items.push({ Fecha: this.FormatDate(features[i].attributes.date), 
-                              Hora: this.FormatTime(features[i].attributes.date), 
-                              Amenaza: features[i].attributes.threat,
+            this.items.push({ FECHA: this.FormatDate(features[i].attributes.date), 
+                              HORA: this.FormatTime(features[i].attributes.date), 
+                              AMENAZA: features[i].attributes.threat,
                               Lan: features[i].geometry.x,
                               Lon: features[i].geometry.y})
         }

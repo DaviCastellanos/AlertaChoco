@@ -27,7 +27,7 @@ export default {
   },
   methods: {
       setButtonText() {
-        return this.municipiosVisible ? "Mostrar municipios PDET" : "Ocultar municipios PDET" 
+        return this.municipiosVisible ? "MOSTRAR MUNICIPIOS PDET" : "OCULTAR MUNICIPIOS PDET" 
       },
       gotTo(pt) {
         var opts = {
@@ -167,6 +167,7 @@ export default {
   margin: 1px;
   width: 100%;
   height: 50px;
+  font-size: 1.3rem;
 }
 #mapDiv {
   padding: 0;

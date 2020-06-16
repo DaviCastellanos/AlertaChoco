@@ -9,6 +9,7 @@ import Highcharts from "highcharts";
 import darkUnica from "highcharts/themes/dark-unica";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import './style/custom.scss'
 
 Vue.config.productionTip = false
 

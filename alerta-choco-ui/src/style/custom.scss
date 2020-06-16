@@ -1,0 +1,11 @@
+$theme-colors: (
+  "dark": #383939
+);
+
+$table-dark-bg: #2B2B2C;
+
+$btn-font-family: 'Unica One', sans-serif;
+
+// Include Bootstrap and BootstrapVue SCSS files
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
