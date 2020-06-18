@@ -55,6 +55,7 @@ export default {
 
 <style scoped>
 #chartHolder {
-  margin: 2px;
+  margin-top: 2px;
+  margin-left: 2px;
 }
 </style>

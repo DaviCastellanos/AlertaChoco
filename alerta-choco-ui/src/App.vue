@@ -1,13 +1,16 @@
 <template>
-  <b-container fluid class="bv-example-row">
+  <b-container fluid>
     <b-row no-gutters>
-    <b-col sm="12" md="6">
-        <web-map />
-    </b-col>
-    <b-col sm="12" md="6">
-        <feed-chart />
-        <alerts-table />
-    </b-col>
+        <nav-bar />
+    </b-row>
+    <b-row no-gutters>
+        <b-col sm="12" md="6">
+            <web-map />
+        </b-col>
+        <b-col sm="12" md="6">
+            <feed-chart />
+            <alerts-table />
+        </b-col>
     </b-row>
   </b-container>
 </template>
@@ -16,10 +19,16 @@
 import WebMap from './components/WebMap.vue';
 import AlertsTable from './components/AlertsTable.vue'
 import FeedChart from './components/FeedChart.vue'
+import NavBar from './components/NavBar.vue'
 
 export default {
     name: 'App',
-    components: { WebMap, AlertsTable, FeedChart }
+    components: { 
+        WebMap, 
+        AlertsTable, 
+        FeedChart,
+        NavBar 
+        }
 };
 </script>
 
