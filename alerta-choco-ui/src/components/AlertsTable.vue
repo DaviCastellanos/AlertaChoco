@@ -1,6 +1,6 @@
 <template>
   <div id="table" >
-    <b-table sticky-header="390px" fixed striped hover dark :items="items" @row-clicked="RowClicked" :fields="fields"></b-table>
+    <b-table sticky-header="750px" fixed striped hover dark :items="items" @row-clicked="RowClicked" :fields="fields"></b-table>
   </div>
 </template>
     

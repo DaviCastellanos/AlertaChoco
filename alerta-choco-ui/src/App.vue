@@ -8,7 +8,7 @@
             <web-map />
         </b-col>
         <b-col sm="12" md="6">
-            <feed-chart />
+            <feed-chart v-if="userIsAuthenticated" />
             <alerts-table />
         </b-col>
     </b-row>
@@ -28,7 +28,12 @@ export default {
         AlertsTable, 
         FeedChart,
         NavBar 
+    },
+    computed: {
+        userIsAuthenticated () {
+            return this.$store.getters.user !== null && this.$store.getters.user !== undefined
         }
+    }
 };
 </script>
 

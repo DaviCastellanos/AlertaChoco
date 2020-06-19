@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import * as firebase from 'firebase'
 import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -22,4 +23,13 @@ Vue.use(BootstrapVue)
 new Vue({
   store,
   render: h => h(App),
+  created () {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBlZRLdDeTs76Ntzm3udLA5tPwzCyUJke0',
+      authDomain: 'alertachoco.firebaseapp.com',
+      databaseURL: 'https://alertachoco.firebaseio.com',
+      projectId: 'alertachoco',
+      storageBucket: 'alertachoco.appspot.com'
+    })
+  }
 }).$mount('#app')
