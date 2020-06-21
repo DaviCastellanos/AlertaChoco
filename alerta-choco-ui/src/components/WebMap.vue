@@ -47,7 +47,7 @@ export default {
         .then(([ArcGISMap, MapView, FeatureLayer]) => {
 
         const map = new ArcGISMap({
-        basemap: 'dark-gray-vector'
+        basemap: 'topo'
         });
 
         this.view = new MapView({
@@ -70,8 +70,8 @@ export default {
         var municipiosLabels = {
             symbol: {
             type: "text",
-            color: "#FFFFF",
-            haloColor: "#ff0000",
+            color: "#545550",
+            haloColor: "#545550",
             haloSize: "0px",
             font: {
                 size: "12px",
@@ -90,7 +90,7 @@ export default {
             type: "simple",
             symbol: {
             type: "picture-marker",
-            url: "https://image.flaticon.com/icons/svg/599/599506.svg",
+            url: "https://image.flaticon.com/icons/svg/3069/3069254.svg",
             width: "25px",
             height: "25px"
             }

@@ -44,7 +44,7 @@ export default {
           data: [10, 0, 8, 2, 6, 4, 5, 5],
           pointStart: Date.UTC(2020, 4, 7),
           pointInterval: 24 * 36e5,
-          color: '#F4D44E',
+          color: '#EE6161',
           name: 'Alertas'
         }]
       } 

@@ -1,6 +1,6 @@
 <template>
   <div id="navBar" >
-    <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top">
+    <b-navbar toggleable="lg" type="light" variant="light" fixed="top">
         <b-navbar-brand>Sistema de Alertas PDET</b-navbar-brand>
         <b-navbar-nav class="ml-auto">
             <b-button v-if="!isUserAuthenticated" v-b-modal.login size="sm" class="my-2 my-sm-0" type="submit" variant="warning">AUTENTICAR</b-button>
