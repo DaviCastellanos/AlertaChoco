@@ -14,19 +14,39 @@ namespace whats_app_rest.Controllers
     [Route("alert")]
     public class AlertController : ControllerBase
     {
-        [HttpGet]
-        public void Get()
-        {
-            var accountSid = "ACa6d64c8f885c4a5d11e5bd40940ed44c";
-            var authToken = "b5dcc9cdb05bd541eda90037d2e4e248";
-            TwilioClient.Init(accountSid, authToken);
+        string  accountSid = "ACa6d64c8f885c4a5d11e5bd40940ed44c";
+        string  authToken = "b5dcc9cdb05bd541eda90037d2e4e248";
 
+        public AlertController()
+        {
+            TwilioClient.Init(accountSid, authToken);
+        }
+
+        [HttpGet]
+        public ActionResult Get()
+        {
             var messageOptions = new CreateMessageOptions(
                 new PhoneNumber("whatsapp:+573107271279"));
             messageOptions.From = new PhoneNumber("whatsapp:+14155238886");
-            messageOptions.Body = "Alert 2";
+            messageOptions.Body = "GetMethod";
 
             MessageResource.Create(messageOptions);
+
+            return Ok();
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Post()
+        {
+            var messageOptions = new CreateMessageOptions(
+                new PhoneNumber("whatsapp:+573107271279"));
+            messageOptions.From = new PhoneNumber("whatsapp:+14155238886");
+            messageOptions.Body = "PostMethod";
+
+            MessageResource.Create(messageOptions);
+            return Ok();
         }
     }
 }
