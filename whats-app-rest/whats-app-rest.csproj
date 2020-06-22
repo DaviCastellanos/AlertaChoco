@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>whats_app_rest</RootNamespace>
+    <DockerComposeProjectPath>docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>ac0348b4-b373-4061-a06c-8d1e4645231c</UserSecretsId>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <Content Remove="Dockerfile %28copy%29.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Twilio" Version="5.43.0" />
+  </ItemGroup>
+</Project>

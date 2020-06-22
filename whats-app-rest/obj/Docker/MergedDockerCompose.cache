@@ -1,0 +1,16 @@
+services:
+  whats-app-rest:
+    build:
+      context: /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest
+      dockerfile: ./Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: whatsapprest
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - /Users/chumbimbi/.aspnet/https:/root/.aspnet/https:ro
+    - /Users/chumbimbi/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'

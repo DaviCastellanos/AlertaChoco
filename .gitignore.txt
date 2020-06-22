@@ -1,2 +1,5 @@
 CoordinatesCalculator/.vs/
 alerta-choco-ui/node_modules/.cache/
+whats-app-rest/bin/
+whats-app-rest/obj/
+whats-app-rest/.vs/
