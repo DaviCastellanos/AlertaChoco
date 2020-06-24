@@ -23,19 +23,10 @@ namespace whats_app_rest.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public string Get()
         {
-            var messageOptions = new CreateMessageOptions(
-                new PhoneNumber("whatsapp:+573107271279"));
-            messageOptions.From = new PhoneNumber("whatsapp:+14155238886");
-            messageOptions.Body = "GetMethod";
-
-            MessageResource.Create(messageOptions);
-
-            return Ok();
+            return "OK";
         }
-
-
 
         [HttpPost]
         [Consumes("application/x-www-form-urlencoded")]

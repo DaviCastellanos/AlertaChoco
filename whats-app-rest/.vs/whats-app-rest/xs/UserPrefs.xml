@@ -1,16 +1,9 @@
-﻿<Properties StartupConfiguration="{5477CBD2-D211-4629-AB47-ED2AF462E482}|Default">
+﻿<Properties StartupConfiguration="{31EA7B65-E660-46C4-AD20-2353CC7A3DB0}|Default">
   <MonoDevelop.Ide.ItemProperties.whats-app-rest PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Properties/launchSettings.json">
     <Files>
-      <File FileName="Startup.cs" Line="44" Column="1" />
-      <File FileName="Dockerfile" Line="1" Column="1" />
-      <File FileName="Program.cs" Line="26" Column="2" />
-      <File FileName="WeatherForecast.cs" Line="1" Column="1" />
-      <File FileName="Controllers/WeatherForecastController.cs" Line="29" Column="20" />
-      <File FileName=".dockerignore" Line="1" Column="1" />
-      <File FileName="docker-compose.yml" Line="1" Column="1" />
-      <File FileName="appsettings.json" Line="1" Column="1" />
-      <File FileName="Properties/launchSettings.json" Line="1" Column="1" />
+      <File FileName="Controllers/AlertController.cs" Line="31" Column="19" />
+      <File FileName="Properties/launchSettings.json" Line="23" Column="26" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,6 +11,7 @@
           <Node name="whats-app-rest" expanded="True">
             <Node name="docker-compose" expanded="True" />
             <Node name="whats-app-rest" expanded="True">
+              <Node name="Dependencies" expanded="True" />
               <Node name="Controllers" expanded="True" />
               <Node name="Properties" expanded="True">
                 <Node name="launchSettings.json" selected="True" />
