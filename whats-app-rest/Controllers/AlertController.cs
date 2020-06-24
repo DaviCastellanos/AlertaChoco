@@ -38,12 +38,13 @@ namespace whats_app_rest.Controllers
 
 
         [HttpPost]
-        public ActionResult Post()
+        [Consumes("application/x-www-form-urlencoded")]
+        public ActionResult Post([FromForm] string body, [FromForm] string from)
         {
             var messageOptions = new CreateMessageOptions(
                 new PhoneNumber("whatsapp:+573107271279"));
             messageOptions.From = new PhoneNumber("whatsapp:+14155238886");
-            messageOptions.Body = "PostMethod";
+            messageOptions.Body = "PostMethod " + body + " " + from;
 
             MessageResource.Create(messageOptions);
             return Ok();
