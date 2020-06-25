@@ -1,9 +1,16 @@
 ﻿<Properties StartupConfiguration="{31EA7B65-E660-46C4-AD20-2353CC7A3DB0}|Default">
   <MonoDevelop.Ide.ItemProperties.whats-app-rest PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Properties/launchSettings.json">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/AlertController.cs">
     <Files>
-      <File FileName="Controllers/AlertController.cs" Line="31" Column="19" />
-      <File FileName="Properties/launchSettings.json" Line="23" Column="26" />
+      <File FileName="Controllers/AlertController.cs" Line="40" Column="2" />
+      <File FileName="AlertsManager.cs" Line="14" Column="46" />
+      <File FileName="Alert.cs" Line="32" Column="46" />
+      <File FileName="Properties/launchSettings.json" Line="23" Column="28" />
+      <File FileName="appsettings.json" Line="1" Column="1" />
+      <File FileName="Program.cs" Line="1" Column="1" />
+      <File FileName="Startup.cs" Line="22" Column="44" />
+      <File FileName="AlertResponses.cs" Line="26" Column="1" />
+      <File FileName="TwilioManager.cs" Line="35" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,10 +19,10 @@
             <Node name="docker-compose" expanded="True" />
             <Node name="whats-app-rest" expanded="True">
               <Node name="Dependencies" expanded="True" />
-              <Node name="Controllers" expanded="True" />
-              <Node name="Properties" expanded="True">
-                <Node name="launchSettings.json" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="AlertController.cs" selected="True" />
               </Node>
+              <Node name="Properties" expanded="True" />
             </Node>
           </Node>
         </State>

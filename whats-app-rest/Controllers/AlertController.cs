@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Twilio;
-using Twilio.Rest.Api.V2010.Account;
-using Twilio.Types;
 
 namespace whats_app_rest.Controllers
 {
@@ -14,12 +7,13 @@ namespace whats_app_rest.Controllers
     [Route("alert")]
     public class AlertController : ControllerBase
     {
-        string  accountSid = "ACa6d64c8f885c4a5d11e5bd40940ed44c";
-        string  authToken = "b5dcc9cdb05bd541eda90037d2e4e248";
+        private AlertsManager alertsManager;
+        private TwilioManager twilioManager;
 
-        public AlertController()
+        public AlertController(AlertsManager alertsManager, TwilioManager twilioManager)
         {
-            TwilioClient.Init(accountSid, authToken);
+            this.alertsManager = alertsManager;
+            this.twilioManager = twilioManager;
         }
 
         [HttpGet]
@@ -32,13 +26,15 @@ namespace whats_app_rest.Controllers
         [Consumes("application/x-www-form-urlencoded")]
         public ActionResult Post([FromForm] string body, [FromForm] string from)
         {
-            var messageOptions = new CreateMessageOptions(
-                new PhoneNumber("whatsapp:+573107271279"));
-            messageOptions.From = new PhoneNumber("whatsapp:+14155238886");
-            messageOptions.Body = "PostMethod " + body + " " + from;
+            if (alertsManager.GetAlertByPhoneNumber(from) == null)
+                alertsManager.CreateNewAlert(from, body);
 
-            MessageResource.Create(messageOptions);
-            return Ok();
+            string response = alertsManager.SaveIncomingMessage(from, body);
+
+            if(twilioManager.SendMessage(from, response))
+                return Ok();
+
+            return NotFound();
         }
     }
 }
