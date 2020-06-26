@@ -19,9 +19,19 @@ namespace whats_app_rest
             return alerts.Find(x => x.phoneNumber == from);
         }
 
+        public Guid GetAlertIdByPhoneNumber(string from)
+        {
+            return alerts.Find(x => x.phoneNumber == from).id;
+        }
+
         public int GetAlertIndexByPhoneNumber(string from)
         {
             return alerts.FindIndex(x => x.phoneNumber == from);
+        }
+
+        public string GetProgressResponseByPhoneNumber(string from)
+        {
+            return responses.messages[alerts.Find(x => x.phoneNumber == from).alertProgress - 1];
         }
 
         public string SaveIncomingMessage(string phoneNumber, string message)
@@ -70,11 +80,10 @@ namespace whats_app_rest
             return response;
         }
 
-        public Alert CreateNewAlert(string phoneNumber, string message)
+        public void CreateNewAlert(string phoneNumber, string message)
         {
             Alert alert = new Alert(phoneNumber, message, SavePartialAlert);
             alerts.Add(alert);
-            return alert;
         }
 
         public void SavePartialAlert(Alert alert)

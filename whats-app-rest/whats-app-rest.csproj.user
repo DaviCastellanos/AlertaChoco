@@ -2,6 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <StartAction>Project</StartAction>
+    <ExternalConsole>true</ExternalConsole>
     <EnvironmentVariables>
       <Variable name="TWILIO_AUTH_TOKEN" value="b5dcc9cdb05bd541eda90037d2e4e248" xmlns="" />
       <Variable name="TWILIO_ACCOUNT_SID" value="ACa6d64c8f885c4a5d11e5bd40940ed44c" xmlns="" />

@@ -20,6 +20,7 @@ namespace whats_app_rest
         public DateTime systemDate;
         public bool verified;
         public int alertProgress;
+        public Guid id;
 
         private Timer timer;
         private Action<Alert> timerCallback;
@@ -30,6 +31,7 @@ namespace whats_app_rest
             this.phoneNumber = phoneNumber;
             this.timerCallback = timerCallback;
             this.firstMessage = firstMessage;
+            id = Guid.NewGuid();
 
             timer = new Timer(autoSaveTime);
             timer.Elapsed += OnTimedEvent;

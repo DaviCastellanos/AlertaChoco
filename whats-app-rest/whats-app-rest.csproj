@@ -13,5 +13,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Twilio" Version="5.43.0" />
+    <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
   </ItemGroup>
 </Project>

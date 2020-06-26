@@ -10,6 +10,7 @@ namespace whats_app_rest
         public AlertResponses()
         {
             messages = new Dictionary<int, string>();
+            messages.Add(-1, "Primer mensaje");
             messages.Add(0, "¿Cuál es tu código?");
             messages.Add(1, "¿Puedes generar el reporte completo?");
             messages.Add(2, "¿Qué pasó?");

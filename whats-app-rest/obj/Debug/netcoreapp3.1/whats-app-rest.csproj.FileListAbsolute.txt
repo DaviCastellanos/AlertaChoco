@@ -23,3 +23,5 @@
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Debug/netcoreapp3.1/whats-app-rest.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Debug/netcoreapp3.1/whats-app-rest.pdb
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Debug/netcoreapp3.1/whats-app-rest.genruntimeconfig.cache
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/Firebase.Storage.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Debug/netcoreapp3.1/whats-app-rest.csprojAssemblyReference.cache
