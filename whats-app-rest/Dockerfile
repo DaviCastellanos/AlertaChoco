@@ -5,6 +5,9 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+ENV TWILIO_AUTH_TOKEN=b5dcc9cdb05bd541eda90037d2e4e248
+ENV TWILIO_ACCOUNT_SID=ACa6d64c8f885c4a5d11e5bd40940ed44c
+
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY whats-app-rest.csproj ./
@@ -19,4 +22,4 @@ RUN dotnet publish "whats-app-rest.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "whats-app-rest.dll"]
+ENTRYPOINT ["dotnet", "whats-app-rest.dll", "--environment=X"]

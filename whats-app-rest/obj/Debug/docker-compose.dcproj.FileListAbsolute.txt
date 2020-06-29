@@ -3,12 +3,12 @@
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/Properties/launchSettings.json
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/whats-app-rest.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/Twilio.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/Firebase.Storage.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/Newtonsoft.Json.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/System.IdentityModel.Tokens.Jwt.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/Microsoft.IdentityModel.Tokens.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/Microsoft.IdentityModel.Logging.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/Microsoft.IdentityModel.JsonWebTokens.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/whats-app-rest.pdb
-/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Debug/docker-compose.dcprojAssemblyReference.cache
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Debug/docker-compose.dcproj.CoreCompileInputs.cache
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Debug/docker-compose.dcproj.CopyComplete
