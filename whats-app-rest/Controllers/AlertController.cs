@@ -1,8 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Firebase.Storage;
 using Microsoft.AspNetCore.Mvc;
 
 namespace whats_app_rest.Controllers
@@ -11,13 +8,15 @@ namespace whats_app_rest.Controllers
     [Route("alert")]
     public class AlertController : ControllerBase
     {
-        private AlertsManager alertsManager;
-        private TwilioManager twilioManager;
+        private AlertsManager alerts;
+        private TwilioManager twilio;
+        private MultimediaManager multimedia;
 
-        public AlertController(AlertsManager alertsManager, TwilioManager twilioManager)
+        public AlertController(AlertsManager alertsManager, TwilioManager twilioManager, MultimediaManager multimediaManager)
         {
-            this.alertsManager = alertsManager;
-            this.twilioManager = twilioManager;
+            alerts = alertsManager;
+            twilio = twilioManager;
+            multimedia = multimediaManager;
         }
 
         [HttpGet]
@@ -30,38 +29,26 @@ namespace whats_app_rest.Controllers
         [Consumes("application/x-www-form-urlencoded")]
         public async Task<ActionResult> Post([FromForm] string body, [FromForm] string from, [FromForm]string mediaUrl0)
         {
-            if (alertsManager.GetAlertByPhoneNumber(from) == null)
-                alertsManager.CreateNewAlert(from, body);
+            if (alerts.GetAlertByPhoneNumber(from) == null)
+                alerts.CreateNewAlert(from, body);
 
             if (mediaUrl0 != null)
             {
                 try
-                {
-                    using (HttpClient client = new HttpClient())
-                    {
-                        HttpResponseMessage twResponse = await client.GetAsync(mediaUrl0);
-                        Stream httpStream = await twResponse.Content.ReadAsStreamAsync();
-
-                        var task = new FirebaseStorage("alertachoco.appspot.com")
-                         .Child("alertas")
-                         .Child(alertsManager.GetAlertIdByPhoneNumber(from).ToString())
-                         .Child(alertsManager.GetProgressResponseByPhoneNumber(from))
-                         .PutAsync(httpStream);
-
-                        //TODO Delete Twilio multimedia file
-
-                        body = await task;
-                    }
+                { 
+                    body = await multimedia.SaveMultimedia(mediaUrl0, from);
                 }
                 catch (Exception e)
                 {
                     return NotFound("Multimedia failed " + e.Message + " - " + e.StackTrace);
                 }
+
+                twilio.SignMediaToBeDeleted(mediaUrl0);
             }
 
-            string response = alertsManager.SaveIncomingMessage(from, body);
+            string response = alerts.SaveIncomingMessage(from, body);
 
-            if(twilioManager.SendMessage(from, response))
+            if (twilio.SendMessage(from, response))
                 return Ok();
 
             return NotFound("Twilio message failed");

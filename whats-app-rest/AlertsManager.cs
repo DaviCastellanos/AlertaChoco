@@ -5,13 +5,15 @@ namespace whats_app_rest
 {
     public class AlertsManager
     {
-        List<Alert> alerts;
-        AlertResponses responses;
+        private List<Alert> alerts;
+        private AlertResponses responses;
+        private TwilioManager twilio;
 
-        public AlertsManager()
+        public AlertsManager(TwilioManager twilioManager)
         {
             alerts = new List<Alert>();
             responses = new AlertResponses();
+            twilio = twilioManager;
         }
 
         public Alert GetAlertByPhoneNumber(string from)
@@ -89,6 +91,7 @@ namespace whats_app_rest
         public void SavePartialAlert(Alert alert)
         {
             Console.WriteLine("saving partial alert " + alert.phoneNumber);
+            twilio.DeleteMedia();
             //Destroy Alert
         }
 
@@ -97,6 +100,7 @@ namespace whats_app_rest
             alert.systemDate = DateTime.UtcNow;
 
             Console.WriteLine("saving alert " + alert.phoneNumber);
+            twilio.DeleteMedia();
             //Destroy Alert
         }
     }

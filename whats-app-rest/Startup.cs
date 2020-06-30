@@ -21,6 +21,7 @@ namespace whats_app_rest
             services.AddControllers();
             services.AddSingleton<AlertsManager>();
             services.AddSingleton<TwilioManager>();
+            services.AddSingleton<MultimediaManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
