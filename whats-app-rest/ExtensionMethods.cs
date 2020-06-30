@@ -4,10 +4,13 @@
     {
         public static string FormatForDB(this string str)
         {
+            if (str == null)
+                return "";
+
             if (str.Contains("firebasestorage"))
                 return str;
 
-            return str != null ? str.ToLower().Replace(' ', '_') : "";
+            return str.ToLower().Replace(' ', '_');
         }
     }
 }
