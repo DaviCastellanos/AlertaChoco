@@ -27,10 +27,9 @@ namespace whats_app_rest.Controllers
 
         [HttpPost]
         [Consumes("application/x-www-form-urlencoded")]
-        public async Task<ActionResult> Post([FromForm] string body, [FromForm] string from, [FromForm]string mediaUrl0)
+        public async Task<ActionResult> Post([FromForm] string body, [FromForm] string from, [FromForm]string mediaUrl0, [FromForm] string latitude, [FromForm] string longitude)
         {
-            if (alerts.GetAlertByPhoneNumber(from) == null)
-                alerts.CreateNewAlert(from, body);
+            alerts.TryToCreateNewAlert(from, body);
 
             if (mediaUrl0 != null)
             {
@@ -46,7 +45,7 @@ namespace whats_app_rest.Controllers
                 twilio.SignMediaToBeDeleted(mediaUrl0);
             }
 
-            string response = alerts.SaveIncomingMessage(from, body);
+            string response = alerts.SaveIncomingMessage(from, body, latitude, longitude);
 
             if (twilio.SendMessage(from, response))
                 return Ok();

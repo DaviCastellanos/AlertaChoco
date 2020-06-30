@@ -1,15 +1,16 @@
 ﻿<Properties StartupConfiguration="{31EA7B65-E660-46C4-AD20-2353CC7A3DB0}|Default">
   <MonoDevelop.Ide.ItemProperties.whats-app-rest PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ExtensionMethods.cs">
     <Files>
-      <File FileName="Controllers/AlertController.cs" Line="50" Column="31" />
-      <File FileName="MultimediaManager.cs" Line="38" Column="14" />
-      <File FileName="AlertsManager.cs" Line="42" Column="39" />
-      <File FileName="Alert.cs" Line="39" Column="34" />
+      <File FileName="Controllers/AlertController.cs" Line="38" Column="50" />
+      <File FileName="AlertsManager.cs" Line="54" Column="47" />
       <File FileName="AlertResponses.cs" Line="18" Column="45" />
       <File FileName="Startup.cs" Line="26" Column="1" />
-      <File FileName="TwilioManager.cs" Line="17" Column="21" />
+      <File FileName="TwilioManager.cs" Line="31" Column="14" />
       <File FileName="Program.cs" Line="4" Column="30" />
+      <File FileName="Alert.cs" Line="9" Column="36" />
+      <File FileName="MultimediaManager.cs" Line="38" Column="14" />
+      <File FileName="ExtensionMethods.cs" Line="112" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -17,9 +18,7 @@
           <Node name="whats-app-rest" expanded="True">
             <Node name="docker-compose" expanded="True" />
             <Node name="whats-app-rest" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Properties" expanded="True" />
-              <Node name="Program.cs" selected="True" />
+              <Node name="ExtensionMethods.cs" selected="True" />
             </Node>
           </Node>
         </State>

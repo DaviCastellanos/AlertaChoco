@@ -16,6 +16,8 @@ namespace whats_app_rest
         public string storyWhere;
         public string currentSituation;
         public string canCall;
+        public string latitude;
+        public string longitude;
 
         public DateTime systemDate;
         public bool verified;
@@ -30,7 +32,7 @@ namespace whats_app_rest
         {
             this.phoneNumber = phoneNumber;
             this.timerCallback = timerCallback;
-            this.firstMessage = firstMessage;
+            this.firstMessage = firstMessage.FormatForDB();
             id = Guid.NewGuid();
 
             timer = new Timer(autoSaveTime);
@@ -42,6 +44,11 @@ namespace whats_app_rest
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             timerCallback(this);
+        }
+
+        public void KillTimer()
+        {
+            timerCallback = null;
             timer.Stop();
             timer.Dispose();
         }
