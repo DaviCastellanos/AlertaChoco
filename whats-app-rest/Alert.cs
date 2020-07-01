@@ -21,6 +21,7 @@ namespace whats_app_rest
 
         public DateTime systemDate;
         public bool verified;
+        public bool completed;
         public int alertProgress;
         public Guid id;
 

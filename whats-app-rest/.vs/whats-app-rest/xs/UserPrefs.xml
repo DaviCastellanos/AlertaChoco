@@ -1,16 +1,16 @@
 ﻿<Properties StartupConfiguration="{31EA7B65-E660-46C4-AD20-2353CC7A3DB0}|Default">
   <MonoDevelop.Ide.ItemProperties.whats-app-rest PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ExtensionMethods.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Managers/DatabaseManager.cs">
     <Files>
-      <File FileName="Controllers/AlertController.cs" Line="38" Column="50" />
-      <File FileName="AlertsManager.cs" Line="54" Column="47" />
-      <File FileName="AlertResponses.cs" Line="18" Column="45" />
-      <File FileName="Startup.cs" Line="26" Column="1" />
+      <File FileName="DatabaseManager.cs" Line="66" Column="43" />
+      <File FileName="AlertsManager.cs" Line="116" Column="72" />
+      <File FileName="Controllers/AlertController.cs" Line="37" Column="19" />
+      <File FileName="Startup.cs" Line="37" Column="1" />
       <File FileName="TwilioManager.cs" Line="31" Column="14" />
       <File FileName="Program.cs" Line="4" Column="30" />
-      <File FileName="Alert.cs" Line="9" Column="36" />
-      <File FileName="MultimediaManager.cs" Line="38" Column="14" />
-      <File FileName="ExtensionMethods.cs" Line="112" Column="10" />
+      <File FileName="Alert.cs" Line="27" Column="1" />
+      <File FileName="MultimediaManager.cs" Line="19" Column="13" />
+      <File FileName="ExtensionMethods.cs" Line="17" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,7 +18,11 @@
           <Node name="whats-app-rest" expanded="True">
             <Node name="docker-compose" expanded="True" />
             <Node name="whats-app-rest" expanded="True">
-              <Node name="ExtensionMethods.cs" selected="True" />
+              <Node name="Controllers" expanded="True" />
+              <Node name="Managers" expanded="True">
+                <Node name="DatabaseManager.cs" selected="True" />
+              </Node>
+              <Node name="Properties" expanded="True" />
             </Node>
           </Node>
         </State>

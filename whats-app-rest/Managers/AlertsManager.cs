@@ -8,12 +8,14 @@ namespace whats_app_rest
         private List<Alert> alerts;
         private AlertResponses responses;
         private TwilioManager twilio;
+        private DatabaseManager database;
 
-        public AlertsManager(TwilioManager twilioManager)
+        public AlertsManager(TwilioManager twilioManager, DatabaseManager databaseManager)
         {
             alerts = new List<Alert>();
             responses = new AlertResponses();
             twilio = twilioManager;
+            database = databaseManager;
         }
 
         public Alert GetAlertByPhoneNumber(string from)
@@ -38,6 +40,8 @@ namespace whats_app_rest
 
         public string SaveIncomingMessage(string phoneNumber, string message, string latitude, string longitude)
         {
+            database.SaveToDB();
+
             int i = GetAlertIndexByPhoneNumber(phoneNumber);
 
             string response = responses.messages[alerts[i].alertProgress];
@@ -76,6 +80,7 @@ namespace whats_app_rest
                     break;
                 case 9:
                     alerts[i].canCall = message.FormatForDB();
+                    alerts[i].completed = true;
                     SaveAlert(alerts[i]);
                     break;
                 default:
@@ -103,7 +108,7 @@ namespace whats_app_rest
             twilio.DeleteMedia();
             //Destroy Alert
 
-            LogAlertData(alert);
+            //LogAlertData(alert);
             alert.KillTimer();
         }
 
