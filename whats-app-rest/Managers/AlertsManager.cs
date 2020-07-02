@@ -40,16 +40,14 @@ namespace whats_app_rest
 
         public string SaveIncomingMessage(string phoneNumber, string message, string latitude, string longitude)
         {
-            database.SaveToDB();
-
             int i = GetAlertIndexByPhoneNumber(phoneNumber);
 
             string response = responses.messages[alerts[i].alertProgress];
 
             if (latitude != null && longitude != null)
             {
-                alerts[i].longitude = longitude;
-                alerts[i].latitude = latitude;
+                alerts[i].Longitude = longitude;
+                alerts[i].Latitude = latitude;
             }
 
             switch (alerts[i].alertProgress)
@@ -101,15 +99,22 @@ namespace whats_app_rest
             alerts.Add(alert);
         }
 
-        public void SaveAlert(Alert alert)
+        public async void SaveAlert(Alert alert)
         {
-            alert.systemDate = DateTime.UtcNow;
-
-            twilio.DeleteMedia();
-            //Destroy Alert
-
             //LogAlertData(alert);
-            alert.KillTimer();
+            twilio.DeleteMedia();
+
+            alert.localTime = DateTime.UtcNow.AddHours(-5);
+
+            bool saved = await database.SaveToDB(alert);
+
+            if (saved)
+            {
+                //Destroy Alert
+                alert.KillTimer();
+            }
+
+            Console.WriteLine(">>> Finished saving. Was saved: " + saved);
         }
 
         private void LogAlertData(Alert alert)
@@ -125,10 +130,10 @@ namespace whats_app_rest
             Console.WriteLine("Dónde pasó: " + alert.storyWhere);
             Console.WriteLine("Cuál es la situación actual: " + alert.currentSituation);
             Console.WriteLine("Puede recibir llamada: " + alert.canCall);
-            Console.WriteLine("Latitud: " + alert.latitude);
-            Console.WriteLine("Longitud: " + alert.longitude);
+            Console.WriteLine("Latitud: " + alert.Latitude);
+            Console.WriteLine("Longitud: " + alert.Longitude);
             Console.WriteLine("id: " + alert.id.ToString());
-            Console.WriteLine("Fecha del sistema: " + alert.systemDate.ToString());
+            Console.WriteLine("Fecha del sistema: " + alert.localTime.ToString());
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Timers;
 namespace whats_app_rest
 {
     public class Alert
-    { 
+    {
         public string phoneNumber;
         public string firstMessage;
         public string anansiCode;
@@ -16,10 +16,34 @@ namespace whats_app_rest
         public string storyWhere;
         public string currentSituation;
         public string canCall;
-        public string latitude;
-        public string longitude;
+        private string latitude;
+        private string longitude;
 
-        public DateTime systemDate;
+        public string Latitude
+        {
+            get
+            {
+                if (latitude != null)
+                    return latitude;
+                else
+                    return "4.624335";
+            }
+            set { latitude = value; }
+        }
+
+        public string Longitude
+        {
+            get
+            {
+                if (longitude != null)
+                    return longitude;
+                else
+                    return "-74.063644";
+            }
+            set { longitude = value; }
+        }
+
+        public DateTime localTime;
         public bool verified;
         public bool completed;
         public int alertProgress;

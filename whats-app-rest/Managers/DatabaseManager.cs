@@ -16,9 +16,60 @@ namespace whats_app_rest
         private string databaseAccesToken;
         private DateTime expiration;
 
-        public async void SaveToDB()
+        public async Task<bool> SaveToDB(Alert alert)
         {
             string token = await GetDatabaseAccessToken();
+
+            if (token == null)
+                return false;
+
+            using (HttpClient client = new HttpClient())
+            {
+                var dict = new Dictionary<string, string>();
+                dict.Add("f", "json");
+                dict.Add("token", token);
+                dict.Add("adds", AlertToJson(alert));
+
+                HttpResponseMessage response = await client.PostAsync(new Uri("https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/applyEdits"), new FormUrlEncodedContent(dict));
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        private string AlertToJson(Alert alert)
+        {
+            string json = "[{\"geometry\":{\"x\":\"";
+
+            json += alert.Longitude;
+            json += "\", \"y\":\"";
+            json += alert.Latitude;
+            json += "\",\"spatialReference\":{\"wkid\":4326}},\"attributes\":{";
+            json += $"\"phoneNumber\":\"{alert.phoneNumber}\",";
+            json += $"\"firstMessage\":\"{alert.firstMessage}\",";
+            json += $"\"anansiCode\":\"{alert.anansiCode}\",";
+            json += $"\"canReport\":\"{alert.canReport}\",";
+            json += $"\"storyWhat\":\"{alert.storyWhat}\",";
+            json += $"\"storyWho\":\"{alert.storyWho}\",";
+            json += $"\"storyHow\":\"{alert.storyHow}\",";
+            json += $"\"storyWhen\":\"{alert.storyWhen}\",";
+            json += $"\"storyWhere\":\"{alert.storyWhere}\",";
+            json += $"\"currentSituation\":\"{alert.currentSituation}\",";
+            json += $"\"canCall\":\"{alert.canCall}\",";
+            json += $"\"localAlertTime\":\"{FormatDate(alert.localTime)}\",";
+            json += $"\"verified\":\"{alert.verified}\",";
+            json += $"\"completed\":\"{alert.completed}\",";
+            json += $"\"systemId\":\"{alert.id.ToString()}\"";
+            json += "}}]";
+
+            return json;
+        }
+
+        private string FormatDate(DateTime systemDate)
+        {
+            return (systemDate.ToShortDateString() + "_" + systemDate.ToShortTimeString()).FormatForDB();
         }
 
         private async Task<string> GetDatabaseAccessToken()
