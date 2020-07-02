@@ -1,13 +1,4 @@
 {
-  "$schema": "http://json.schemastore.org/launchsettings.json",
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:48846",
-      "sslPort": 44319
-    }
-  },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
@@ -24,8 +15,12 @@
       "environmentVariables": {
         "TWILIO_AUTH_TOKEN": "b5dcc9cdb05bd541eda90037d2e4e248",
         "TWILIO_ACCOUNT_SID": "ACa6d64c8f885c4a5d11e5bd40940ed44c",
+        "ARCGIS_ID": "BEg1xjqGA67M79uz",
+        "ARCGIS_SECRET": "4d3ad20dfef74e999b4d93795e51f769",
         "ASPNETCORE_ENVIRONMENT": "Development"
+
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }
+}

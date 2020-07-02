@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Timers;
 
 namespace whats_app_rest
 {
@@ -9,6 +10,9 @@ namespace whats_app_rest
         private AlertResponses responses;
         private TwilioManager twilio;
         private DatabaseManager database;
+
+        private Timer trashTimer;
+        private int trashCollectionTime = 3600000;
 
         public AlertsManager(TwilioManager twilioManager, DatabaseManager databaseManager)
         {
@@ -97,11 +101,11 @@ namespace whats_app_rest
 
             Alert alert = new Alert(phoneNumber, message, SaveAlert);
             alerts.Add(alert);
+            ScheduleTrashCollector();
         }
 
         public async void SaveAlert(Alert alert)
         {
-            //LogAlertData(alert);
             twilio.DeleteMedia();
 
             alert.localTime = DateTime.UtcNow.AddHours(-5);
@@ -110,30 +114,55 @@ namespace whats_app_rest
 
             if (saved)
             {
-                //Destroy Alert
+                alerts[GetAlertIndexByPhoneNumber(alert.phoneNumber)].isTrash = true;
                 alert.KillTimer();
             }
-
-            Console.WriteLine(">>> Finished saving. Was saved: " + saved);
+            else
+            {
+                Console.WriteLine("Error saving alert");
+            }
         }
 
-        private void LogAlertData(Alert alert)
+        private void ScheduleTrashCollector()
         {
-            Console.WriteLine("Teléfono: " + alert.phoneNumber);
-            Console.WriteLine("Primer mensaje: " + alert.firstMessage);
-            Console.WriteLine("Código Anansi: " + alert.anansiCode);
-            Console.WriteLine("Puede reportar: " + alert.canReport);
-            Console.WriteLine("Qué pasó: " + alert.storyWhat);
-            Console.WriteLine("Cómo pasó: " + alert.storyHow);
-            Console.WriteLine("A quiénes o a quién afecta: " + alert.storyWho);
-            Console.WriteLine("Cuándo pasó: " + alert.storyWhen);
-            Console.WriteLine("Dónde pasó: " + alert.storyWhere);
-            Console.WriteLine("Cuál es la situación actual: " + alert.currentSituation);
-            Console.WriteLine("Puede recibir llamada: " + alert.canCall);
-            Console.WriteLine("Latitud: " + alert.Latitude);
-            Console.WriteLine("Longitud: " + alert.Longitude);
-            Console.WriteLine("id: " + alert.id.ToString());
-            Console.WriteLine("Fecha del sistema: " + alert.localTime.ToString());
+            if (trashTimer != null)
+                KillTimer();
+
+            trashTimer = new Timer(trashCollectionTime);
+            trashTimer.Elapsed += CollectTrash;
+            trashTimer.AutoReset = true;
+            trashTimer.Enabled = true;
+        }
+
+        private void KillTimer()
+        {
+            trashTimer.Stop();
+            trashTimer.Dispose();
+            trashTimer = null;
+        }
+
+        private void CollectTrash(Object source, ElapsedEventArgs e)
+        {
+            if (alerts == null || alerts.Count == 0)
+                return;
+
+            for (int i = 0; i < alerts.Count; i++)
+            {
+                string id = alerts[i].id.ToString();
+
+                if (alerts[i].isTrash)
+                {
+                    if (!alerts.Remove(alerts[i]))
+                        Console.WriteLine("Error: failed to remove alert " + id);
+                    else
+                    {
+                        Console.WriteLine("Succesfully removed alert " + id);
+                        KillTimer();
+                    }
+                }
+            }
+
+            alerts.TrimExcess();
         }
     }
 }

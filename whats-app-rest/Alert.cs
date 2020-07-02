@@ -5,6 +5,19 @@ namespace whats_app_rest
 {
     public class Alert
     {
+        public Alert(string phoneNumber, string firstMessage, Action<Alert>timerCallback)
+        {
+            this.phoneNumber = phoneNumber;
+            this.timerCallback = timerCallback;
+            this.firstMessage = firstMessage.FormatForDB();
+            id = Guid.NewGuid();
+
+            timer = new Timer(autoSaveTime);
+            timer.Elapsed += OnTimedEvent;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+        }
+
         public string phoneNumber;
         public string firstMessage;
         public string anansiCode;
@@ -18,6 +31,17 @@ namespace whats_app_rest
         public string canCall;
         private string latitude;
         private string longitude;
+
+        public DateTime localTime;
+        public bool verified;
+        public bool completed;
+        public int alertProgress;
+        public Guid id;
+        public bool isTrash;
+
+        private Timer timer;
+        private Action<Alert> timerCallback;
+        private int autoSaveTime = 120000; 
 
         public string Latitude
         {
@@ -41,29 +65,6 @@ namespace whats_app_rest
                     return "-74.063644";
             }
             set { longitude = value; }
-        }
-
-        public DateTime localTime;
-        public bool verified;
-        public bool completed;
-        public int alertProgress;
-        public Guid id;
-
-        private Timer timer;
-        private Action<Alert> timerCallback;
-        private int autoSaveTime = 120000; 
-
-        public Alert(string phoneNumber, string firstMessage, Action<Alert>timerCallback)
-        {
-            this.phoneNumber = phoneNumber;
-            this.timerCallback = timerCallback;
-            this.firstMessage = firstMessage.FormatForDB();
-            id = Guid.NewGuid();
-
-            timer = new Timer(autoSaveTime);
-            timer.Elapsed += OnTimedEvent;
-            timer.AutoReset = true;
-            timer.Enabled = true;
         }
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
