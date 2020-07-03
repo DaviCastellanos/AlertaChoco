@@ -94,6 +94,39 @@ namespace whats_app_rest
             return response;
         }
 
+        public KeyValuePair<bool, string> ValidateIncomingMessage(string mediaUrl, string body, string from, string latitude, string longitude)
+        {
+            int i = GetAlertIndexByPhoneNumber(from);
+
+            switch (alerts[i].alertProgress)
+            {
+                case 1:
+                    if (body == null)
+                        return new KeyValuePair<bool, string>(false, "PROVIDE_TEXT");
+                    if (!EvaluateAnansiCode(body))
+                        return new KeyValuePair<bool, string>(false, "WRONG_ANANSI_CODE");
+                    break;
+                case 2:
+                    if (body == null)
+                        return new KeyValuePair<bool, string>(false, "PROVIDE_TEXT");
+                    if (body.ToLower().Contains("no"))
+                        return new KeyValuePair<bool, string>(false, "FINAL_MESSAGE");
+                    break;
+                default:
+                    break;
+            }
+
+            return new KeyValuePair<bool, string>(true, null);
+        }
+
+        private bool EvaluateAnansiCode(string code)
+        {
+            if (!code.ToLower().Equals("anansi0101"))
+                return false;
+
+            return true;
+        }
+
         public void TryToCreateNewAlert(string phoneNumber, string message)
         {
             if (GetAlertByPhoneNumber(phoneNumber) != null)
@@ -106,6 +139,13 @@ namespace whats_app_rest
 
         public async void SaveAlert(Alert alert)
         {
+            if (alert.anansiCode == null)
+            {
+                alerts[GetAlertIndexByPhoneNumber(alert.phoneNumber)].isTrash = true;
+                alert.KillTimer();
+                return;
+            }
+
             twilio.DeleteMedia();
 
             alert.localTime = DateTime.UtcNow.AddHours(-5);

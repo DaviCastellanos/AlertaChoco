@@ -5,6 +5,7 @@ namespace whats_app_rest
 {
     public class AlertResponses
     {
+        const string FINAL_MESSAGE = "Mensaje final: Recuerda borrar esta conversación de tu teléfono por tu seguridad.";
         public Dictionary<int, string> messages;
         public Dictionary<string, string> validations;
 
@@ -21,10 +22,13 @@ namespace whats_app_rest
             messages.Add(6, "¿Cuándo pasó?");
             messages.Add(7, "¿Cuál es la situación actual?");
             messages.Add(8, "¿Puede recibir una llamada en este momento?");
-            messages.Add(9, "Mensaje final: Recuerda borrar esta conversación de tu teléfono por tu seguridad.");
+            messages.Add(9, FINAL_MESSAGE);
 
             validations = new Dictionary<string, string>();
             validations.Add("LENGTH_RESPONSE", "Por favor escribe textos más cortos. Máximo 255 carácteres.");
+            validations.Add("WRONG_ANANSI_CODE", "Ese código no es correcto. Vuelve a intentar.");
+            validations.Add("PROVIDE_TEXT", "Por favor escribe una respuesta para esta pregunta.");
+            validations.Add("FINAL_MESSAGE", FINAL_MESSAGE);
         }
     }
 }

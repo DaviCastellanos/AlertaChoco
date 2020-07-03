@@ -41,7 +41,7 @@ namespace whats_app_rest
 
         private Timer timer;
         private Action<Alert> timerCallback;
-        private int autoSaveTime = 120000; 
+        private int autoSaveTime = 90000; 
 
         public string Latitude
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,15 +32,15 @@ namespace whats_app_rest.Controllers
         [Consumes("application/x-www-form-urlencoded")]
         public async Task<ActionResult> Post([FromForm] string body, [FromForm] string from, [FromForm]string mediaUrl0, [FromForm] string latitude, [FromForm] string longitude)
         {
-            if (body.Length > 255)
-            {
-                if (twilio.SendMessage(from, responses.validations["LENGTH_RESPONSE"]))
-                    return Ok();
-
-                return NotFound("Twilio message failed");
-            }
+            if (body != null && body.Length > 255)
+                return SendTwilioMessage(from, responses.validations["LENGTH_RESPONSE"]);
 
             alerts.TryToCreateNewAlert(from, body);
+
+            KeyValuePair<bool, string> result = alerts.ValidateIncomingMessage(mediaUrl0, body, from, latitude, longitude);
+
+            if (!result.Key)
+                return SendTwilioMessage(from, responses.validations[result.Value]);
 
             if (mediaUrl0 != null)
             {
@@ -57,7 +58,12 @@ namespace whats_app_rest.Controllers
 
             string response = alerts.SaveIncomingMessage(from, body, latitude, longitude);
 
-            if (twilio.SendMessage(from, response))
+            return SendTwilioMessage(from, response);
+        }
+
+        private ActionResult SendTwilioMessage(string to, string message)
+        {
+            if (twilio.SendMessage(to, message))
                 return Ok();
 
             return NotFound("Twilio message failed");
