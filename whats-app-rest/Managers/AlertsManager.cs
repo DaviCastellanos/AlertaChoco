@@ -10,16 +10,18 @@ namespace whats_app_rest
         private AlertResponses responses;
         private TwilioManager twilio;
         private DatabaseManager database;
+        private MailManager mail;
 
         private Timer trashTimer;
         private int trashCollectionTime = 3600000;
 
-        public AlertsManager(TwilioManager twilioManager, DatabaseManager databaseManager, AlertResponses alertResponses)
+        public AlertsManager(TwilioManager twilioManager, DatabaseManager databaseManager, AlertResponses alertResponses, MailManager mailManager)
         {
             alerts = new List<Alert>();
             responses = alertResponses;
             twilio = twilioManager;
             database = databaseManager;
+            mail = mailManager;
         }
 
         public Alert GetAlertByPhoneNumber(string from)
@@ -94,7 +96,7 @@ namespace whats_app_rest
             return response;
         }
 
-        public KeyValuePair<bool, string> ValidateIncomingMessage(string mediaUrl, string body, string from, string latitude, string longitude)
+        public KeyValuePair<bool, string> ValidateIncomingMessage(string body, string from)
         {
             int i = GetAlertIndexByPhoneNumber(from);
 
@@ -154,6 +156,7 @@ namespace whats_app_rest
 
             if (saved)
             {
+                mail.SendAsync("Nueva Alerta", alert.AsJSON());
                 alerts[GetAlertIndexByPhoneNumber(alert.phoneNumber)].isTrash = true;
                 alert.KillTimer();
             }

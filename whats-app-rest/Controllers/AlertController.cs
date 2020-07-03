@@ -14,7 +14,12 @@ namespace whats_app_rest.Controllers
         private MultimediaManager multimedia;
         private AlertResponses responses;
 
-        public AlertController(AlertsManager alertsManager, TwilioManager twilioManager, MultimediaManager multimediaManager, AlertResponses alertResponses)
+        public AlertController(
+            AlertsManager alertsManager,
+            TwilioManager twilioManager,
+            MultimediaManager multimediaManager,
+            AlertResponses alertResponses
+            )
         {
             alerts = alertsManager;
             twilio = twilioManager;
@@ -30,14 +35,20 @@ namespace whats_app_rest.Controllers
 
         [HttpPost]
         [Consumes("application/x-www-form-urlencoded")]
-        public async Task<ActionResult> Post([FromForm] string body, [FromForm] string from, [FromForm]string mediaUrl0, [FromForm] string latitude, [FromForm] string longitude)
+        public async Task<ActionResult> Post(
+            [FromForm] string body,
+            [FromForm] string from,
+            [FromForm]string mediaUrl0,
+            [FromForm] string latitude,
+            [FromForm] string longitude
+            )
         {
             if (body != null && body.Length > 255)
                 return SendTwilioMessage(from, responses.validations["LENGTH_RESPONSE"]);
 
             alerts.TryToCreateNewAlert(from, body);
 
-            KeyValuePair<bool, string> result = alerts.ValidateIncomingMessage(mediaUrl0, body, from, latitude, longitude);
+            KeyValuePair<bool, string> result = alerts.ValidateIncomingMessage(body, from);
 
             if (!result.Key)
                 return SendTwilioMessage(from, responses.validations[result.Value]);
