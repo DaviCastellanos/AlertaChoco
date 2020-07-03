@@ -14,10 +14,10 @@ namespace whats_app_rest
         private Timer trashTimer;
         private int trashCollectionTime = 3600000;
 
-        public AlertsManager(TwilioManager twilioManager, DatabaseManager databaseManager)
+        public AlertsManager(TwilioManager twilioManager, DatabaseManager databaseManager, AlertResponses alertResponses)
         {
             alerts = new List<Alert>();
-            responses = new AlertResponses();
+            responses = alertResponses;
             twilio = twilioManager;
             database = databaseManager;
         }
