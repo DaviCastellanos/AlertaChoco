@@ -1,13 +1,14 @@
 ﻿<Properties StartupConfiguration="{31EA7B65-E660-46C4-AD20-2353CC7A3DB0}|Default">
   <MonoDevelop.Ide.ItemProperties.whats-app-rest PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ExtensionMethods.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Dockerfile">
     <Files>
       <File FileName="Alert.cs" Line="62" Column="39" />
-      <File FileName="Managers/AlertsManager.cs" Line="27" Column="56" />
+      <File FileName="Managers/AlertsManager.cs" Line="168" Column="1" />
       <File FileName="Controllers/AlertController.cs" Line="58" Column="20" />
-      <File FileName="Managers/MailManager.cs" Line="21" Column="1" />
-      <File FileName="Managers/DatabaseManager.cs" Line="42" Column="35" />
-      <File FileName="ExtensionMethods.cs" Line="16" Column="31" />
+      <File FileName="Managers/MailManager.cs" Line="22" Column="1" />
+      <File FileName="Managers/DatabaseManager.cs" Line="40" Column="10" />
+      <File FileName="ExtensionMethods.cs" Line="41" Column="61" />
+      <File FileName="Dockerfile" Line="24" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -19,7 +20,7 @@
               <Node name="Controllers" expanded="True" />
               <Node name="Managers" expanded="True" />
               <Node name="Properties" expanded="True" />
-              <Node name="ExtensionMethods.cs" selected="True" />
+              <Node name="Dockerfile" selected="True" />
             </Node>
           </Node>
         </State>

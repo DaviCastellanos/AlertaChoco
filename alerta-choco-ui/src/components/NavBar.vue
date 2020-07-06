@@ -1,9 +1,9 @@
 <template>
   <div id="navBar" >
-    <b-navbar toggleable="lg" type="light" variant="light" fixed="top">
-        <b-navbar-brand>Sistema de Alertas PDET</b-navbar-brand>
+    <b-navbar toggleable="lg" type="dark"  style="background-color: #00473B;" fixed="top">
+        <b-navbar-brand>Red Anansi</b-navbar-brand>
         <b-navbar-nav class="ml-auto">
-            <b-button v-if="!isUserAuthenticated" v-b-modal.login size="sm" class="my-2 my-sm-0" type="submit" variant="warning">AUTENTICAR</b-button>
+            <b-button v-if="!isUserAuthenticated" v-b-modal.login size="sm" class="text-light my-2 my-sm-0" type="submit" variant="warning">AUTENTICAR</b-button>
         </b-navbar-nav>
     </b-navbar>
     <b-modal id="login" title="AUTENTICACIÓN" ok-only ok-title="ENTRAR" @ok="onSignIn()">

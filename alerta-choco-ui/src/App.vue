@@ -3,13 +3,18 @@
     <b-row no-gutters>
         <nav-bar />
     </b-row>
-    <b-row no-gutters>
-        <b-col sm="12" md="6">
-            <web-map />
-        </b-col>
-        <b-col sm="12" md="6">
-            <feed-chart v-if="userIsAuthenticated" />
-            <alerts-table />
+    <b-row no-gutters class="h-100">
+        <b-col class="d-flex flex-column">
+            <b-row class="flex-grow-1 flex-shrink-0">
+                <b-col sm="12" md="6">
+                    <web-map />
+                </b-col>
+                <b-col sm="12" md="6">
+                    <feed-chart v-if="userIsAuthenticated" />
+                    <alerts-table />
+                </b-col>
+            </b-row>
+            <Footer />
         </b-col>
     </b-row>
   </b-container>
@@ -20,6 +25,7 @@ import WebMap from './components/WebMap.vue';
 import AlertsTable from './components/AlertsTable.vue'
 import FeedChart from './components/FeedChart.vue'
 import NavBar from './components/NavBar.vue'
+import Footer from './components/Footer.vue'
 
 export default {
     name: 'App',
@@ -27,7 +33,8 @@ export default {
         WebMap, 
         AlertsTable, 
         FeedChart,
-        NavBar 
+        NavBar,
+        Footer 
     },
     computed: {
         userIsAuthenticated () {
