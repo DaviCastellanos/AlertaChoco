@@ -92,7 +92,7 @@ export default {
 
 <style scoped>
 #chartHolder {
-  margin-top: 2px;
-  margin-left: 2px;
+  width: 100%;
+  height: 100%;
 }
 </style>

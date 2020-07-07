@@ -14,7 +14,9 @@ import { BButton } from 'bootstrap-vue'
 export default {
   name: 'web-map',
   components: { BButton },
-  data() { return { municipiosVisible: true }},
+  data() { return { 
+    municipiosVisible: true
+    }},
   computed: mapState(['mapCenter']),
   watch: {
     mapCenter(newValue) {
@@ -150,6 +152,7 @@ export default {
   mounted() {
     this.drawMap()
     //this.saveAlerts(alerts)
+
   },
   beforeDestroy() {
     if (this.view) {
@@ -174,7 +177,8 @@ export default {
   padding: 0;
   margin: 0;
   margin-top: 2px;
-  width: 100%;
-  height: 800px;
+  width: 1300px;
+  height: 700px;
+  align: center;
 }
 </style>

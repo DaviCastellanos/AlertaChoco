@@ -6,7 +6,6 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import HighchartsVue from 'highcharts-vue'
-import VueLodash from 'vue-lodash'
 import Highcharts from "highcharts"
 import darkUnica from "highcharts/themes/high-contrast-light"
 import 'bootstrap/dist/css/bootstrap.css'
@@ -20,7 +19,6 @@ darkUnica(Highcharts);
 Vue.use(IconsPlugin)
 Vue.use(HighchartsVue)
 Vue.use(BootstrapVue)
-Vue.use(VueLodash)
 
 new Vue({
   store,
