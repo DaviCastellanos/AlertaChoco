@@ -1,17 +1,17 @@
 ﻿<Properties StartupConfiguration="{31EA7B65-E660-46C4-AD20-2353CC7A3DB0}|Default">
   <MonoDevelop.Ide.ItemProperties.whats-app-rest PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Startup.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Managers/AlertsManager.cs">
     <Files>
       <File FileName="Alert.cs" Line="62" Column="39" />
-      <File FileName="Managers/AlertsManager.cs" Line="26" Column="10" />
-      <File FileName="Controllers/AlertController.cs" Line="32" Column="28" />
+      <File FileName="Managers/AlertsManager.cs" Line="208" Column="1" />
+      <File FileName="Controllers/AlertController.cs" />
       <File FileName="Managers/MailManager.cs" />
       <File FileName="Managers/DatabaseManager.cs" />
-      <File FileName="ExtensionMethods.cs" Line="43" Column="1" />
-      <File FileName="Dockerfile" Line="24" Column="1" />
-      <File FileName="Program.cs" Line="16" Column="1" />
-      <File FileName="Properties/launchSettings.json" Line="1" Column="1" />
-      <File FileName="Startup.cs" Line="21" Column="36" />
+      <File FileName="ExtensionMethods.cs" />
+      <File FileName="Dockerfile" />
+      <File FileName="Program.cs" />
+      <File FileName="Properties/launchSettings.json" />
+      <File FileName="Startup.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -20,10 +20,10 @@
             <Node name="docker-compose" expanded="True" />
             <Node name="whats-app-rest" expanded="True">
               <Node name="Dependencies" expanded="True" />
-              <Node name="Controllers" expanded="True">
-                <Node name="AlertController.cs" selected="True" />
+              <Node name="Controllers" expanded="True" />
+              <Node name="Managers" expanded="True">
+                <Node name="AlertsManager.cs" selected="True" />
               </Node>
-              <Node name="Managers" expanded="True" />
               <Node name="Properties" expanded="True" />
             </Node>
           </Node>

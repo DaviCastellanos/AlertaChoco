@@ -49,7 +49,7 @@ export default {
         },
         series: [{
           data: this.numbers,
-          pointStart: this.EightDaysAgoDate(),
+          pointStart: this.TodayPlusDays(-7),
           pointInterval: 24 * 36e5,
           color: '#FF9914',
           name: 'Alertas'
@@ -66,7 +66,10 @@ export default {
           //console.log(Object.keys(grouped))
 
           var now = new Date();
-          for (var d = new Date(this.SevenDaysAgoDate()); d <= now; d.setDate(d.getDate() + 1)) {
+          now.setDate(now.getDate() + 1);
+          for (var d = new Date(this.TodayPlusDays(-6)); d <= now; d.setDate(d.getDate() + 1)) {
+           // console.log("d is " + d + ".  Now  " + now );
+
             if(grouped[d.toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'})] !== undefined) {
               this.numbers.push([grouped[d.toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'})].length])
             }
@@ -75,15 +78,9 @@ export default {
           }
         }
     },
-    EightDaysAgoDate () {
+    TodayPlusDays (value) {
       var d = new Date();
-      d.setDate(d.getDate() -8); 
-      return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
-    }
-    ,
-    SevenDaysAgoDate () { //FixThis
-      var d = new Date();
-      d.setDate(d.getDate() -7); 
+      d.setDate(d.getDate() + value); 
       return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
     }
   },

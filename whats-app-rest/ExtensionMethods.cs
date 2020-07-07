@@ -34,8 +34,7 @@ namespace whats_app_rest
             json += $"\"storyWhere\":\"{alert.storyWhere}\",";
             json += $"\"currentSituation\":\"{alert.currentSituation}\",";
             json += $"\"canCall\":\"{alert.canCall}\",";
-            json += $"\"localDate\":\'{alert.localTime.ToString("MM/dd/yyyy")}\',";
-            json += $"\"localTime\":\'{alert.localTime.ToString("HH:mm:ss")}\',";
+            json += $"\"localDate\":\'{alert.localTime.ToString("MM/dd/yyyy")+" "+alert.localTime.ToString("HH:mm:ss")}\',";
             json += $"\"verified\":\"{alert.verified}\",";
             json += $"\"completed\":\"{alert.completed}\",";
             json += $"\"systemId\":\"{alert.id.ToString()}\"";
