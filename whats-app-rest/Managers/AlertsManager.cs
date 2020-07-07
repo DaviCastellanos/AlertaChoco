@@ -22,6 +22,7 @@ namespace whats_app_rest
             twilio = twilioManager;
             database = databaseManager;
             mail = mailManager;
+            Console.WriteLine("Ïnit manager");
         }
 
         public Alert GetAlertByPhoneNumber(string from)
@@ -150,7 +151,7 @@ namespace whats_app_rest
 
             twilio.DeleteMedia();
 
-            alert.localTime = DateTime.UtcNow.AddHours(-5);
+            alert.localTime = DateTime.UtcNow;
 
             bool saved = await database.SaveToDB(alert);
 

@@ -15,14 +15,6 @@ namespace whats_app_rest
             return str.ToLower().Replace(' ', '_');
         }
 
-        public static string FormatForTime(this string str)
-        {
-            if (str == null)
-                return "";
-
-            return str.ToLower().Replace(' ', '/');
-        }
-
         public static string AsJSON(this Alert alert)
         {
             string json = "[{\"geometry\":{\"x\":\"";
@@ -42,18 +34,14 @@ namespace whats_app_rest
             json += $"\"storyWhere\":\"{alert.storyWhere}\",";
             json += $"\"currentSituation\":\"{alert.currentSituation}\",";
             json += $"\"canCall\":\"{alert.canCall}\",";
-            json += $"\"localAlertTime\":\"{alert.localTime.DateWithTime()}\",";
+            json += $"\"localDate\":\'{alert.localTime.ToString("MM/dd/yyyy")}\',";
+            json += $"\"localTime\":\'{alert.localTime.ToString("HH:mm:ss")}\',";
             json += $"\"verified\":\"{alert.verified}\",";
             json += $"\"completed\":\"{alert.completed}\",";
             json += $"\"systemId\":\"{alert.id.ToString()}\"";
             json += "}}]";
 
             return json;
-        }
-
-        public static string DateWithTime(this DateTime dateTime)
-        {
-            return (dateTime.ToShortDateString() + "/" + dateTime.ToShortTimeString()).FormatForTime();
         }
     }
 }
