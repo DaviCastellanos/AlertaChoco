@@ -47,7 +47,7 @@ export default {
         .then(([ArcGISMap, MapView, FeatureLayer]) => {
 
         const map = new ArcGISMap({
-        basemap: 'topo'
+        basemap: 'gray-vector'
         });
 
         this.view = new MapView({
@@ -61,7 +61,7 @@ export default {
             type: "simple",
             symbol: {
                     type: "picture-marker",
-                    url: "https://image.flaticon.com/icons/png/512/1001/1001022.png",
+                    url: "https://image.flaticon.com/icons/svg/2937/2937077.svg",
                     width: "18px",
                     height: "18px"
             }
@@ -90,7 +90,7 @@ export default {
             type: "simple",
             symbol: {
             type: "picture-marker",
-            url: "https://image.flaticon.com/icons/svg/3069/3069254.svg",
+            url: "https://image.flaticon.com/icons/svg/497/497738.svg",
             width: "25px",
             height: "25px"
             }

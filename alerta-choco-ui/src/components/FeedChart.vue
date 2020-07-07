@@ -21,7 +21,7 @@ export default {
           type: 'line'
         },
         title: {
-          text: 'Alertas reportadas durante la última semana'
+          text: 'Número de alertas reportadas durante la última semana'
         },
         yAxis: {
             title: {
@@ -42,14 +42,21 @@ export default {
         },
         series: [{
           data: [10, 0, 8, 2, 6, 4, 5, 5],
-          pointStart: Date.UTC(2020, 4, 7),
+          pointStart: this.EightDaysAgoDate(),
           pointInterval: 24 * 36e5,
-          color: '#EE6161',
+          color: '#FF9914',
           name: 'Alertas'
         }]
       } 
     }
   },
+  methods: {
+    EightDaysAgoDate () {
+      var d = new Date();
+      d.setDate(d.getDate() -8); 
+      return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+    }
+  }
 }
 </script>
 

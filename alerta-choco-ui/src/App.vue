@@ -10,7 +10,7 @@
                     <web-map />
                 </b-col>
                 <b-col sm="12" md="6">
-                    <feed-chart v-if="userIsAuthenticated" />
+                    <feed-chart />
                     <alerts-table />
                 </b-col>
             </b-row>

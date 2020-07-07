@@ -1,7 +1,7 @@
 <template>
   <div id="navBar" >
     <b-navbar toggleable="lg" type="dark"  style="background-color: #00473B;" fixed="top">
-        <b-navbar-brand>Red Anansi</b-navbar-brand>
+        <b-navbar-brand>RED ANANSI</b-navbar-brand>
         <b-navbar-nav class="ml-auto">
             <b-button v-if="!isUserAuthenticated" v-b-modal.login size="sm" class="text-light my-2 my-sm-0" type="submit" variant="warning">AUTENTICAR</b-button>
         </b-navbar-nav>
