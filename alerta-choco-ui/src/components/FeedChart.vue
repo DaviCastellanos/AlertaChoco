@@ -1,12 +1,14 @@
 <template>
     <div id="chartHolder">
-    <chart :options="chartOptions" :updateArgs="updateArgs"> </chart>
+    <chart :options="ChartOptions" :updateArgs="updateArgs"> </chart>
     </div>
 </template>
 
 
 <script>
 import { Chart } from 'highcharts-vue'
+import { AlertsService } from '@/services';
+import _ from 'lodash'
 
 export default {
     components: {
@@ -14,8 +16,13 @@ export default {
     },
     data () {
     return {
-      updateArgs: [true, true, {duration: 1000}],
-      chartOptions: {
+      numbers: [],
+      updateArgs: [true, true, {duration: 1000}]
+    }
+  },
+  computed: {
+    ChartOptions() {
+      return {
         chart: {
           //plotBackgroundColor: '#383939',
           type: 'line'
@@ -41,21 +48,47 @@ export default {
             enabled: false
         },
         series: [{
-          data: [10, 0, 8, 2, 6, 4, 5, 5],
+          data: this.numbers,
           pointStart: this.EightDaysAgoDate(),
           pointInterval: 24 * 36e5,
           color: '#FF9914',
           name: 'Alertas'
         }]
-      } 
+      }
     }
   },
   methods: {
+    async Request () {
+        const response = await AlertsService.getAlertsNum();
+        if(response)
+        {
+          const grouped = _.groupBy(response.features, feature => new Date(feature.attributes.localDate).toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'}))
+          //console.log(Object.keys(grouped))
+
+          var now = new Date();
+          for (var d = new Date(this.SevenDaysAgoDate()); d <= now; d.setDate(d.getDate() + 1)) {
+            if(grouped[d.toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'})] !== undefined) {
+              this.numbers.push([grouped[d.toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'})].length])
+            }
+            else
+              this.numbers.push(0)  
+          }
+        }
+    },
     EightDaysAgoDate () {
       var d = new Date();
       d.setDate(d.getDate() -8); 
       return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
     }
+    ,
+    SevenDaysAgoDate () { //FixThis
+      var d = new Date();
+      d.setDate(d.getDate() -7); 
+      return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+    }
+  },
+  mounted () {
+    this.Request()
   }
 }
 </script>

@@ -16,8 +16,11 @@
     "firebase": "^7.15.2",
     "highcharts": "^8.1.0",
     "highcharts-vue": "^1.3.5",
+    "lodash": "^4.17.15",
+    "query-string": "^6.13.1",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
+    "vue-lodash": "^2.1.2",
     "vuex": "^3.3.0"
   },
   "devDependencies": {
