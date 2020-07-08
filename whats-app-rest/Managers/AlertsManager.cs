@@ -22,7 +22,6 @@ namespace whats_app_rest
             twilio = twilioManager;
             database = databaseManager;
             mail = mailManager;
-            Console.WriteLine("Ïnit manager");
         }
 
         public Alert GetAlertByPhoneNumber(string from)
@@ -49,7 +48,13 @@ namespace whats_app_rest
         {
             int i = GetAlertIndexByPhoneNumber(phoneNumber);
 
-            string response = responses.messages[alerts[i].alertProgress];
+            if (alerts[i].isTrash)
+                return null;
+
+            string response = "Error: alertProgress index out of bounds.";
+
+            if (responses.messages.ContainsKey(alerts[i].alertProgress))
+                response = responses.messages[alerts[i].alertProgress];
 
             if (latitude != null && longitude != null)
             {

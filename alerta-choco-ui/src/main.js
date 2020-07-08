@@ -20,6 +20,27 @@ Vue.use(IconsPlugin)
 Vue.use(HighchartsVue)
 Vue.use(BootstrapVue)
 
+Vue.mixin({
+  methods: {
+    FormatForHuman (str) {
+
+      if(!str)
+        return "N/A"
+
+      if(str === 'True')
+        return 'Si'
+
+      if(str === "False")
+        return 'No'
+
+      if(str.includes("firebase"))
+        return `<a href="${str}" target="_blank">Multimedia</a>`
+
+        return str.replace(/_/g, " ")
+    }
+  }
+})
+
 new Vue({
   store,
   render: h => h(App),
@@ -33,3 +54,5 @@ new Vue({
     })
   }
 }).$mount('#app')
+
+

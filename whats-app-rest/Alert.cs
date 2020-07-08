@@ -21,7 +21,7 @@ namespace whats_app_rest
         public string phoneNumber;
         public string firstMessage;
         public string anansiCode;
-        public string canReport;
+        public string canReport = "no";
         public string storyWhat;
         public string storyHow;
         public string storyWho;
@@ -41,7 +41,7 @@ namespace whats_app_rest
 
         private Timer timer;
         private Action<Alert> timerCallback;
-        private int autoSaveTime = 90000; 
+        private int autoSaveTime = 450000; 
 
         public string Latitude
         {

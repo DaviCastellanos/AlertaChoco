@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import WebMap from './components/WebMap.vue';
+import WebMap from './components/WebMap.vue'
 import AlertsTable from './components/AlertsTable.vue'
 import FeedChart from './components/FeedChart.vue'
 import NavBar from './components/NavBar.vue'
@@ -30,8 +30,8 @@ export default {
     name: 'App',
     data () {
         return {
-            mapSelected: true,
-            tableSelected: false,
+            mapSelected: false,
+            tableSelected: true,
             statsSelected: false,
         }
     },
@@ -40,7 +40,7 @@ export default {
         AlertsTable, 
         FeedChart,
         NavBar,
-        Footer 
+        Footer
     },
     watch: {
         mapSelected (val) {

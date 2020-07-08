@@ -28,7 +28,22 @@ export default {
       token: response.access_token
     });
 
-    const alerts = await alertsNumHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/query?f=json&where=1=1&outSr=4326&outFields=OBJECTID, localDate, firstMessage`, data2, headers )
+    const alerts = await alertsNumHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/query?f=json&where=1=1&outSr=4326&outFields=OBJECTID, 
+    codigoAnansi,
+    fechaReporte,
+    telefono, 
+    primerMensaje,
+    puedeReportar,
+    relatoQue,
+    relatoQuien,
+    relatoComo,
+    relatoCuando,
+    relatoDonde,
+    situacionActual,
+    recibeLlamada,
+    verificado,
+    completado,
+    idAlerta`, data2, headers )
     //console.log("alerts is " + alerts.features);
 
     return alerts;

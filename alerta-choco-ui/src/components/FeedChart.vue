@@ -62,7 +62,7 @@ export default {
         const response = await AlertsService.getAlertsNum();
         if(response)
         {
-          const grouped = _.groupBy(response.features, feature => new Date(feature.attributes.localDate).toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'}))
+          const grouped = _.groupBy(response.features, feature => new Date(feature.attributes.fechaReporte).toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'}))
           //console.log(Object.keys(grouped))
 
           var now = new Date();
@@ -76,6 +76,8 @@ export default {
             else
               this.numbers.push(0)  
           }
+
+          this.$store.commit('SET_ALERTS', response.features)
         }
     },
     TodayPlusDays (value) {

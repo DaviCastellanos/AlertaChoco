@@ -69,7 +69,10 @@ namespace whats_app_rest.Controllers
 
             string response = alerts.SaveIncomingMessage(from, body, latitude, longitude);
 
-            return SendTwilioMessage(from, response);
+            if (response != null)
+                return SendTwilioMessage(from, response);
+            else
+                return NotFound("Could not parse reponse");
         }
 
         private ActionResult SendTwilioMessage(string to, string message)

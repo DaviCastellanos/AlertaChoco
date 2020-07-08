@@ -6,12 +6,16 @@ Vue.use(Vuex);
  
 export default new Vuex.Store({
  state: {
+     alerts: Object,
      mapCenter: [],
      user: null
  },
  getters: {
      user (state) {
         return state.user
+     },
+     alerts (state) {
+         return state.alerts
      }
  },
  mutations: {
@@ -20,6 +24,9 @@ export default new Vuex.Store({
     },
     SET_USER (state, newUser) {
         this.state.user = newUser
+    },
+    SET_ALERTS (state, alerts) {
+        this.state.alerts = alerts
     }
  },
  actions: {
