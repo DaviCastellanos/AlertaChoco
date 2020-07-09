@@ -2,14 +2,10 @@ import { AxiosHandler } from './axios-handler'
 import qs from 'qs';
 
 const alertsHandler = new AxiosHandler()
-const alertsNumHandler = new AxiosHandler()
 const tokenHandler = new AxiosHandler();
 
 export default {
-  getAlerts () {
-    return alertsHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas_subregion_choco_ejemplo/FeatureServer/0/query?f=json&where=1=1&outSr=4326&outFields=OBJECTID, threat, date, location`)
-  }, 
-  async getAlertsNum () {
+  async getAlerts () {
 
     const data = qs.stringify({
       grant_type: 'client_credentials',
@@ -28,7 +24,7 @@ export default {
       token: response.access_token
     });
 
-    const alerts = await alertsNumHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/query?f=json&where=1=1&outSr=4326&outFields=OBJECTID, 
+    const alerts = await alertsHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/query?f=json&where=1=1&outSr=4326&outFields=OBJECTID, 
     codigoAnansi,
     fechaReporte,
     telefono, 

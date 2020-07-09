@@ -26,7 +26,7 @@
           <span v-html="data.value"></span>
         </template>
         <template v-slot:cell(botonVerificar)="data">
-          <b-button size="sm" @click="ShowModal(data.value)" class="mr-2">Verificar</b-button>
+          <b-button size="sm" @click="ShowModal(data.value)" class="mr-2" variant="warning">Verificar</b-button>
         </template>
     </b-table>
     <verification-modal v-if="this.selectedAlert.attributes != null" id="verification-modal" :alert="this.selectedAlert" />

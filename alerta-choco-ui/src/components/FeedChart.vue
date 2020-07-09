@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     async Request () {
-        const response = await AlertsService.getAlertsNum();
+        const response = await AlertsService.getAlerts();
         if(response)
         {
           const grouped = _.groupBy(response.features, feature => new Date(feature.attributes.fechaReporte).toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'}))
