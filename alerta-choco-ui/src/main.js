@@ -22,6 +22,10 @@ Vue.use(BootstrapVue)
 
 Vue.mixin({
   methods: {
+    FormatForDB (str) {
+      const lower = str.toString().toLowerCase()
+      return lower.replace(/ /g, "_")
+    },
     FormatForHuman (str) {
 
       if(!str)

@@ -1,5 +1,5 @@
 <template>
-    <b-modal size="xl" id="verification-modal" title="Verificación de alerta" @close="cleanData()" @hide="cleanData()">
+    <b-modal size="xl" id="verification-modal" title="Verificación de alerta" @ok="validate()" @close="cleanData()" @hide="cleanData()">
         <b-row>
         <b-col>
             <div class="mt-3">
@@ -36,6 +36,21 @@
             </div>
 
             <div class="mt-3">
+            <h6> Subcategoría: </h6>
+            <b-form-select v-model="subcategoriaEventoEnum" :options="opcionesSubcategoria" multiple :select-size="10" :state="lengthState(subcategoriaEventoEnum)"></b-form-select>
+            </div>
+
+            <div class="mt-3">
+            <h6> ¿Otra subcategoría? ¿cuál?: </h6> 
+            <b-form-input 
+                v-model="subcategoriaEventoOtra"    
+                aria-describedby="input-live-feedback"
+                placeholder="opcional"
+                trim
+            ></b-form-input>
+            </div>
+
+            <div class="mt-3">
             <h6> Territorio colectivo: </h6> 
             <b-form-input 
                 v-model="territorioColectivo"
@@ -51,19 +66,6 @@
                 v-model="barrio"
                 :state="lengthState(barrio)" 
                 aria-describedby="input-live-feedback"
-                trim
-            ></b-form-input>
-            </div>
-
-            <div class="mt-3">
-            <h6> Entorno de ocurrencia: </h6>
-            <b-form-select v-model="subcategoriaEventoEnum" :options="opcionesSubcategoria" multiple :select-size="10" :state="lengthState(subcategoriaEventoEnum)"></b-form-select>
-            </div>
-
-            <div class="mt-3">
-            <h6> ¿Otro entorno? ¿Cuál?: </h6> <b-form-input 
-                v-model="departamentoOcurrencia"
-                placeholder='Opcional'
                 trim
             ></b-form-input>
             </div>
@@ -158,6 +160,21 @@
             ></b-form-input>
             </div>
 
+            <div class="mt-3">
+            <h6> Instituciones Informadas: </h6>
+            <b-form-select v-model="institucionesEnum" :options="opcionesInstituciones" multiple :select-size="5" :state="lengthState(institucionesEnum)"></b-form-select>
+            </div>
+
+            <div class="mt-3">
+            <h6> ¿Otra institución? ¿cuál? </h6> 
+            <b-form-input 
+                v-model="otraInstitucion"
+                aria-describedby="input-live-feedback"
+                placeholder="Opcional"
+                trim
+            ></b-form-input>
+            </div>
+
         </b-col>
         <b-col>
             <div class="mt-3">
@@ -247,11 +264,16 @@
             </div>
 
             <div class="mt-3">
-            <h6> ¿Otro rol? ¿Cuál?: </h6> <b-form-input 
+            <h6> ¿Otro rol? ¿cuál?: </h6> <b-form-input 
                 v-model="rolVictimaOtro"
                 placeholder='Opcional'
                 trim
             ></b-form-input>
+            </div>
+
+            <div class="mt-3">
+            <h6> ¿Tiene discapacidad?: </h6>
+            <b-form-select v-model="discapacidadEnum" :options="opcionesDiscapacidad" multiple :select-size="3" :state="lengthState(discapacidadEnum)"></b-form-select>
             </div>
 
             <div class="mt-3">
@@ -299,27 +321,12 @@
             ></b-form-input>
             </div>
 
-            <div class="mt-3">
-            <h6> Instituciones Informadas: </h6>
-            <b-form-select v-model="institucionesEnum" :options="opcionesInstituciones" multiple :select-size="5" :state="lengthState(institucionesEnum)"></b-form-select>
-            </div>
-
-            <div class="mt-3">
-            <h6> ¿Otra institución? ¿Cuál?: </h6> 
-            <b-form-input 
-                v-model="otraInstitucion"
-                :state="lengthState(otraInstitucion)" 
-                aria-describedby="input-live-feedback"
-                trim
-            ></b-form-input>
-            </div>
-
             <!-- This will only be shown if the preceding input has an invalid state -->
             <b-form-invalid-feedback id="input-live-feedback"> Máximo 256 carácteres </b-form-invalid-feedback>
             </b-col>
         </b-row>
         <b-row>
-        <div class="mt-3">
+        <div class="m-3">
             <h6> Derechos límitados: </h6>
             <b-form-select v-model="derechosDDHEnum" :options="opcionesDerechos" multiple :select-size="10" :state="lengthState(derechosDDHEnum)"></b-form-select>
             </div>
@@ -327,6 +334,7 @@
     </b-modal>
 </template>
 <script>
+import { AlertsService } from '@/services';
 
 export default {
     data () {
@@ -434,6 +442,15 @@ export default {
                 { value: 'Si', text: 'Sí'},
                 { value: 'No', text: 'No'}
             ],
+            opcionesDiscapacidad: [
+                { value: '', text: 'Selecciona varias (Usa cmd o ctrl)'},
+                { value: '0', text: 'Ninguna'},
+                { value: '1', text: 'Emocianal (No puede relacionarse con otros)  '},
+                { value: '2', text: 'Motora (No puede moverse con facilidad)'},
+                { value: '3', text: 'Cognitiva (No puede aprender, razonar, pensar, hablar, facilmente)'},
+                { value: '4', text: 'Visual (No puede ver)'},
+                { value: '5', text: 'Auditiva (No puede oir)'},
+            ],
             opcionesAfectados: [
                 { value: '', text: 'Selecciona varias (Usa cmd o ctrl)'},
                 { value: '0', text: 'Familia'},
@@ -503,6 +520,7 @@ export default {
             etniaVictima: '',
             rolVictimaEnum: [],
             rolVictimaOtro: '',
+            discapacidadEnum: [],
             sexo: '',
             identidadGenero: '',
             perfilVictima: '',
@@ -544,6 +562,7 @@ export default {
             this.etniaVictima = '',
             this.rolVictimaEnum = [],
             this.rolVictimaOtro = '',
+            this.discapacidadEnum = [],
             this.sexo = '',
             this.identidadGenero = '',
             this.perfilVictima = '',
@@ -573,6 +592,58 @@ export default {
                 return false;  
 
             return  true;
+        },
+        wrapAlert()
+        {
+            let alert = "[{ \"attributes\" : {"
+                alert += "\"OBJECTID\":\"" + this.alert.attributes.OBJECTID + "\","
+                alert += "\"verificado\":\"True\","
+                alert += "\"fechaOcurrencia\":\"" + this.fechaOcurrencia + "\","
+                alert += "\"fechaValidacion\":\"" + this.fechaValidacion + "\","
+                alert += "\"departamentoOcurrencia\":\"" + this.FormatForDB(this.departamentoOcurrencia) + "\","
+                alert += "\"municipioOcurrencia\":\"" + this.FormatForDB(this.municipioOcurrencia) + "\","
+                alert += "\"entornoOcurrencia\":\"" + this.FormatForDB(this.entornoOcurrencia) + "\","
+                alert += "\"territorioColectivo\":\"" + this.FormatForDB(this.territorioColectivo) + "\","
+                alert += "\"barrio\":\"" + this.FormatForDB(this.barrio) + "\","
+                alert += "\"tipoEvento\":\"" + this.FormatForDB(this.tipoEvento) + "\","
+                alert += "\"categoriaEvento\":\"" + this.FormatForDB(this.categoriaEvento) + "\","
+                alert += "\"subcategoriaEventoEnum\":\"" + this.FormatForDB(this.subcategoriaEventoEnum) + "\","
+                alert += "\"subcategoriaEventoOtra\":\"" + this.FormatForDB(this.subcategoriaEventoOtra) + "\","
+                alert += "\"nombreVictima\":\"" + this.FormatForDB(this.nombreVictima) + "\","
+                alert += "\"edadVictima\":\"" + this.FormatForDB(this.edadVictima) + "\","
+                alert += "\"etniaVictima\":\"" + this.FormatForDB(this.etniaVictima) + "\","
+                alert += "\"rolVictimaEnum\":\"" + this.FormatForDB(this.rolVictimaEnum) + "\","
+                alert += "\"rolVictimaOtro\":\"" + this.FormatForDB(this.rolVictimaOtro) + "\","
+                alert += "\"discapacidadEnum\":\"" + this.FormatForDB(this.discapacidadEnum) + "\","
+                alert += "\"sexo\":\"" + this.FormatForDB(this.sexo) + "\","
+                alert += "\"identidadGenero\":\"" + this.FormatForDB(this.identidadGenero) + "\","
+                alert += "\"perfilVictima\":\"" + this.FormatForDB(this.perfilVictima) + "\","
+                alert += "\"medidasProteccionExistentes\":\"" + this.FormatForDB(this.medidasProteccionExistentes) + "\","
+                alert += "\"otrasVictimas\":\"" + this.FormatForDB(this.otrasVictimas) + "\","
+                alert += "\"totalVictimas\":\"" + this.FormatForDB(this.totalVictimas) + "\","
+                alert += "\"otrasVictimasNombres\":\"" + this.FormatForDB(this.otrasVictimasNombres) + "\","
+                alert += "\"relacionVictima\":\"" + this.FormatForDB(this.relacionVictima) + "\","
+                alert += "\"afectadosEnum\":\"" + this.FormatForDB(this.afectadosEnum) + "\","
+                alert += "\"familias\":\"" + this.FormatForDB(this.familias) + "\","
+                alert += "\"numeroPersonas\":\"" + this.FormatForDB(this.numeroPersonas) + "\","
+                alert += "\"etniaAfectadosEnum\":\"" + this.FormatForDB(this.etniaAfectadosEnum) + "\","
+                alert += "\"derechosDDHEnum\":\"" + this.FormatForDB(this.derechosDDHEnum) + "\","
+                alert += "\"tipoResponsableEnum\":\"" + this.FormatForDB(this.tipoResponsableEnum) +"\","
+                alert += "\"presuntoResponsable\":\"" + this.FormatForDB(this.presuntoResponsable) +"\","
+                alert += "\"situacionAsociada\":\"" + this.FormatForDB(this.situacionAsociada) + "\","
+                alert += "\"accionesMitigacion\":\"" + this.FormatForDB(this.accionesMitigacion) + "\","
+                alert += "\"riesgoPercibido\":\"" + this.FormatForDB(this.riesgoPercibido) + "\","
+                alert += "\"institucionesEnum\":\"" + this.FormatForDB(this.institucionesEnum) + "\","
+                alert += "\"otraInstitucion\":\"" + this.FormatForDB(this.otraInstitucion) + "\""
+                alert += "}}]"
+
+            console.log(alert)
+            return alert;    
+        },
+        async validate()
+        {
+            const response = await AlertsService.verifyAlert(this.wrapAlert())
+            console.log(response)
         }
     },
     computed: {
