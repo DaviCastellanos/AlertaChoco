@@ -30,8 +30,8 @@ export default {
     name: 'App',
     data () {
         return {
-            mapSelected: false,
-            tableSelected: true,
+            mapSelected: true,
+            tableSelected: false,
             statsSelected: false,
         }
     },

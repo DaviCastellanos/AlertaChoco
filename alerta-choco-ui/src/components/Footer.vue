@@ -3,32 +3,32 @@
     <br />
     <b-row no-gutters>
      <p id="disclaimer" class="text-light">
-     Powered by the Style Analytics Portfolio Analyzer: Information and analysis provided here through a strategic
-     partnership between eVestment and Style Analytics. All portfolio holdings information is collected by eVestment
-     directly from investment management firms and other sources believed to be reliable. eVestment and Style Analytics
-     do not guarantee or warrant the accuracy, timeliness, or completeness of the information provided and are not
-     responsible for any errors or omissions. Copyright 2020 eVestment Alliance, LLC. All Rights Reserved. 
+     Disclaimer: Lorem ipsum dolor sit amet consectetur adipiscing elit, curabitur nam nulla habitant porttitor lacinia et 
+     nascetur, habitasse praesent magna etiam odio suscipit. Urna ante taciti ultrices parturient, vitae velit 
+     magna, vel cras porttitor. Montes porttitor hendrerit netus sollicitudin rutrum elementum purus platea donec 
+     aptent, erat arcu aliquet class ridiculus magna neque magnis dui himenaeos in, tristique volutpat primis 
+     iaculis mus rhoncus interdum nisl luctus. 
      </p>      
     </b-row>
     <b-row no-gutters>
         <b-col sm="12" md="3">
             <div id="logo">
-                <img class="img-fluid" src="@/images/un-logo.png">
+                <img class="img-fluid" src="@/images/logo-codhes-corregido.png">
             </div>
         </b-col>
         <b-col sm="12" md="3">
             <div id="logo">
-                <img class="img-fluid" src="@/images/un-logo.png">
+                <img class="img-fluid" src="@/images/logo-fisch.png">
             </div>
         </b-col>
         <b-col sm="12" md="3">
             <div id="logo">
-                <img class="img-fluid" src="@/images/un-logo.png">
+                <img class="img-fluid" src="@/images/logo-gobierno.png">
             </div>
         </b-col>
         <b-col sm="12" md="3">
             <div id="logo">
-                <img class="img-fluid" src="@/images/un-logo.png">
+                <img class="img-fluid" src="@/images/logo-fmnu.png">
             </div>
         </b-col>
     </b-row>
@@ -53,7 +53,8 @@ export default {
 <style scoped>
 
 #logo{
-    padding: 70px
+    padding: 70px;
+    vertical-align: bottom;
 }
 
 #footer {

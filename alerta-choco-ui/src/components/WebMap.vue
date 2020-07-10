@@ -15,7 +15,7 @@ export default {
   name: 'web-map',
   components: { BButton },
   data() { return { 
-    municipiosVisible: true
+    municipiosVisible: false
     }},
   computed: mapState(['mapCenter']),
   watch: {
@@ -122,7 +122,7 @@ export default {
 
         map.add(alertas); 
 
-        this.view.map.findLayerById('municipios').visible = false;
+        //this.view.map.findLayerById('municipios').visible = false;
 
          /*
          this.view.whenLayerView(alertas).then(function(layerView){
