@@ -135,15 +135,22 @@ namespace whats_app_rest
             return true;
         }
 
-        public void TryToCreateNewAlert(string phoneNumber, string message)
+        public bool TryToCreateNewAlert(string phoneNumber, string message)
         {
-            Alert alert = GetAlertByPhoneNumber(phoneNumber);//Test is trash
-            if (alert != null && alert.isTrash == false)
-                return;
+            Alert alert = GetAlertByPhoneNumber(phoneNumber);
+            if (alert != null)
+            {
+                if (alert.isTrash)
+                    return false;
+
+                return true;
+            }
 
             Alert newAlert = new Alert(phoneNumber, message, SaveAlert);
             alerts.Add(newAlert);
             ScheduleTrashCollector();
+
+            return true;
         }
 
         public async void SaveAlert(Alert alert)

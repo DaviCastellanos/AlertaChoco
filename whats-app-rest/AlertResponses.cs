@@ -28,6 +28,7 @@ namespace whats_app_rest
             validations.Add("LENGTH_RESPONSE", "Por favor escribe textos más cortos. Máximo 255 carácteres.");
             validations.Add("WRONG_ANANSI_CODE", "Ese código no es correcto. Vuelve a intentar.");
             validations.Add("PROVIDE_TEXT", "Por favor escribe una respuesta para esta pregunta.");
+            validations.Add("ALERT_SUCCESFUL", "Alerta reportada exitosamente, para reportar otra alerta espera unas horas.");
             validations.Add("FINAL_MESSAGE", FINAL_MESSAGE);
         }
     }
