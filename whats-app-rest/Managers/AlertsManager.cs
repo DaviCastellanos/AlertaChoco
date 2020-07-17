@@ -137,11 +137,12 @@ namespace whats_app_rest
 
         public void TryToCreateNewAlert(string phoneNumber, string message)
         {
-            if (GetAlertByPhoneNumber(phoneNumber) != null)
+            Alert alert = GetAlertByPhoneNumber(phoneNumber);//Test is trash
+            if (alert != null && alert.isTrash == false)
                 return;
 
-            Alert alert = new Alert(phoneNumber, message, SaveAlert);
-            alerts.Add(alert);
+            Alert newAlert = new Alert(phoneNumber, message, SaveAlert);
+            alerts.Add(newAlert);
             ScheduleTrashCollector();
         }
 
