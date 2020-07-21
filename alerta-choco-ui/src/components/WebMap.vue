@@ -1,167 +1,172 @@
 <template>
   <div>
-  <b-button id="municipiosButton" squared :pressed.sync="municipiosVisible" variant="warning"> {{ setButtonText() }}  </b-button>
-  <div id="mapDiv">
-  </div>
+    <b-button
+      id="municipiosButton"
+      squared
+      :pressed.sync="municipiosVisible"
+      variant="warning"
+    >
+      {{ setButtonText() }}
+    </b-button>
+    <div id="mapDiv"></div>
   </div>
 </template>
 
 <script>
-import { loadModules } from 'esri-loader';
-import { mapState } from 'vuex'
-import { BButton } from 'bootstrap-vue'
+import { loadModules } from "esri-loader";
+import { mapState } from "vuex";
+import { BButton } from "bootstrap-vue";
 
 export default {
-  name: 'web-map',
+  name: "web-map",
   components: { BButton },
-  data() { return { 
-    municipiosVisible: false
-    }},
-  computed: mapState(['mapCenter']),
+  data() {
+    return {
+      municipiosVisible: false,
+    };
+  },
+  computed: mapState(["mapCenter", "arcgisToken"]),
   watch: {
     mapCenter(newValue) {
       //console.log(`WebMap: Updating from ${oldValue[0] + " " + oldValue[1]} to ${newValue[0] + " " + newValue[1]}`);
-      this.gotTo(newValue)
+      this.gotTo(newValue);
+    },
+    arcgisToken(newValue) {
+      this.drawMap(newValue);
     },
     municipiosVisible() {
-      this.view.map.findLayerById('municipios').visible = !this.view.map.findLayerById('municipios').visible
-    }
+      this.view.map.findLayerById(
+        "municipios"
+      ).visible = !this.view.map.findLayerById("municipios").visible;
+    },
   },
   methods: {
-      setButtonText() {
-        return this.municipiosVisible ? "MOSTRAR MUNICIPIOS PDET" : "OCULTAR MUNICIPIOS PDET" 
-      },
-      gotTo(pt) {
-        var opts = {
-          duration: 1000  // Duration of animation will be 1 seconds
-        };
+    setButtonText() {
+      return this.municipiosVisible
+        ? "MOSTRAR MUNICIPIOS PDET"
+        : "OCULTAR MUNICIPIOS PDET";
+    },
+    gotTo(pt) {
+      var opts = {
+        duration: 1000, // Duration of animation will be 1 seconds
+      };
 
-        // go to point at LOD 15 with custom duration
-        this.view.goTo({
+      // go to point at LOD 15 with custom duration
+      this.view.goTo(
+        {
           target: pt,
-          zoom: 10
-        }, opts);
-      },
-      drawMap()
-      {
-            // lazy load the required ArcGIS API for JavaScript modules and CSS
-        loadModules(['esri/Map', 'esri/views/MapView', 'esri/layers/FeatureLayer'], { css: true })
-        .then(([ArcGISMap, MapView, FeatureLayer]) => {
+          zoom: 10,
+        },
+        opts
+      );
+    },
+    async drawMap(token) {
+      // lazy load the required ArcGIS API for JavaScript modules and CSS
+      const [
+        ArcGISMap,
+        MapView,
+        FeatureLayer,
+        IdentityManager,
+      ] = await loadModules(
+        [
+          "esri/Map",
+          "esri/views/MapView",
+          "esri/layers/FeatureLayer",
+          "esri/identity/IdentityManager",
+        ],
+        { css: true }
+      );
 
-        const map = new ArcGISMap({
-        basemap: 'gray-vector'
-        });
+      IdentityManager.registerToken({
+        server:
+          "https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer",
+        token: token,
+      });
 
-        this.view = new MapView({
+      const map = new ArcGISMap({
+        basemap: "gray-vector",
+      });
+
+      this.view = new MapView({
         container: "mapDiv",
         map: map,
         center: [-76.781506677246, 5.9944065844109957], // longitude, latitude
-        zoom: 6
-        });
+        zoom: 6,
+      });
 
-        var municipiosRenderer = {
-            type: "simple",
-            symbol: {
-                    type: "picture-marker",
-                    url: "https://image.flaticon.com/icons/svg/2937/2937077.svg",
-                    width: "18px",
-                    height: "18px"
-            }
-        }
+      var municipiosRenderer = {
+        type: "simple",
+        symbol: {
+          type: "picture-marker",
+          url: "https://image.flaticon.com/icons/svg/2937/2937077.svg",
+          width: "18px",
+          height: "18px",
+        },
+      };
 
-        var municipiosLabels = {
-            symbol: {
-            type: "text",
-            color: "#545550",
-            haloColor: "#545550",
-            haloSize: "0px",
-            font: {
-                size: "12px",
-                family: "Noto Sans",
-                style: "italic",
-                weight: "normal"
-            }
-            },
-            labelPlacement: "below-center",
-            labelExpressionInfo: {
-            expression: "$feature.municipio"
-            }
-        }
+      var municipiosLabels = {
+        symbol: {
+          type: "text",
+          color: "#545550",
+          haloColor: "#545550",
+          haloSize: "0px",
+          font: {
+            size: "12px",
+            family: "Noto Sans",
+            style: "italic",
+            weight: "normal",
+          },
+        },
+        labelPlacement: "below-center",
+        labelExpressionInfo: {
+          expression: "$feature.municipio",
+        },
+      };
 
-        var alertRenderer = {
-            type: "simple",
-            symbol: {
-            type: "picture-marker",
-            url: "https://image.flaticon.com/icons/svg/497/497738.svg",
-            width: "25px",
-            height: "25px"
-            }
-        }
-        
-        var alertPopup = {
-            "title": "{threat}",
-            "content": "<b>Ubicación:</b> {location}<br><b>Nivel de Riesgo:</b> {level}<br><b>Fecha:</b> {date}"
-        }
+      var municipios = new FeatureLayer({
+        url:
+          "https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/municipios_subregion_choco/FeatureServer/0",
+        renderer: municipiosRenderer,
+        labelingInfo: municipiosLabels,
+        id: "municipios",
+      });
 
-        var municipios = new FeatureLayer({
-            url: "https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/municipios_subregion_choco/FeatureServer/0",
-            renderer: municipiosRenderer,
-            labelingInfo: municipiosLabels,
-            id: 'municipios'
-        });
+      map.add(municipios);
 
-        map.add(municipios);  
+      var alertRenderer = {
+        type: "simple",
+        symbol: {
+          type: "picture-marker",
+          url: "https://image.flaticon.com/icons/svg/497/497738.svg",
+          width: "25px",
+          height: "25px",
+        },
+      };
 
-        var alertas= new FeatureLayer({
-            url: "https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas_subregion_choco_ejemplo/FeatureServer/0",
-            renderer: alertRenderer,
-            outFields: ["threat", "location", "level", "date", "OBJECTID"],
-            popupTemplate: alertPopup,
-            id: 'alertas'
-        });
+      var alertPopup = {
+        title: "{tipoEvento}",
+        content: "<b>Categoría:</b> {categoria}",
+      };
 
-        map.add(alertas); 
+      var alertas = new FeatureLayer({
+        url:
+          "https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer",
+        renderer: alertRenderer,
+        outFields: ["tipoEvento", "categoriaEvento"],
+        popupTemplate: alertPopup,
+        id: "alertas",
+      });
 
-        //this.view.map.findLayerById('municipios').visible = false;
-
-         /*
-         this.view.whenLayerView(alertas).then(function(layerView){
-                layerView.watch("updating", function(value){
-                    // availableFields will become available
-                    // once the layer view finishes updating
-                    if (!value) {
-                    layerView.queryFeatures({
-                        outFields: layerView.availableFields,
-                        where: "OBJECTID > 0"
-                    })
-                    .then(function(results) {
-                        //this.features = results.features
-                        console.log("features length is " + results.features.length)
-                        //var  sortedDescending = results.features.sort((a, b) => new Date(a.date) - new Date(b.date)).reverse(); 
-                    })
-                    .catch(function(error) {
-                        console.log("query failed: ", error);
-                    });
-                    }
-                });
-            });
-          */
-        });       
-      }
-  },
-  mounted() {
-    this.drawMap()
-    //this.saveAlerts(alerts)
-
+      map.add(alertas);
+    },
   },
   beforeDestroy() {
     if (this.view) {
       // destroy the map view
       this.view.container = null;
     }
-  }
+  },
 };
-
 </script>
 
 <style scoped>
