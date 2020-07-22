@@ -10,6 +10,7 @@ ENV TWILIO_ACCOUNT_SID=ACa6d64c8f885c4a5d11e5bd40940ed44c
 ENV ARCGIS_ID=BEg1xjqGA67M79uz
 ENV ARCGIS_SECRET=4d3ad20dfef74e999b4d93795e51f769
 ENV MAIL_PASSWORD=alertachoco123
+ENV ENCRYPT_KEY=agustinadetarso
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
