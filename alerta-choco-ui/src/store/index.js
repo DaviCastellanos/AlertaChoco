@@ -27,6 +27,10 @@ export default new Vuex.Store({
       this.state.mapCenter = [lat, lon];
     },
     SET_USER(state, newUser) {
+      if (newUser)
+        console.log("Setting new user " + newUser.role + " " + newUser.email);
+      else console.log("User is null");
+
       this.state.user = newUser;
     },
     SET_ALERTS(state, alerts) {
@@ -37,18 +41,28 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    signUserIn({ commit }, payload) {
+    signUserOut() {
+      firebase
+        .auth()
+        .signOut()
+        .catch((err) => {
+          console.error("Error signing out" + err);
+        });
+    },
+    signUserIn(obj, payload) {
       firebase
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
-        .then((user) => {
-          const newUser = {
-            id: user.uid,
-          };
-          commit("SET_USER", newUser);
-        })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+          console.error("Error signing in" + err);
+        });
+    },
+    signUserUp(obj, payload) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(payload.email, payload.password)
+        .catch((err) => {
+          console.error("Error signing up" + err);
         });
     },
   },
