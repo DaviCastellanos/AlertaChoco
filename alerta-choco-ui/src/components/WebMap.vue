@@ -9,7 +9,11 @@
     >
       {{ setButtonText() }}
     </b-button>
-    <div id="mapDiv"></div>
+    <div id="mapDiv">
+      <div class="text-center" v-if="mapLoading">
+        <b-spinner variant="secondary"></b-spinner>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -24,6 +28,7 @@ export default {
   data() {
     return {
       municipiosVisible: false,
+      mapLoading: true,
     };
   },
   computed: mapState(["arcgisToken"]),
@@ -155,6 +160,7 @@ export default {
       });
 
       map.add(alertas);
+      this.mapLoading = false;
     },
   },
   beforeDestroy() {
