@@ -68,6 +68,7 @@ new Vue({
           });
       } else {
         this.$store.commit("SET_USER", null);
+        this.$store.commit("SET_CURRENT_VIEW", "map");
       }
     });
   },

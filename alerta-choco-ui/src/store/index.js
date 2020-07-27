@@ -7,11 +7,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     alerts: Object,
-    mapCenter: [],
     user: null,
     arcgisToken: String,
+    currentView: "map",
   },
   getters: {
+    currentView(state) {
+      return state.currentView;
+    },
     user(state) {
       return state.user;
     },
@@ -23,14 +26,7 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    CHANGE_MAP_CENTER(state, { lat, lon }) {
-      this.state.mapCenter = [lat, lon];
-    },
     SET_USER(state, newUser) {
-      if (newUser)
-        console.log("Setting new user " + newUser.role + " " + newUser.email);
-      else console.log("User is null");
-
       this.state.user = newUser;
     },
     SET_ALERTS(state, alerts) {
@@ -38,6 +34,9 @@ export default new Vuex.Store({
     },
     SET_ARCGIS_TOKEN(state, token) {
       this.state.arcgisToken = token;
+    },
+    SET_CURRENT_VIEW(state, view) {
+      this.state.currentView = view;
     },
   },
   actions: {

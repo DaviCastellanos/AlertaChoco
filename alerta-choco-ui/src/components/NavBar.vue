@@ -7,7 +7,15 @@
       fixed="top"
     >
       <b-navbar-brand>RED ANANSI</b-navbar-brand>
+
       <b-navbar-nav class="ml-auto">
+        <b-navbar-nav v-if="isUserAuthenticated">
+          <b-nav-item @click="changeView('map')">Mapa</b-nav-item>
+          <b-nav-item @click="changeView('table')">Tabla</b-nav-item>
+          <b-nav-item @click="changeView('statistics')"
+            >Estadísticas</b-nav-item
+          >
+        </b-navbar-nav>
         <b-button
           v-if="!isUserAuthenticated"
           v-b-modal.login
@@ -17,22 +25,20 @@
           variant="warning"
           >Entrar</b-button
         >
-        <span class="text-light mr-2 text-center" align-v="center">{{
-          userName
-        }}</span>
         <b-dropdown
           class="text-light"
           variant="warning"
           right
           v-if="isUserAuthenticated"
         >
+          <b-dropdown-item disabled>{{ userName }}</b-dropdown-item>
           <b-dropdown-item
             v-if="userIsAdmin"
             v-b-modal.create
             size="sm"
             class="text-light my-2 my-sm-0 mr-2"
             type="submit"
-            >Crear Usuario</b-dropdown-item
+            >Crear usuario</b-dropdown-item
           >
           <b-dropdown-item
             v-if="isUserAuthenticated"
@@ -123,6 +129,9 @@ export default {
     cleanInput() {
       this.email = null;
       this.password = null;
+    },
+    changeView(val) {
+      this.$store.commit("SET_CURRENT_VIEW", val);
     },
   },
   computed: {

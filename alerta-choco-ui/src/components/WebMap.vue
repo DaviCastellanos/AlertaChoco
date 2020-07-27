@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div id="root">
     <b-button
       id="municipiosButton"
       squared
+      block
       :pressed.sync="municipiosVisible"
       variant="warning"
     >
@@ -182,8 +183,12 @@ export default {
   padding: 0;
   margin: 0;
   margin-top: 2px;
-  width: 1300px;
+  width: 100%;
   height: 700px;
   align: center;
+}
+#root {
+  width: 100%;
+  height: 100%;
 }
 </style>
