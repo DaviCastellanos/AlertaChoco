@@ -1,12 +1,11 @@
 <template>
   <div id="chartHolder">
-    <chart :options="ChartOptions" :updateArgs="updateArgs"> </chart>
+    <chart :options="chartOptions" :updateArgs="updateArgs"> </chart>
   </div>
 </template>
 
 <script>
 import { Chart } from "highcharts-vue";
-import { AlertsService } from "@/services";
 import _ from "lodash";
 
 export default {
@@ -19,8 +18,16 @@ export default {
       updateArgs: [true, true, { duration: 1000 }],
     };
   },
+  watch: {
+    alerts(newAlerts) {
+      this.drawChart(newAlerts);
+    },
+  },
   computed: {
-    ChartOptions() {
+    alerts() {
+      return this.$store.getters.alerts;
+    },
+    chartOptions() {
       return {
         chart: {
           //plotBackgroundColor: '#383939',
@@ -59,18 +66,10 @@ export default {
     },
   },
   methods: {
-    async Request() {
-      const token = await AlertsService.getArcgisToken();
+    drawChart(alerts) {
+      if (!alerts) return;
 
-      if (!token) return;
-
-      this.$store.commit("SET_ARCGIS_TOKEN", token);
-
-      const response = await AlertsService.getAlerts(token);
-
-      if (!response) return;
-
-      const grouped = _.groupBy(response.features, (feature) =>
+      const grouped = _.groupBy(alerts, (feature) =>
         new Date(feature.attributes.fechaReporte).toLocaleDateString("en-GB", {
           day: "numeric",
           month: "numeric",
@@ -108,17 +107,12 @@ export default {
           ]);
         } else this.numbers.push(0);
       }
-
-      this.$store.commit("SET_ALERTS", response.features);
     },
     TodayPlusDays(value) {
       var d = new Date();
       d.setDate(d.getDate() + value);
       return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
     },
-  },
-  mounted() {
-    this.Request();
   },
 };
 </script>

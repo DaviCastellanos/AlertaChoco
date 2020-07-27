@@ -18,6 +18,7 @@ import AlertsTable from "./components/AlertsTable.vue";
 import FeedChart from "./components/FeedChart.vue";
 import NavBar from "./components/NavBar.vue";
 import Footer from "./components/Footer.vue";
+import AlertsService from "./services/alerts-service.js";
 
 export default {
   name: "App",
@@ -27,6 +28,11 @@ export default {
     FeedChart,
     NavBar,
     Footer,
+  },
+  watch: {
+    userIsAuthenticated(val) {
+      if (val) this.alertsRequest();
+    },
   },
   computed: {
     userIsAuthenticated() {
@@ -44,6 +50,33 @@ export default {
     tableSelected() {
       return this.$store.getters.currentView === "table";
     },
+  },
+  methods: {
+    async tokenRequest() {
+      const token = await AlertsService.getArcgisToken();
+
+      if (!token) {
+        console.error("Arcgis token is null");
+        return;
+      }
+
+      this.$store.commit("SET_ARCGIS_TOKEN", token);
+    },
+    async alertsRequest() {
+      const response = await AlertsService.getAlerts(
+        this.$store.getters.arcgisToken
+      );
+
+      if (!response) {
+        console.error("Alerts response is null");
+        return;
+      }
+
+      this.$store.commit("SET_ALERTS", response.features);
+    },
+  },
+  mounted() {
+    this.tokenRequest();
   },
 };
 </script>

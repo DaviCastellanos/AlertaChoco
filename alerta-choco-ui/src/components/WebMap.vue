@@ -26,12 +26,8 @@ export default {
       municipiosVisible: false,
     };
   },
-  computed: mapState(["mapCenter", "arcgisToken"]),
+  computed: mapState(["arcgisToken"]),
   watch: {
-    mapCenter(newValue) {
-      //console.log(`WebMap: Updating from ${oldValue[0] + " " + oldValue[1]} to ${newValue[0] + " " + newValue[1]}`);
-      this.gotTo(newValue);
-    },
     arcgisToken(newValue) {
       this.drawMap(newValue);
     },
