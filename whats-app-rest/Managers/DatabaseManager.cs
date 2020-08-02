@@ -8,13 +8,52 @@ namespace whats_app_rest
 {
     public class DatabaseManager
     {
-        public DatabaseManager()
-        {
-
-        }
-
         private string databaseAccesToken;
         private DateTime expiration;
+        private List<string> anansiCodes;
+
+        public bool CheckAnansiCode(string code)
+        {
+            if (anansiCodes != null && anansiCodes.Contains(code.ToLower()))
+                return true;
+
+            return false;
+        }
+
+        public async Task UpdateAnansiCodes()
+        {
+            string token = await GetDatabaseAccessToken();
+
+            if (token == null)
+                return;
+
+            using (HttpClient client = new HttpClient())
+            {
+                var dict = new Dictionary<string, string>();
+                dict.Add("f", "json");
+                dict.Add("token", token);
+                dict.Add("where", "1=1");
+                dict.Add("outSr", "4326");
+                dict.Add("outFields", "code");
+
+                HttpResponseMessage response = await client.PostAsync(new Uri("https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/anansi_codes/FeatureServer/0/query"), new FormUrlEncodedContent(dict));
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    anansiCodes = new List<string>();
+                    string data = await response.Content.ReadAsStringAsync();
+
+                    string[] codes = data.Split("features")[1].Split("attributes");
+
+                    foreach (string str in codes)
+                        if (str.Contains("code"))
+                        {
+                            string code = str.Split(',')[0].Substring(2).Split(':')[1].Replace("\"", "").Replace("}", "");
+                            anansiCodes.Add(code);
+                        }
+                }
+            }
+        }
 
         public async Task<bool> SaveToDB(Alert alert)
         {
@@ -83,7 +122,11 @@ namespace whats_app_rest
             }
         }
     }
-
+    public class AnansiCode
+    {
+        [JsonProperty("code")]
+        public string code;
+    }
     public class DatabaseAccess
     {
         public string access_token;

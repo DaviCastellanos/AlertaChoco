@@ -1,20 +1,18 @@
 ﻿<Properties StartupConfiguration="{31EA7B65-E660-46C4-AD20-2353CC7A3DB0}|Default">
   <MonoDevelop.Ide.ItemProperties.whats-app-rest PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ExtensionMethods.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Managers/AlertsManager.cs">
     <Files>
-      <File FileName="Startup.cs" Line="6" Column="1" />
-      <File FileName="ExtensionMethods.cs" Line="33" Column="72" />
-      <File FileName="Alert.cs" Line="44" Column="39" />
-      <File FileName="Managers/AlertsManager.cs" Line="145" Column="1" />
-      <File FileName="Controllers/AlertController.cs" />
-      <File FileName="Managers/MailManager.cs" />
-      <File FileName="Managers/DatabaseManager.cs" />
+      <File FileName="Managers/DatabaseManager.cs" Line="28" Column="24" />
+      <File FileName="Controllers/AlertController.cs" Line="45" Column="10" />
+      <File FileName="Managers/AlertsManager.cs" Line="166" Column="22" />
+      <File FileName="ExtensionMethods.cs" Line="25" Column="30" />
       <File FileName="Dockerfile" Line="13" Column="32" />
-      <File FileName="Program.cs" />
-      <File FileName="Properties/launchSettings.json" Line="23" Column="9" />
-      <File FileName="Managers/TwilioManager.cs" />
-      <File FileName="AlertResponses.cs" Line="33" Column="10" />
-      <File FileName="appsettings.Development.json" Line="1" Column="1" />
+      <File FileName="Program.cs" Line="1" Column="1" />
+      <File FileName="Properties/launchSettings.json" />
+      <File FileName="Managers/TwilioManager.cs" Line="22" Column="10" />
+      <File FileName="AlertResponses.cs" />
+      <File FileName="appsettings.Development.json" />
+      <File FileName="Managers/MailManager.cs" Line="10" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -22,11 +20,14 @@
           <Node name="whats-app-rest" expanded="True">
             <Node name="docker-compose" expanded="True" />
             <Node name="whats-app-rest" expanded="True">
-              <Node name="Dependencies" expanded="True" />
+              <Node name="Dependencies" expanded="True">
+                <Node name="PackageDependencies" expanded="True" />
+              </Node>
               <Node name="Controllers" expanded="True" />
-              <Node name="Managers" expanded="True" />
+              <Node name="Managers" expanded="True">
+                <Node name="AlertsManager.cs" selected="True" />
+              </Node>
               <Node name="Properties" expanded="True" />
-              <Node name="ExtensionMethods.cs" selected="True" />
             </Node>
           </Node>
         </State>

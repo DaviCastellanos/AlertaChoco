@@ -111,7 +111,7 @@ namespace whats_app_rest
                 case 1:
                     if (body == null)
                         return new KeyValuePair<bool, string>(false, "PROVIDE_TEXT");
-                    if (!EvaluateAnansiCode(body))
+                    if (!database.CheckAnansiCode(body)) //Test this
                         return new KeyValuePair<bool, string>(false, "WRONG_ANANSI_CODE");
                     break;
                 case 2:
@@ -125,14 +125,6 @@ namespace whats_app_rest
             }
 
             return new KeyValuePair<bool, string>(true, null);
-        }
-
-        private bool EvaluateAnansiCode(string code)
-        {
-            if (!code.ToLower().Equals("anansi0101"))
-                return false;
-
-            return true;
         }
 
         public bool TryToCreateNewAlert(string phoneNumber, string message)
@@ -149,6 +141,7 @@ namespace whats_app_rest
             Alert newAlert = new Alert(phoneNumber, message, SaveAlert);
             alerts.Add(newAlert);
             ScheduleTrashCollector();
+            database.UpdateAnansiCodes();
 
             return true;
         }

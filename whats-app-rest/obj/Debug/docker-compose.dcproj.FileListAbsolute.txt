@@ -13,3 +13,6 @@
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Debug/docker-compose.dcproj.CoreCompileInputs.cache
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Debug/docker-compose.dcproj.CopyComplete
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Debug/docker-compose.dcprojAssemblyReference.cache
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/MailKit.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/MimeKit.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/BouncyCastle.Crypto.dll

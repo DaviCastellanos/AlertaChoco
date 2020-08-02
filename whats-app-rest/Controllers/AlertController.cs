@@ -46,7 +46,7 @@ namespace whats_app_rest.Controllers
             if (body != null && body.Length > 255)
                 return SendTwilioMessage(from, responses.validations["LENGTH_RESPONSE"]);
 
-            if(!alerts.TryToCreateNewAlert(from, body))
+            if (!alerts.TryToCreateNewAlert(from, body))
                 return SendTwilioMessage(from, responses.validations["ALERT_SUCCESFUL"]);
 
             KeyValuePair<bool, string> result = alerts.ValidateIncomingMessage(body, from);
