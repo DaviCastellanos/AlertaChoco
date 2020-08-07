@@ -5,7 +5,7 @@
     <ExternalConsole>true</ExternalConsole>
     <EnvironmentVariables>
       <Variable name="ARCGIS_SECRET" value="4d3ad20dfef74e999b4d93795e51f769" xmlns="" />
-      <Variable name="MAIL_PASSWORD" value="alertachoco123" xmlns="" />
+      <Variable name="MAIL_PASSWORD" value="qynqlskmhzbxpefh" xmlns="" />
       <Variable name="TWILIO_AUTH_TOKEN" value="b5dcc9cdb05bd541eda90037d2e4e248" xmlns="" />
       <Variable name="TWILIO_ACCOUNT_SID" value="ACa6d64c8f885c4a5d11e5bd40940ed44c" xmlns="" />
       <Variable name="ENCRYPT_KEY" value="agustinadetarso1" xmlns="" />

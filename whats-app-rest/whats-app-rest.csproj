@@ -12,9 +12,9 @@
     <Content Remove="Dockerfile %28copy%29.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Twilio" Version="5.43.0" />
+    <PackageReference Include="Twilio" Version="5.45.2" />
     <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
-    <PackageReference Include="MailKit" Version="2.7.0" />
+    <PackageReference Include="MailKit" Version="2.8.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Managers\" />

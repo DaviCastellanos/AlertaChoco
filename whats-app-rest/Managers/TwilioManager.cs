@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Rest.Api.V2010.Account.Message;
 using Twilio.Types;
@@ -10,13 +9,6 @@ namespace whats_app_rest
     public class TwilioManager
     {
         private Dictionary<string, string> mediaToDelete;
-
-
-        public TwilioManager()
-        {
-            TwilioClient.Init(Environment.GetEnvironmentVariable("TWILIO_ACCOUNT_SID"),
-                              Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN"));
-        }
 
         public bool SendMessage(string originNumber, string message)
         {

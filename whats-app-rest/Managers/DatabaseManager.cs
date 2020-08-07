@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace whats_app_rest
@@ -11,11 +12,25 @@ namespace whats_app_rest
         private string databaseAccesToken;
         private DateTime expiration;
         private List<string> anansiCodes;
+        private ILogger logger;
+
+        public DatabaseManager(ILogger<DatabaseManager> logger)
+        {
+            this.logger = logger;
+            UpdateAnansiCodes();
+        }
 
         public bool CheckAnansiCode(string code)
         {
-            if (anansiCodes != null && anansiCodes.Contains(code.ToLower()))
-                return true;
+            if (anansiCodes != null)
+            {
+                if (anansiCodes.Contains(code.ToLower()))
+                    return true;
+            }
+            else
+            {
+                logger.LogError("Anansi codes is null");
+            }
 
             return false;
         }
@@ -43,6 +58,8 @@ namespace whats_app_rest
                     anansiCodes = new List<string>();
                     string data = await response.Content.ReadAsStringAsync();
 
+                    Console.WriteLine(data);
+
                     string[] codes = data.Split("features")[1].Split("attributes");
 
                     foreach (string str in codes)
@@ -51,6 +68,8 @@ namespace whats_app_rest
                             string code = str.Split(',')[0].Substring(2).Split(':')[1].Replace("\"", "").Replace("}", "");
                             anansiCodes.Add(code);
                         }
+
+                    logger.LogInformation("Anansi codes updated");
                 }
             }
         }

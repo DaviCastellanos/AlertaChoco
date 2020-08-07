@@ -25,8 +25,8 @@
       "whats-app-rest/1.0.0": {
         "dependencies": {
           "FirebaseStorage.net": "1.0.3",
-          "MailKit": "2.7.0",
-          "Twilio": "5.43.0",
+          "MailKit": "2.8.0",
+          "Twilio": "5.45.2",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -332,17 +332,17 @@
           "lib/netstandard1.1/Firebase.Storage.dll": {}
         }
       },
-      "MailKit/2.7.0": {
+      "MailKit/2.8.0": {
         "dependencies": {
-          "MimeKit": "2.8.0",
+          "MimeKit": "2.9.1",
           "System.Net.NameResolution": "4.3.0",
           "System.Net.Security": "4.3.2",
           "System.Runtime.Serialization.Primitives": "4.3.0"
         },
         "runtime": {
           "lib/netstandard2.0/MailKit.dll": {
-            "assemblyVersion": "2.7.0.0",
-            "fileVersion": "2.7.0.0"
+            "assemblyVersion": "2.8.0.0",
+            "fileVersion": "2.8.0.0"
           }
         },
         "compile": {
@@ -418,17 +418,16 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "MimeKit/2.8.0": {
+      "MimeKit/2.9.1": {
         "dependencies": {
           "Portable.BouncyCastle": "1.8.5",
           "System.Reflection.TypeExtensions": "4.4.0",
-          "System.Security.Cryptography.Cng": "4.4.0",
           "System.Text.Encoding.CodePages": "4.4.0"
         },
         "runtime": {
           "lib/netstandard2.0/MimeKit.dll": {
-            "assemblyVersion": "2.8.0.0",
-            "fileVersion": "2.8.0.0"
+            "assemblyVersion": "2.9.0.0",
+            "fileVersion": "2.9.1.0"
           }
         },
         "compile": {
@@ -1071,9 +1070,19 @@
           "runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2"
         }
       },
-      "System.Security.Cryptography.Cng/4.4.0": {
+      "System.Security.Cryptography.Cng/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "2.0.0"
+          "Microsoft.NETCore.Platforms": "2.0.0",
+          "System.IO": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.Handles": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Security.Cryptography.Algorithms": "4.3.0",
+          "System.Security.Cryptography.Encoding": "4.3.0",
+          "System.Security.Cryptography.Primitives": "4.3.0",
+          "System.Text.Encoding": "4.3.0"
         }
       },
       "System.Security.Cryptography.Csp/4.3.0": {
@@ -1154,7 +1163,7 @@
           "System.Runtime.InteropServices": "4.3.0",
           "System.Runtime.Numerics": "4.3.0",
           "System.Security.Cryptography.Algorithms": "4.3.0",
-          "System.Security.Cryptography.Cng": "4.4.0",
+          "System.Security.Cryptography.Cng": "4.3.0",
           "System.Security.Cryptography.Csp": "4.3.0",
           "System.Security.Cryptography.Encoding": "4.3.0",
           "System.Security.Cryptography.OpenSsl": "4.3.0",
@@ -1317,7 +1326,7 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
-      "Twilio/5.43.0": {
+      "Twilio/5.45.2": {
         "dependencies": {
           "Microsoft.IdentityModel.Tokens": "5.3.0",
           "Newtonsoft.Json": "11.0.2",
@@ -1326,8 +1335,8 @@
         },
         "runtime": {
           "lib/netstandard2.0/Twilio.dll": {
-            "assemblyVersion": "5.43.0.0",
-            "fileVersion": "5.43.0.0"
+            "assemblyVersion": "5.45.2.0",
+            "fileVersion": "5.45.2.0"
           }
         },
         "compile": {
@@ -3041,12 +3050,12 @@
       "path": "firebasestorage.net/1.0.3",
       "hashPath": "firebasestorage.net.1.0.3.nupkg.sha512"
     },
-    "MailKit/2.7.0": {
+    "MailKit/2.8.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AaUb45NBpKSjl1bTOAwB7nGQm2cLg6yjz4L+2KgU9dhTN3VTmXnJo+enKTjN0LHX3PV4k7DE12IhZqmXnP3v6w==",
-      "path": "mailkit/2.7.0",
-      "hashPath": "mailkit.2.7.0.nupkg.sha512"
+      "sha512": "sha512-oAbRyAfzymGSxOZRyDAeYwjZubWgj9b9e2CUp2bzMDMQ/2DRdvWkzSXIuVxLpR6QKA5MMixYkowyo1RSV16Atw==",
+      "path": "mailkit/2.8.0",
+      "hashPath": "mailkit.2.8.0.nupkg.sha512"
     },
     "Microsoft.IdentityModel.JsonWebTokens/5.3.0": {
       "type": "package",
@@ -3090,12 +3099,12 @@
       "path": "microsoft.win32.primitives/4.3.0",
       "hashPath": "microsoft.win32.primitives.4.3.0.nupkg.sha512"
     },
-    "MimeKit/2.8.0": {
+    "MimeKit/2.9.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-XUWdwag5dcdwJAzMpBLNx+24xgpigk/bhIJBs/sITciX8CIYS2cfc4VkGwQjtuTsrbaJEBl3ZSOtGSOOc2k/pg==",
-      "path": "mimekit/2.8.0",
-      "hashPath": "mimekit.2.8.0.nupkg.sha512"
+      "sha512": "sha512-0XUFf9DEZiLROC7cWvCOqn2uXekNIWztZdpBsaJcvPrndqWpap32jLgQ2kribNj+rhRqK8vpDy9Uvg714v6KBg==",
+      "path": "mimekit/2.9.1",
+      "hashPath": "mimekit.2.9.1.nupkg.sha512"
     },
     "NETStandard.Library/1.6.1": {
       "type": "package",
@@ -3566,12 +3575,12 @@
       "path": "system.security.cryptography.algorithms/4.3.0",
       "hashPath": "system.security.cryptography.algorithms.4.3.0.nupkg.sha512"
     },
-    "System.Security.Cryptography.Cng/4.4.0": {
+    "System.Security.Cryptography.Cng/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3d/d+7sdNpfYfqJFzuE/o6Pl/reaMbH7rlUMNvtm4+XVYHY32tdFa45yjB3vhb6q0YY+IV8GUuiBPRsBFP3yaw==",
-      "path": "system.security.cryptography.cng/4.4.0",
-      "hashPath": "system.security.cryptography.cng.4.4.0.nupkg.sha512"
+      "sha512": "sha512-03idZOqFlsKRL4W+LuCpJ6dBYDUWReug6lZjBa3uJWnk5sPCUXckocevTaUA8iT/MFSrY/2HXkOt753xQ/cf8g==",
+      "path": "system.security.cryptography.cng/4.3.0",
+      "hashPath": "system.security.cryptography.cng.4.3.0.nupkg.sha512"
     },
     "System.Security.Cryptography.Csp/4.3.0": {
       "type": "package",
@@ -3713,12 +3722,12 @@
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
-    "Twilio/5.43.0": {
+    "Twilio/5.45.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-U5nUtEOAc/9uAyQp9jR1SqTe6Q+cyMuJ1ITpP0a7swN59+EaCoBCP26K4JjR3fYiZjNseTb20tvVjqNfVADiRg==",
-      "path": "twilio/5.43.0",
-      "hashPath": "twilio.5.43.0.nupkg.sha512"
+      "sha512": "sha512-S8PAe40FVWktRbyf/jrdKBgSn6/HYKwdblKjXBqq/M6GJD5pUFDU6olhkWzGtH2Fsjq8AahsWsoa2qknlmGd9g==",
+      "path": "twilio/5.45.2",
+      "hashPath": "twilio.5.45.2.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
       "type": "referenceassembly",

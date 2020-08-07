@@ -1,18 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "igo9dOzq7YFqyK78Lv1LJaAn+ShFCp6F65PZW7iSiZ7/V7lQgUppfbsj5LZDutlMM5cFkfjSpUXgdciMW6/BKw==",
+  "dgSpecHash": "HUoSlo+1Doxq9km3uKjYXBiGudEYxJhwNXPmO8Q3KluEXTj0pSBU1D+Dy93xZnTYPH0aI4wYEvUDxaU1n3Jm+w==",
   "success": true,
   "projectFilePath": "/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/whats-app-rest.csproj",
   "expectedPackageFiles": [
     "/Users/chumbimbi/.nuget/packages/firebasestorage.net/1.0.3/firebasestorage.net.1.0.3.nupkg.sha512",
-    "/Users/chumbimbi/.nuget/packages/mailkit/2.7.0/mailkit.2.7.0.nupkg.sha512",
+    "/Users/chumbimbi/.nuget/packages/mailkit/2.8.0/mailkit.2.8.0.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.identitymodel.jsonwebtokens/5.3.0/microsoft.identitymodel.jsonwebtokens.5.3.0.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.identitymodel.logging/5.3.0/microsoft.identitymodel.logging.5.3.0.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.identitymodel.tokens/5.3.0/microsoft.identitymodel.tokens.5.3.0.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.netcore.platforms/2.0.0/microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.win32.primitives/4.3.0/microsoft.win32.primitives.4.3.0.nupkg.sha512",
-    "/Users/chumbimbi/.nuget/packages/mimekit/2.8.0/mimekit.2.8.0.nupkg.sha512",
+    "/Users/chumbimbi/.nuget/packages/mimekit/2.9.1/mimekit.2.9.1.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/netstandard.library/1.6.1/netstandard.library.1.6.1.nupkg.sha512",
     "/Users/chumbimbi/.nuget/packages/newtonsoft.json/11.0.2/newtonsoft.json.11.0.2.nupkg.sha512",
     "/Users/chumbimbi/.nuget/packages/portable.bouncycastle/1.8.5/portable.bouncycastle.1.8.5.nupkg.sha512",
@@ -80,7 +80,7 @@
     "/Users/chumbimbi/.nuget/packages/system.runtime.serialization.xml/4.3.0/system.runtime.serialization.xml.4.3.0.nupkg.sha512",
     "/Users/chumbimbi/.nuget/packages/system.security.claims/4.3.0/system.security.claims.4.3.0.nupkg.sha512",
     "/Users/chumbimbi/.nuget/packages/system.security.cryptography.algorithms/4.3.0/system.security.cryptography.algorithms.4.3.0.nupkg.sha512",
-    "/Users/chumbimbi/.nuget/packages/system.security.cryptography.cng/4.4.0/system.security.cryptography.cng.4.4.0.nupkg.sha512",
+    "/Users/chumbimbi/.nuget/packages/system.security.cryptography.cng/4.3.0/system.security.cryptography.cng.4.3.0.nupkg.sha512",
     "/Users/chumbimbi/.nuget/packages/system.security.cryptography.csp/4.3.0/system.security.cryptography.csp.4.3.0.nupkg.sha512",
     "/Users/chumbimbi/.nuget/packages/system.security.cryptography.encoding/4.3.0/system.security.cryptography.encoding.4.3.0.nupkg.sha512",
     "/Users/chumbimbi/.nuget/packages/system.security.cryptography.openssl/4.3.0/system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -101,7 +101,7 @@
     "/Users/chumbimbi/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
     "/Users/chumbimbi/.nuget/packages/system.xml.xmldocument/4.3.0/system.xml.xmldocument.4.3.0.nupkg.sha512",
     "/Users/chumbimbi/.nuget/packages/system.xml.xmlserializer/4.3.0/system.xml.xmlserializer.4.3.0.nupkg.sha512",
-    "/Users/chumbimbi/.nuget/packages/twilio/5.43.0/twilio.5.43.0.nupkg.sha512"
+    "/Users/chumbimbi/.nuget/packages/twilio/5.45.2/twilio.5.45.2.nupkg.sha512"
   ],
   "logs": []
 }

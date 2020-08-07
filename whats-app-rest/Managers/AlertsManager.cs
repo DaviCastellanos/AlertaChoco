@@ -141,9 +141,19 @@ namespace whats_app_rest
             Alert newAlert = new Alert(phoneNumber, message, SaveAlert);
             alerts.Add(newAlert);
             ScheduleTrashCollector();
-            database.UpdateAnansiCodes();
 
             return true;
+        }
+
+        public bool TryToUpdateAnansiCodes(string message)
+        {
+            if (message.ToLower().Equals("updateanansicodes"))
+            {
+                database.UpdateAnansiCodes();
+                return true;
+            }
+
+            return false;
         }
 
         public async void SaveAlert(Alert alert)

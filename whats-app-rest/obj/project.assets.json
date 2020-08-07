@@ -15,10 +15,10 @@
           "lib/netstandard1.1/Firebase.Storage.dll": {}
         }
       },
-      "MailKit/2.7.0": {
+      "MailKit/2.8.0": {
         "type": "package",
         "dependencies": {
-          "MimeKit": "2.8.0",
+          "MimeKit": "2.9.1",
           "System.Net.NameResolution": "4.3.0",
           "System.Net.Security": "4.3.2",
           "System.Runtime.Serialization.Primitives": "4.3.0"
@@ -113,12 +113,11 @@
           "ref/netstandard1.3/Microsoft.Win32.Primitives.dll": {}
         }
       },
-      "MimeKit/2.8.0": {
+      "MimeKit/2.9.1": {
         "type": "package",
         "dependencies": {
           "Portable.BouncyCastle": "1.8.5",
           "System.Reflection.TypeExtensions": "4.4.0",
-          "System.Security.Cryptography.Cng": "4.4.0",
           "System.Text.Encoding.CodePages": "4.4.0"
         },
         "compile": {
@@ -1211,19 +1210,30 @@
           }
         }
       },
-      "System.Security.Cryptography.Cng/4.4.0": {
+      "System.Security.Cryptography.Cng/4.3.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "2.0.0"
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "System.IO": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.Handles": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Security.Cryptography.Algorithms": "4.3.0",
+          "System.Security.Cryptography.Encoding": "4.3.0",
+          "System.Security.Cryptography.Primitives": "4.3.0",
+          "System.Text.Encoding": "4.3.0"
         },
         "compile": {
-          "ref/netcoreapp2.0/System.Security.Cryptography.Cng.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Security.Cryptography.Cng.dll": {}
+          "ref/netstandard1.6/_._": {}
         },
         "runtimeTargets": {
-          "runtimes/win/lib/netcoreapp2.0/System.Security.Cryptography.Cng.dll": {
+          "runtimes/unix/lib/netstandard1.6/System.Security.Cryptography.Cng.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netstandard1.6/System.Security.Cryptography.Cng.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -1638,7 +1648,7 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Twilio/5.43.0": {
+      "Twilio/5.45.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.IdentityModel.Tokens": "5.3.0",
@@ -1668,10 +1678,10 @@
         "lib/netstandard1.1/Firebase.Storage.dll"
       ]
     },
-    "MailKit/2.7.0": {
-      "sha512": "AaUb45NBpKSjl1bTOAwB7nGQm2cLg6yjz4L+2KgU9dhTN3VTmXnJo+enKTjN0LHX3PV4k7DE12IhZqmXnP3v6w==",
+    "MailKit/2.8.0": {
+      "sha512": "oAbRyAfzymGSxOZRyDAeYwjZubWgj9b9e2CUp2bzMDMQ/2DRdvWkzSXIuVxLpR6QKA5MMixYkowyo1RSV16Atw==",
       "type": "package",
-      "path": "mailkit/2.7.0",
+      "path": "mailkit/2.8.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1697,7 +1707,7 @@
         "lib/netstandard2.0/MailKit.dll",
         "lib/netstandard2.0/MailKit.pdb",
         "lib/netstandard2.0/MailKit.xml",
-        "mailkit.2.7.0.nupkg.sha512",
+        "mailkit.2.8.0.nupkg.sha512",
         "mailkit.nuspec"
       ]
     },
@@ -1848,10 +1858,10 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "MimeKit/2.8.0": {
-      "sha512": "XUWdwag5dcdwJAzMpBLNx+24xgpigk/bhIJBs/sITciX8CIYS2cfc4VkGwQjtuTsrbaJEBl3ZSOtGSOOc2k/pg==",
+    "MimeKit/2.9.1": {
+      "sha512": "0XUFf9DEZiLROC7cWvCOqn2uXekNIWztZdpBsaJcvPrndqWpap32jLgQ2kribNj+rhRqK8vpDy9Uvg714v6KBg==",
       "type": "package",
-      "path": "mimekit/2.8.0",
+      "path": "mimekit/2.9.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1877,7 +1887,7 @@
         "lib/netstandard2.0/MimeKit.dll",
         "lib/netstandard2.0/MimeKit.pdb",
         "lib/netstandard2.0/MimeKit.xml",
-        "mimekit.2.8.0.nupkg.sha512",
+        "mimekit.2.9.1.nupkg.sha512",
         "mimekit.nuspec"
       ]
     },
@@ -4751,48 +4761,32 @@
         "system.security.cryptography.algorithms.nuspec"
       ]
     },
-    "System.Security.Cryptography.Cng/4.4.0": {
-      "sha512": "3d/d+7sdNpfYfqJFzuE/o6Pl/reaMbH7rlUMNvtm4+XVYHY32tdFa45yjB3vhb6q0YY+IV8GUuiBPRsBFP3yaw==",
+    "System.Security.Cryptography.Cng/4.3.0": {
+      "sha512": "03idZOqFlsKRL4W+LuCpJ6dBYDUWReug6lZjBa3uJWnk5sPCUXckocevTaUA8iT/MFSrY/2HXkOt753xQ/cf8g==",
       "type": "package",
-      "path": "system.security.cryptography.cng/4.4.0",
+      "path": "system.security.cryptography.cng/4.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
         "lib/net46/System.Security.Cryptography.Cng.dll",
         "lib/net461/System.Security.Cryptography.Cng.dll",
-        "lib/net462/System.Security.Cryptography.Cng.dll",
-        "lib/net47/System.Security.Cryptography.Cng.dll",
-        "lib/netstandard1.3/System.Security.Cryptography.Cng.dll",
-        "lib/netstandard1.4/System.Security.Cryptography.Cng.dll",
-        "lib/netstandard1.6/System.Security.Cryptography.Cng.dll",
-        "lib/netstandard2.0/System.Security.Cryptography.Cng.dll",
+        "lib/net463/System.Security.Cryptography.Cng.dll",
         "ref/net46/System.Security.Cryptography.Cng.dll",
         "ref/net461/System.Security.Cryptography.Cng.dll",
-        "ref/net461/System.Security.Cryptography.Cng.xml",
-        "ref/net462/System.Security.Cryptography.Cng.dll",
-        "ref/net462/System.Security.Cryptography.Cng.xml",
-        "ref/net47/System.Security.Cryptography.Cng.dll",
-        "ref/net47/System.Security.Cryptography.Cng.xml",
-        "ref/netcoreapp2.0/System.Security.Cryptography.Cng.dll",
-        "ref/netcoreapp2.0/System.Security.Cryptography.Cng.xml",
+        "ref/net463/System.Security.Cryptography.Cng.dll",
         "ref/netstandard1.3/System.Security.Cryptography.Cng.dll",
         "ref/netstandard1.4/System.Security.Cryptography.Cng.dll",
         "ref/netstandard1.6/System.Security.Cryptography.Cng.dll",
-        "ref/netstandard2.0/System.Security.Cryptography.Cng.dll",
-        "ref/netstandard2.0/System.Security.Cryptography.Cng.xml",
+        "runtimes/unix/lib/netstandard1.6/System.Security.Cryptography.Cng.dll",
         "runtimes/win/lib/net46/System.Security.Cryptography.Cng.dll",
         "runtimes/win/lib/net461/System.Security.Cryptography.Cng.dll",
-        "runtimes/win/lib/net462/System.Security.Cryptography.Cng.dll",
-        "runtimes/win/lib/net47/System.Security.Cryptography.Cng.dll",
-        "runtimes/win/lib/netcoreapp2.0/System.Security.Cryptography.Cng.dll",
+        "runtimes/win/lib/net463/System.Security.Cryptography.Cng.dll",
         "runtimes/win/lib/netstandard1.4/System.Security.Cryptography.Cng.dll",
         "runtimes/win/lib/netstandard1.6/System.Security.Cryptography.Cng.dll",
-        "system.security.cryptography.cng.4.4.0.nupkg.sha512",
-        "system.security.cryptography.cng.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
+        "system.security.cryptography.cng.4.3.0.nupkg.sha512",
+        "system.security.cryptography.cng.nuspec"
       ]
     },
     "System.Security.Cryptography.Csp/4.3.0": {
@@ -5828,10 +5822,10 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "Twilio/5.43.0": {
-      "sha512": "U5nUtEOAc/9uAyQp9jR1SqTe6Q+cyMuJ1ITpP0a7swN59+EaCoBCP26K4JjR3fYiZjNseTb20tvVjqNfVADiRg==",
+    "Twilio/5.45.2": {
+      "sha512": "S8PAe40FVWktRbyf/jrdKBgSn6/HYKwdblKjXBqq/M6GJD5pUFDU6olhkWzGtH2Fsjq8AahsWsoa2qknlmGd9g==",
       "type": "package",
-      "path": "twilio/5.43.0",
+      "path": "twilio/5.45.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5843,7 +5837,7 @@
         "lib/netstandard1.4/Twilio.xml",
         "lib/netstandard2.0/Twilio.dll",
         "lib/netstandard2.0/Twilio.xml",
-        "twilio.5.43.0.nupkg.sha512",
+        "twilio.5.45.2.nupkg.sha512",
         "twilio.nuspec"
       ]
     }
@@ -5851,8 +5845,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "FirebaseStorage.net >= 1.0.3",
-      "MailKit >= 2.7.0",
-      "Twilio >= 5.43.0"
+      "MailKit >= 2.8.0",
+      "Twilio >= 5.45.2"
     ]
   },
   "packageFolders": {
@@ -5900,11 +5894,11 @@
           },
           "MailKit": {
             "target": "Package",
-            "version": "[2.7.0, )"
+            "version": "[2.8.0, )"
           },
           "Twilio": {
             "target": "Package",
-            "version": "[5.43.0, )"
+            "version": "[5.45.2, )"
           }
         },
         "imports": [

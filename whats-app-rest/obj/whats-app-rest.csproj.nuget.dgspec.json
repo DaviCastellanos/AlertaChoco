@@ -45,11 +45,11 @@
             },
             "MailKit": {
               "target": "Package",
-              "version": "[2.7.0, )"
+              "version": "[2.8.0, )"
             },
             "Twilio": {
               "target": "Package",
-              "version": "[5.43.0, )"
+              "version": "[5.45.2, )"
             }
           },
           "imports": [

@@ -17,3 +17,14 @@
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Release/netcoreapp3.1/whats-app-rest.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Release/netcoreapp3.1/whats-app-rest.pdb
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Release/netcoreapp3.1/whats-app-rest.genruntimeconfig.cache
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Firebase.Storage.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/MailKit.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Microsoft.IdentityModel.Logging.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Microsoft.IdentityModel.Tokens.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/MimeKit.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Newtonsoft.Json.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/BouncyCastle.Crypto.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Twilio.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Release/netcoreapp3.1/whats-app-rest.csproj.CopyComplete

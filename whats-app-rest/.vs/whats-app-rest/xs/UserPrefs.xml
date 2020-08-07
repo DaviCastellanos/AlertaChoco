@@ -1,18 +1,22 @@
 ﻿<Properties StartupConfiguration="{31EA7B65-E660-46C4-AD20-2353CC7A3DB0}|Default">
   <MonoDevelop.Ide.ItemProperties.whats-app-rest PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Managers/AlertsManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Properties/launchSettings.json">
     <Files>
-      <File FileName="Managers/DatabaseManager.cs" Line="28" Column="24" />
-      <File FileName="Controllers/AlertController.cs" Line="45" Column="10" />
-      <File FileName="Managers/AlertsManager.cs" Line="166" Column="22" />
-      <File FileName="ExtensionMethods.cs" Line="25" Column="30" />
-      <File FileName="Dockerfile" Line="13" Column="32" />
-      <File FileName="Program.cs" Line="1" Column="1" />
-      <File FileName="Properties/launchSettings.json" />
-      <File FileName="Managers/TwilioManager.cs" Line="22" Column="10" />
-      <File FileName="AlertResponses.cs" />
+      <File FileName="Managers/DatabaseManager.cs" Line="29" Column="14" />
+      <File FileName="Controllers/AlertController.cs" Line="60" Column="35" />
+      <File FileName="Managers/AlertsManager.cs" Line="147" Column="1" />
+      <File FileName="ExtensionMethods.cs" />
+      <File FileName="Dockerfile" />
+      <File FileName="Program.cs" Line="27" Column="18" />
+      <File FileName="Properties/launchSettings.json" Line="26" Column="27" />
+      <File FileName="Managers/TwilioManager.cs" Line="2" Column="34" />
+      <File FileName="AlertResponses.cs" Line="32" Column="30" />
       <File FileName="appsettings.Development.json" />
-      <File FileName="Managers/MailManager.cs" Line="10" Column="36" />
+      <File FileName="Managers/MailManager.cs" Line="10" Column="34" />
+      <File FileName="Startup.cs" Line="18" Column="88" />
+      <File FileName="Alert.cs" Line="44" Column="38" />
+      <File FileName="appsettings.json" />
+      <File FileName=".dockerignore" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,13 +25,17 @@
             <Node name="docker-compose" expanded="True" />
             <Node name="whats-app-rest" expanded="True">
               <Node name="Dependencies" expanded="True">
-                <Node name="PackageDependencies" expanded="True" />
+                <Node name="PackageDependencies" expanded="True">
+                  <Node name="Twilio" expanded="True" />
+                </Node>
               </Node>
               <Node name="Controllers" expanded="True" />
-              <Node name="Managers" expanded="True">
-                <Node name="AlertsManager.cs" selected="True" />
+              <Node name="Managers" expanded="True" />
+              <Node name="Properties" expanded="True">
+                <Node name="PublishProfiles" expanded="True" />
+                <Node name="launchSettings.json" selected="True" />
               </Node>
-              <Node name="Properties" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>

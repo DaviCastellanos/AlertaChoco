@@ -1,8 +1,10 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Twilio;
 
 namespace whats_app_rest
 {
@@ -11,6 +13,9 @@ namespace whats_app_rest
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            TwilioClient.Init(Environment.GetEnvironmentVariable("TWILIO_ACCOUNT_SID"),
+                              Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN"));
         }
 
         public IConfiguration Configuration { get; }
