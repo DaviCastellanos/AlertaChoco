@@ -10,9 +10,9 @@
 
       <b-navbar-nav class="ml-auto">
         <b-navbar-nav v-if="isUserAuthenticated">
-          <b-nav-item @click="changeView('map')">Mapa</b-nav-item>
-          <b-nav-item @click="changeView('table')">Tabla</b-nav-item>
-          <b-nav-item @click="changeView('statistics')"
+          <b-nav-item to="/" @click="changeView('map')">Mapa</b-nav-item>
+          <b-nav-item to="/" @click="changeView('table')">Tabla</b-nav-item>
+          <b-nav-item to="/" @click="changeView('statistics')"
             >Estadísticas</b-nav-item
           >
         </b-navbar-nav>

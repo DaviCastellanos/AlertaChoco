@@ -11,6 +11,7 @@ import darkUnica from "highcharts/themes/high-contrast-light";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "./style/custom.scss";
+import router from "./router";
 
 Vue.config.productionTip = false;
 
@@ -42,6 +43,7 @@ Vue.mixin({
 });
 
 new Vue({
+  router,
   store,
   render: (h) => h(App),
   created() {

@@ -68,7 +68,7 @@ export default {
   methods: {
     drawChart(alerts) {
       if (!alerts) return;
-
+      this.numbers = [];
       const grouped = _.groupBy(alerts, (feature) =>
         new Date(feature.attributes.fechaReporte).toLocaleDateString("en-GB", {
           day: "numeric",
@@ -76,7 +76,7 @@ export default {
           year: "numeric",
         })
       );
-      //console.log(Object.keys(grouped))
+      //console.log(Object.keys(grouped));
 
       var now = new Date();
       now.setDate(now.getDate() + 1);
@@ -85,7 +85,7 @@ export default {
         d <= now;
         d.setDate(d.getDate() + 1)
       ) {
-        // console.log("d is " + d + ".  Now  " + now );
+        //console.log("d is " + d + ".  Now  " + now);
 
         if (
           grouped[
@@ -113,6 +113,9 @@ export default {
       d.setDate(d.getDate() + value);
       return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
     },
+  },
+  mounted() {
+    this.drawChart(this.$store.getters.alerts);
   },
 };
 </script>

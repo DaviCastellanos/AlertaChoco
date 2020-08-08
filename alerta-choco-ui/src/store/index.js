@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import * as firebase from "firebase";
+import _ from "lodash";
 
 Vue.use(Vuex);
 
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     alerts(state) {
       return state.alerts;
+    },
+    alertById: (state) => (id) => {
+      return _.find(state.alerts, { attributes: { idAlerta: id } });
     },
   },
   mutations: {
