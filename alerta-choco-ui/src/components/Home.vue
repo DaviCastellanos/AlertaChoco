@@ -21,7 +21,9 @@ export default {
   },
   watch: {
     userIsAuthenticated(val) {
-      if (val) this.alertsRequest();
+      if (val) {
+        this.alertsRequest();
+      }
     },
   },
   computed: {

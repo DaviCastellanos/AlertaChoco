@@ -56,18 +56,12 @@ new Vue({
     });
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        firebase
-          .auth()
-          .currentUser.getIdTokenResult(true)
-          .then((tokenResult) => {
-            const newUser = {
-              email: user.email,
-              id: user.uid,
-              role: tokenResult.claims.role,
-            };
-
-            this.$store.commit("SET_USER", newUser);
-          });
+        const newUser = {
+          email: user.email,
+          id: user.uid,
+          role: user.photoURL,
+        };
+        this.$store.commit("SET_USER", newUser);
       } else {
         this.$store.commit("SET_USER", null);
         this.$store.commit("SET_CURRENT_VIEW", "map");

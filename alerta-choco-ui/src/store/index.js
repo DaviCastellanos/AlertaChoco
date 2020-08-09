@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import * as firebase from "firebase";
 import _ from "lodash";
+import { Object } from "core-js";
 
 Vue.use(Vuex);
 
@@ -9,8 +10,10 @@ export default new Vuex.Store({
   state: {
     alerts: Object,
     user: null,
+    newUser: null,
     arcgisToken: String,
     currentView: "map",
+    appError: String,
   },
   getters: {
     currentView(state) {
@@ -25,6 +28,9 @@ export default new Vuex.Store({
     alerts(state) {
       return state.alerts;
     },
+    appError(state) {
+      return state.appError;
+    },
     alertById: (state) => (id) => {
       return _.find(state.alerts, { attributes: { idAlerta: id } });
     },
@@ -32,6 +38,16 @@ export default new Vuex.Store({
   mutations: {
     SET_USER(state, newUser) {
       this.state.user = newUser;
+      if (this.state.user && this.state.newUser) {
+        firebase.auth().currentUser.updateProfile({
+          photoURL: this.state.newUser.role,
+          displayName: this.state.newUser.displayName,
+        });
+
+        this.state.user.role = this.state.newUser.role;
+        this.state.user.displayName = this.state.newUser.displayName;
+        this.state.newUser = null;
+      }
     },
     SET_ALERTS(state, alerts) {
       this.state.alerts = alerts;
@@ -57,10 +73,21 @@ export default new Vuex.Store({
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
         .catch((err) => {
-          console.error("Error signing in" + err);
+          console.error("Error signing in", err);
+          this.state.appError = err;
+          return new Promise(() => {
+            setTimeout(() => {
+              this.state.appError = null;
+            }, 5000);
+          });
         });
     },
     signUserUp(obj, payload) {
+      const newUser = {
+        displayName: payload.displayName,
+        role: payload.role,
+      };
+      this.state.newUser = newUser;
       firebase
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
