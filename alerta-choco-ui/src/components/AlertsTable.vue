@@ -6,8 +6,8 @@
       striped
       hover
       light
-      :items="this.alertItems"
-      :fields="fields"
+      :items="this.alertItems()"
+      :fields="this.getFields()"
     >
       <template v-slot:cell(que)="data">
         <span v-html="data.value"></span>
@@ -39,26 +39,25 @@
         >
       </template>
     </b-table>
-    <verification-modal
-      v-if="this.selectedAlert.attributes != null"
-      id="verification-modal"
-      :alert="this.selectedAlert"
-    />
   </div>
 </template>
 
 <script>
 import { BTable } from "bootstrap-vue";
-import VerificationModal from "@/components/VerificationModal.vue";
 
 export default {
   components: {
     BTable,
-    VerificationModal,
   },
   data() {
     return {
-      fields: [
+      selectedAlert: {},
+    };
+  },
+  methods: {
+    getFields() {
+      console.log("getFields ");
+      return [
         { tdClass: "w-5", key: "primerMensaje", label: "Primer mensaje" },
         { key: "que", tdClass: "w-5", label: "Qué pasó" },
         { key: "quien", tdClass: "w-5", label: "Quién es la víctima" },
@@ -97,25 +96,10 @@ export default {
           label: "Puede reportar",
         },
         { key: "botonVerificar", tdClass: "w-1", label: "" },
-      ],
-      selectedAlert: {},
-    };
-  },
-  methods: {
-    ShowModal(id) {
-      this.selectedAlert = this.GetAlertById(id);
-      this.$bvModal.show("verification-modal");
+      ];
     },
-    GetAlertById(id) {
-      return this.$store.getters.alerts
-        .filter((obj) => {
-          return obj.attributes.idAlerta === id;
-        })
-        .pop();
-    },
-  },
-  computed: {
     alertItems() {
+      console.log("alertItems ");
       const features = this.$store.getters.alerts;
       const items = [];
       if (features != undefined && features.length > 1) {
@@ -152,8 +136,17 @@ export default {
           });
         }
       }
-
       return items;
+    },
+  },
+  computed: {
+    userAccess() {
+      if (!this.$store.getters.user || !this.$store.getters.user.role)
+        return "public";
+      const role = this.$store.getters.user.role;
+      if (role === "admin") return "private";
+      if (role === "defensor" || role === "analyst") return "sensitive";
+      return null;
     },
   },
 };

@@ -24,7 +24,15 @@ export default {
     //console.log("token is " + response.access_token);
     return response.access_token;
   },
-  async getAlerts(token) {
+  async getAlerts(token, userAccess) {
+    let access = process.env.VUE_APP_ALERT_PUBLIC_INFO;
+
+    if (userAccess === "private")
+      access = process.env.VUE_APP_ALERT_PRIVATE_INFO;
+
+    if (userAccess === "sensitive")
+      access = process.env.VUE_APP_ALERT_PUBLIC_INFO;
+
     const headers = {
       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
     };
@@ -32,29 +40,11 @@ export default {
     const data2 = qs.stringify({
       token: token,
     });
+    console.log("access is " + access);
 
-    const alerts = await alertsHandler.postRequest(
-      `https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/query?f=json&where=1=1&outSr=4326&outFields=OBJECTID, 
-    codigoAnansi,
-    fechaReporte,
-    telefono, 
-    primerMensaje,
-    puedeReportar,
-    relatoQue,
-    relatoQuien,
-    relatoComo,
-    relatoCuando,
-    relatoDonde,
-    situacionActual,
-    recibeLlamada,
-    verificado,
-    completado,
-    idAlerta,
-    OBJECTID`,
-      data2,
-      headers
-    );
-    //console.log("alerts is " + alerts.features);
+    const alerts = await alertsHandler.postRequest(access, data2, headers);
+
+    console.log("Alerts reponse is ", alerts.features[0]);
 
     return alerts;
   },

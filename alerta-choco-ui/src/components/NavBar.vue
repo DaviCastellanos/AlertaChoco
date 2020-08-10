@@ -9,7 +9,7 @@
       <b-navbar-brand>RED ANANSI</b-navbar-brand>
 
       <b-navbar-nav class="ml-auto">
-        <b-navbar-nav v-if="isUserAuthenticated">
+        <b-navbar-nav>
           <b-nav-item to="/" @click="changeView('map')">Mapa</b-nav-item>
           <b-nav-item to="/" @click="changeView('table')">Tabla</b-nav-item>
           <b-nav-item to="/" @click="changeView('statistics')"

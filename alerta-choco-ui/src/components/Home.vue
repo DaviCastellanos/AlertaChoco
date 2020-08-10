@@ -20,19 +20,13 @@ export default {
     FeedChart,
   },
   watch: {
-    userIsAuthenticated(val) {
+    userAccess(val) {
       if (val) {
         this.alertsRequest();
       }
     },
   },
   computed: {
-    userIsAuthenticated() {
-      return (
-        this.$store.getters.user !== null &&
-        this.$store.getters.user !== undefined
-      );
-    },
     mapSelected() {
       return this.$store.getters.currentView === "map";
     },
@@ -41,6 +35,14 @@ export default {
     },
     tableSelected() {
       return this.$store.getters.currentView === "table";
+    },
+    userAccess() {
+      if (!this.$store.getters.user || !this.$store.getters.user.role)
+        return "public";
+      const role = this.$store.getters.user.role;
+      if (role === "admin") return "private";
+      if (role === "defensor" || role === "analyst") return "sensitive";
+      return null;
     },
   },
   methods: {
@@ -51,12 +53,14 @@ export default {
         console.error("Arcgis token is null");
         return;
       }
-
+      this.alertsRequest();
       this.$store.commit("SET_ARCGIS_TOKEN", token);
     },
     async alertsRequest() {
+      console.log("request " + this.userAccess);
       const response = await AlertsService.getAlerts(
-        this.$store.getters.arcgisToken
+        this.$store.getters.arcgisToken,
+        this.userAccess
       );
 
       if (!response) {
