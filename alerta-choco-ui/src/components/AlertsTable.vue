@@ -1,27 +1,19 @@
 <template>
   <div id="table">
-    <b-table
-      responsive
-      sticky-header="750px"
-      striped
-      hover
-      light
-      :items="this.alertItems()"
-      :fields="this.getFields()"
-    >
-      <template v-slot:cell(que)="data">
+    <b-table responsive sticky-header="750px" striped hover light :items="this.getItems()" :fields="this.getFields()">
+      <template v-slot:cell(relatoQue)="data">
         <span v-html="data.value"></span>
       </template>
-      <template v-slot:cell(quien)="data">
+      <template v-slot:cell(relatoQuien)="data">
         <span v-html="data.value"></span>
       </template>
-      <template v-slot:cell(como)="data">
+      <template v-slot:cell(relatoComo)="data">
         <span v-html="data.value"></span>
       </template>
-      <template v-slot:cell(cuando)="data">
+      <template v-slot:cell(relatoCuando)="data">
         <span v-html="data.value"></span>
       </template>
-      <template v-slot:cell(donde)="data">
+      <template v-slot:cell(relatoDonde)="data">
         <span v-html="data.value"></span>
       </template>
       <template v-slot:cell(situacionActual)="data">
@@ -34,121 +26,260 @@
         <span v-html="data.value"></span>
       </template>
       <template v-slot:cell(botonVerificar)="data">
-        <b-button size="sm" :to="data.value" class="mr-2" variant="warning"
-          >Verificar</b-button
-        >
+        <b-button size="sm" :to="data.value" class="mr-2" variant="warning">Verificar</b-button>
       </template>
     </b-table>
   </div>
 </template>
 
 <script>
-import { BTable } from "bootstrap-vue";
+import { BTable } from 'bootstrap-vue';
 
 export default {
   components: {
-    BTable,
+    BTable
   },
   data() {
     return {
-      selectedAlert: {},
+      selectedAlert: {}
     };
   },
   methods: {
     getFields() {
-      console.log("getFields ");
-      return [
-        { tdClass: "w-5", key: "primerMensaje", label: "Primer mensaje" },
-        { key: "que", tdClass: "w-5", label: "Qué pasó" },
-        { key: "quien", tdClass: "w-5", label: "Quién es la víctima" },
-        { key: "como", tdClass: "w-5", label: "Cómo paso" },
-        { key: "cuando", tdClass: "w-3", label: "Cuándo pasó" },
-        { key: "donde", tdClass: "w-3", label: "Dónde pasó" },
-        { key: "situacionActual", tdClass: "w-5", label: "Situación actual" },
-        {
-          key: "recibeLlamada",
-          tdClass: "w-1",
-          sortable: true,
-          label: "Recibe llamada",
-        },
-        {
-          key: "verificado",
-          tdClass: "w-1",
-          sortable: true,
-          label: "Verificado",
-        },
-        {
-          key: "completado",
-          tdClass: "w-1",
-          sortable: true,
-          label: "Completado",
-        },
-        {
-          key: "fechaReporte",
-          tdClass: "w-1",
-          sortable: true,
-          label: "Fecha reporte",
-        },
-        {
-          key: "puedeReportar",
-          tdClass: "w-1",
-          sortable: true,
-          label: "Puede reportar",
-        },
-        { key: "botonVerificar", tdClass: "w-1", label: "" },
+      let headers = [
+        { key: 'fechaReporte', tdClass: 'w-5', label: 'Ingresó al sistema', sortable: true },
+        { key: 'verificado', tdClass: 'w-5', label: 'Verificado por analista', sortable: true },
+        { key: 'fechaOcurrencia', tdClass: 'w-5', label: 'Fecha de ocurrencia' },
+        { key: 'departamentoOcurrencia', tdClass: 'w-5', label: 'Departamento' },
+        { key: 'municipioOcurrencia', tdClass: 'w-3', label: 'Municipio' },
+        { key: 'entornoOcurrencia', tdClass: 'w-3', label: 'Entorno' },
+        { key: 'tipoEvento', tdClass: 'w-5', label: 'Tipo de evento' },
+        { key: 'categoriaEvento', tdClass: 'w-5', label: 'Categoría' },
+        { key: 'subCategoriaEventoEnum', tdClass: 'w-5', label: 'Subcategoría' },
+        { key: 'etniaVictima', tdClass: 'w-5', label: 'Pertenencia Étnica' },
+        { key: 'rolVictimaEnum', tdClass: 'w-5', label: 'Rol' },
+        { key: 'discapacidadEnum', tdClass: 'w-5', label: 'Discapacidad' },
+        { key: 'sexo', tdClass: 'w-3', label: 'Sexo' },
+        { key: 'identidadGenero', tdClass: 'w-3', label: 'Genero' },
+        { key: 'edadVictima', tdClass: 'w-5', label: 'Edad' },
+        { key: 'medidasProteccionExistentes', tdClass: 'w-5', label: 'Medidas de protección' },
+        { key: 'otrasVictimas', tdClass: 'w-5', label: 'Otras victimas' },
+        { key: 'totalVictimas', tdClass: 'w-5', label: 'Número total de víctimas' },
+        { key: 'otrasVictimasNombres', tdClass: 'w-5', label: 'Nombres otras víctimas' },
+        { key: 'relacionVictima', tdClass: 'w-5', label: 'Relación con la víctima principal' },
+        { key: 'afectadosEnum', tdClass: 'w-3', label: 'Tipo de sujeto afectado' },
+        { key: 'familias', tdClass: 'w-3', label: 'Número de familias' },
+        { key: 'numeroPersonas', tdClass: 'w-5', label: 'Número de personas' },
+        { key: 'derechosDDHEnum', tdClass: 'w-5', label: 'Derechos límitados' },
+        { key: 'tipoResponsableEnum', tdClass: 'w-5', label: 'Tipo de presunto responsable' }
       ];
+
+      if (this.userAccess == 'sensitive' || this.userAccess == 'private') {
+        const sensitive = [
+          { key: 'primerMensaje', tdClass: 'w-5', label: 'Primer mensaje' },
+          { key: 'puedeReportar', tdClass: 'w-5', label: 'Puede reportar' },
+          { key: 'relatoQue', tdClass: 'w-5', label: 'Qué' },
+          { key: 'relatoQuien', tdClass: 'w-5', label: 'Quién' },
+          { key: 'relatoDonde', tdClass: 'w-3', label: 'Dónde' },
+          { key: 'relatoCuando', tdClass: 'w-3', label: 'Cuándo' },
+          { key: 'relatoComo', tdClass: 'w-5', label: 'Como' },
+          { key: 'situacionActual', tdClass: 'w-5', label: 'Situación actual' },
+          { key: 'recibeLlamada', tdClass: 'w-5', label: 'Puede recibir llamada' },
+          { key: 'fechaValidacion', tdClass: 'w-5', label: 'Fecha de validación' },
+          { key: 'territorioColectivo', tdClass: 'w-5', label: 'Territorio colectivo' },
+          { key: 'presuntoResponsable', tdClass: 'w-5', label: 'Presunto responsable' },
+          { key: 'situacionAsociada', tdClass: 'w-5', label: 'Situación asociada' },
+          { key: 'accionesMitigacion', tdClass: 'w-5', label: 'Acciones de mitigación' },
+          { key: 'riesgoPercibido', tdClass: 'w-5', label: 'Riesgo percibido' },
+          { key: 'institucionesEnum', tdClass: 'w-3', label: 'Instituciones informadas' }
+        ];
+        Array.prototype.push.apply(headers, sensitive);
+      }
+
+      if (this.userAccess == 'private') {
+        const privateHeaders = [
+          { key: 'telefono', tdClass: 'w-5', label: 'Teléfono' },
+          { key: 'codigoAnansi', tdClass: 'w-5', label: 'Código ANANSI' },
+          { key: 'nombreVictima', tdClass: 'w-5', label: 'Nombre de víctima' },
+          { key: 'completado', tdClass: 'w-5', label: 'Alerta completada' }
+        ];
+        Array.prototype.push.apply(headers, privateHeaders);
+      }
+
+      Array.prototype.push.apply(headers, [{ key: 'botonVerificar', tdClass: 'w-5', label: '' }]);
+      console.log('getFields for ' + this.userAccess + ' ' + headers.length);
+      return headers;
     },
-    alertItems() {
-      console.log("alertItems ");
+    getItems() {
+      console.log('gettingItems ');
       const features = this.$store.getters.alerts;
-      const items = [];
+      let items = [];
+
       if (features != undefined && features.length > 1) {
         for (var i = 0; i < features.length; i++) {
-          const date = new Date(features[i].attributes.fechaReporte);
-          items.push({
-            primerMensaje: this.FormatForHuman(
-              features[i].attributes.primerMensaje
-            ),
-            fechaReporte: this.FormatForHuman(
-              date.getDate() +
-                "/" +
-                (date.getMonth() + 1) +
-                "/" +
-                date.getFullYear()
-            ),
-            puedeReportar: this.FormatForHuman(
-              features[i].attributes.puedeReportar
-            ),
-            que: this.FormatForHuman(features[i].attributes.relatoQue),
-            quien: this.FormatForHuman(features[i].attributes.relatoQuien),
-            como: this.FormatForHuman(features[i].attributes.relatoComo),
-            cuando: this.FormatForHuman(features[i].attributes.relatoCuando),
-            donde: this.FormatForHuman(features[i].attributes.relatoDonde),
-            situacionActual: this.FormatForHuman(
-              features[i].attributes.situacionActual
-            ),
-            recibeLlamada: this.FormatForHuman(
-              features[i].attributes.recibeLlamada
-            ),
-            verificado: this.FormatForHuman(features[i].attributes.verificado),
-            completado: this.FormatForHuman(features[i].attributes.completado),
-            botonVerificar: "/verify/" + features[i].attributes.idAlerta,
-          });
+          if (this.userAccess == 'private') items.push(this.getPrivateItems(features[i].attributes));
+          else if (this.userAccess == 'sensitive') items.push(this.getSensitiveItems(features[i].attributes));
+          else items.push(this.getPublicItems(features[i].attributes));
         }
       }
       return items;
     },
+    getPublicItems(feature) {
+      const date = new Date(feature.fechaReporte);
+      const date2 = new Date(feature.fechaOcurrencia);
+      return {
+        fechaReporte: this.FormatForHuman(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()),
+        verificado: this.FormatForHuman(feature.verificado),
+        fechaOcurrencia: this.FormatForHuman(
+          date2.getDate() + '/' + (date2.getMonth() + 1) + '/' + date2.getFullYear()
+        ),
+        departamentoOcurrencia: this.FormatForHuman(feature.departamentoOcurrencia),
+        municipioOcurrencia: this.FormatForHuman(feature.municipioOcurrencia),
+        entornoOcurrencia: this.FormatForHuman(feature.entornoOcurrencia),
+        tipoEvento: this.FormatForHuman(feature.tipoEvento),
+        categoriaEvento: this.FormatForHuman(feature.categoriaEvento),
+        subcategoriaEventoEnum: this.FormatForHuman(feature.subcategoriaEventoEnum),
+        etniaVictima: this.FormatForHuman(feature.etniaVictima),
+        rolVictimaEnum: this.FormatForHuman(feature.rolVictimaEnum),
+        discapacidadEnum: this.FormatForHuman(feature.discapacidadEnum),
+        sexo: this.FormatForHuman(feature.sexo),
+        identidadGenero: this.FormatForHuman(feature.identidadGenero),
+        edadVictima: this.FormatForHuman(feature.edadVictima),
+        medidasProteccionExistentes: this.FormatForHuman(feature.medidasProteccionExistentes),
+        otrasVictimas: this.FormatForHuman(feature.otrasVictimas),
+        totalVictimas: this.FormatForHuman(feature.totalVictimas),
+        otrasVictimasNombres: this.FormatForHuman(feature.otrasVictimasNombres),
+        relacionVictima: this.FormatForHuman(feature.relacionVictima),
+        afectadosEnum: this.FormatForHuman(feature.afectadosEnum),
+        familias: this.FormatForHuman(feature.familias),
+        numeroPersonas: this.FormatForHuman(feature.numeroPersonas),
+        derechosDDHEnum: this.FormatForHuman(feature.derechosDDHEnum),
+        tipoResponsableEnum: this.FormatForHuman(feature.tipoResponsableEnum),
+        botonVerificar: '/verify/' + feature.idAlerta
+      };
+    },
+    getSensitiveItems(feature) {
+      const date = new Date(feature.fechaReporte);
+      const date2 = new Date(feature.fechaOcurrencia);
+      const date3 = new Date(feature.fechaValidacion);
+
+      return {
+        fechaReporte: this.FormatForHuman(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()),
+        verificado: this.FormatForHuman(feature.verificado),
+        fechaOcurrencia: this.FormatForHuman(
+          date2.getDate() + '/' + (date2.getMonth() + 1) + '/' + date2.getFullYear()
+        ),
+        departamentoOcurrencia: this.FormatForHuman(feature.departamentoOcurrencia),
+        municipioOcurrencia: this.FormatForHuman(feature.municipioOcurrencia),
+        entornoOcurrencia: this.FormatForHuman(feature.entornoOcurrencia),
+        tipoEvento: this.FormatForHuman(feature.tipoEvento),
+        categoriaEvento: this.FormatForHuman(feature.categoriaEvento),
+        subcategoriaEventoEnum: this.FormatForHuman(feature.subcategoriaEventoEnum),
+        etniaVictima: this.FormatForHuman(feature.etniaVictima),
+        rolVictimaEnum: this.FormatForHuman(feature.rolVictimaEnum),
+        discapacidadEnum: this.FormatForHuman(feature.discapacidadEnum),
+        sexo: this.FormatForHuman(feature.sexo),
+        identidadGenero: this.FormatForHuman(feature.identidadGenero),
+        edadVictima: this.FormatForHuman(feature.edadVictima),
+        medidasProteccionExistentes: this.FormatForHuman(feature.medidasProteccionExistentes),
+        otrasVictimas: this.FormatForHuman(feature.otrasVictimas),
+        totalVictimas: this.FormatForHuman(feature.totalVictimas),
+        otrasVictimasNombres: this.FormatForHuman(feature.otrasVictimasNombres),
+        relacionVictima: this.FormatForHuman(feature.relacionVictima),
+        afectadosEnum: this.FormatForHuman(feature.afectadosEnum),
+        familias: this.FormatForHuman(feature.familias),
+        numeroPersonas: this.FormatForHuman(feature.numeroPersonas),
+        derechosDDHEnum: this.FormatForHuman(feature.derechosDDHEnum),
+        tipoResponsableEnum: this.FormatForHuman(feature.tipoResponsableEnum),
+        botonVerificar: '/verify/' + feature.idAlerta,
+        primerMensaje: this.FormatForHuman(feature.primerMensaje),
+        puedeReportar: this.FormatForHuman(feature.puedeReportar),
+        relatoQue: this.FormatForHuman(feature.relatoQue),
+        relatoQuien: this.FormatForHuman(feature.relatoQuien),
+        relatoComo: this.FormatForHuman(feature.relatoComo),
+        relatoCuando: this.FormatForHuman(feature.relatoCuando),
+        relatoDonde: this.FormatForHuman(feature.relatoDonde),
+        situacionActual: this.FormatForHuman(feature.situacionActual),
+        recibeLlamada: this.FormatForHuman(feature.recibeLlamada),
+        fechaValidacion: this.FormatForHuman(
+          date3.getDate() + '/' + (date3.getMonth() + 1) + '/' + date3.getFullYear()
+        ),
+        territorioColectivo: this.FormatForHuman(feature.territorioColectivo),
+        presuntoResponsable: this.FormatForHuman(feature.presuntoResponsable),
+        situacionAsociada: this.FormatForHuman(feature.situacionAsociada),
+        accionesMitigacion: this.FormatForHuman(feature.accionesMitigacion),
+        riesgoPercibido: this.FormatForHuman(feature.riesgoPercibido),
+        institucionesEnum: this.FormatForHuman(feature.institucionesEnum)
+      };
+    },
+    getPrivateItems(feature) {
+      const date = new Date(feature.fechaReporte);
+      const date2 = new Date(feature.fechaOcurrencia);
+      const date3 = new Date(feature.fechaValidacion);
+
+      return {
+        fechaReporte: this.FormatForHuman(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()),
+        verificado: this.FormatForHuman(feature.verificado),
+        fechaOcurrencia: this.FormatForHuman(
+          date2.getDate() + '/' + (date2.getMonth() + 1) + '/' + date2.getFullYear()
+        ),
+        departamentoOcurrencia: this.FormatForHuman(feature.departamentoOcurrencia),
+        municipioOcurrencia: this.FormatForHuman(feature.municipioOcurrencia),
+        entornoOcurrencia: this.FormatForHuman(feature.entornoOcurrencia),
+        tipoEvento: this.FormatForHuman(feature.tipoEvento),
+        categoriaEvento: this.FormatForHuman(feature.categoriaEvento),
+        subcategoriaEventoEnum: this.FormatForHuman(feature.subcategoriaEventoEnum),
+        etniaVictima: this.FormatForHuman(feature.etniaVictima),
+        rolVictimaEnum: this.FormatForHuman(feature.rolVictimaEnum),
+        discapacidadEnum: this.FormatForHuman(feature.discapacidadEnum),
+        sexo: this.FormatForHuman(feature.sexo),
+        identidadGenero: this.FormatForHuman(feature.identidadGenero),
+        edadVictima: this.FormatForHuman(feature.edadVictima),
+        medidasProteccionExistentes: this.FormatForHuman(feature.medidasProteccionExistentes),
+        otrasVictimas: this.FormatForHuman(feature.otrasVictimas),
+        totalVictimas: this.FormatForHuman(feature.totalVictimas),
+        otrasVictimasNombres: this.FormatForHuman(feature.otrasVictimasNombres),
+        relacionVictima: this.FormatForHuman(feature.relacionVictima),
+        afectadosEnum: this.FormatForHuman(feature.afectadosEnum),
+        familias: this.FormatForHuman(feature.familias),
+        numeroPersonas: this.FormatForHuman(feature.numeroPersonas),
+        derechosDDHEnum: this.FormatForHuman(feature.derechosDDHEnum),
+        tipoResponsableEnum: this.FormatForHuman(feature.tipoResponsableEnum),
+        botonVerificar: '/verify/' + feature.idAlerta,
+        primerMensaje: this.FormatForHuman(feature.primerMensaje),
+        puedeReportar: this.FormatForHuman(feature.puedeReportar),
+        relatoQue: this.FormatForHuman(feature.relatoQue),
+        relatoQuien: this.FormatForHuman(feature.relatoQuien),
+        relatoComo: this.FormatForHuman(feature.relatoComo),
+        relatoCuando: this.FormatForHuman(feature.relatoCuando),
+        relatoDonde: this.FormatForHuman(feature.relatoDonde),
+        situacionActual: this.FormatForHuman(feature.situacionActual),
+        recibeLlamada: this.FormatForHuman(feature.recibeLlamada),
+        fechaValidacion: this.FormatForHuman(
+          date3.getDate() + '/' + (date3.getMonth() + 1) + '/' + date3.getFullYear()
+        ),
+        territorioColectivo: this.FormatForHuman(feature.territorioColectivo),
+        presuntoResponsable: this.FormatForHuman(feature.presuntoResponsable),
+        situacionAsociada: this.FormatForHuman(feature.situacionAsociada),
+        accionesMitigacion: this.FormatForHuman(feature.accionesMitigacion),
+        riesgoPercibido: this.FormatForHuman(feature.riesgoPercibido),
+        institucionesEnum: this.FormatForHuman(feature.institucionesEnum),
+        telefono: this.FormatForHuman(feature.telefono),
+        codigoAnansi: this.FormatForHuman(feature.codigoAnansi),
+        nombreVictima: this.FormatForHuman(feature.nombreVictima),
+        completado: this.FormatForHuman(feature.completado)
+      };
+    }
   },
   computed: {
     userAccess() {
-      if (!this.$store.getters.user || !this.$store.getters.user.role)
-        return "public";
+      if (!this.$store.getters.user || !this.$store.getters.user.role) return 'public';
       const role = this.$store.getters.user.role;
-      if (role === "admin") return "private";
-      if (role === "defensor" || role === "analyst") return "sensitive";
+      if (role === 'admin') return 'private';
+      if (role === 'defensor' || role === 'analyst') return 'sensitive';
       return null;
-    },
-  },
+    }
+  }
 };
 </script>
 

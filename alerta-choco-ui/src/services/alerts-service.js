@@ -40,11 +40,11 @@ export default {
     const data2 = qs.stringify({
       token: token,
     });
-    console.log("access is " + access);
+    //console.log("access is " + access);
 
     const alerts = await alertsHandler.postRequest(access, data2, headers);
 
-    console.log("Alerts reponse is ", alerts.features[0]);
+    //console.log("Alerts reponse is ", alerts.features[0]);
 
     return alerts;
   },

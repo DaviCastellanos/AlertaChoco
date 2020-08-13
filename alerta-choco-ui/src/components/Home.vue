@@ -57,7 +57,6 @@ export default {
       this.$store.commit("SET_ARCGIS_TOKEN", token);
     },
     async alertsRequest() {
-      console.log("request " + this.userAccess);
       const response = await AlertsService.getAlerts(
         this.$store.getters.arcgisToken,
         this.userAccess
