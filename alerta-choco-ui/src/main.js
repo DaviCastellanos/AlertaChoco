@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import './style/custom.scss';
 import router from './router';
+import frozen from './mixins/frozen.js';
 
 Vue.config.productionTip = false;
 
@@ -45,6 +46,7 @@ new Vue({
   router,
   store,
   render: h => h(App),
+  mixins: [frozen],
   created() {
     firebase.initializeApp({
       apiKey: 'AIzaSyBlZRLdDeTs76Ntzm3udLA5tPwzCyUJke0',
