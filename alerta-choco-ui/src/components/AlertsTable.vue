@@ -107,11 +107,9 @@ export default {
       }
 
       Array.prototype.push.apply(headers, [{ key: 'botonVerificar', tdClass: 'w-5', label: '' }]);
-      console.log('getFields for ' + this.userAccess + ' ' + headers.length);
       return headers;
     },
     getItems() {
-      console.log('gettingItems ');
       const features = this.$store.getters.alerts;
       let items = [];
 
