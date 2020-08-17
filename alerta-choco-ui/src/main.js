@@ -24,6 +24,10 @@ Vue.use(BootstrapVue);
 
 Vue.mixin({
   methods: {
+    FormatAsDate(miliseconds) {
+      const dt = new Date(miliseconds);
+      return dt.getDate() + '/' + (dt.getMonth() + 1) + '/' + dt.getFullYear();
+    },
     FormatForDB(str) {
       const lower = str.toString().toLowerCase();
       return lower.replace(/ /g, '_');

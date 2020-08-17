@@ -1,8 +1,8 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import * as firebase from "firebase";
-import _ from "lodash";
-import { Object } from "core-js";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import * as firebase from 'firebase';
+import _ from 'lodash';
+import { Object } from 'core-js';
 
 Vue.use(Vuex);
 
@@ -12,8 +12,8 @@ export default new Vuex.Store({
     user: null,
     newUser: null,
     arcgisToken: String,
-    currentView: "map",
-    appError: String,
+    currentView: 'map',
+    appError: String
   },
   getters: {
     currentView(state) {
@@ -31,9 +31,9 @@ export default new Vuex.Store({
     appError(state) {
       return state.appError;
     },
-    alertById: (state) => (id) => {
+    alertById: state => id => {
       return _.find(state.alerts, { attributes: { idAlerta: id } });
-    },
+    }
   },
   mutations: {
     SET_USER(state, newUser) {
@@ -41,7 +41,7 @@ export default new Vuex.Store({
       if (this.state.user && this.state.newUser) {
         firebase.auth().currentUser.updateProfile({
           photoURL: this.state.newUser.role,
-          displayName: this.state.newUser.displayName,
+          displayName: this.state.newUser.displayName
         });
 
         this.state.user.role = this.state.newUser.role;
@@ -50,6 +50,7 @@ export default new Vuex.Store({
       }
     },
     SET_ALERTS(state, alerts) {
+      //console.log(alerts);
       this.state.alerts = alerts;
     },
     SET_ARCGIS_TOKEN(state, token) {
@@ -57,23 +58,23 @@ export default new Vuex.Store({
     },
     SET_CURRENT_VIEW(state, view) {
       this.state.currentView = view;
-    },
+    }
   },
   actions: {
     signUserOut() {
       firebase
         .auth()
         .signOut()
-        .catch((err) => {
-          console.error("Error signing out" + err);
+        .catch(err => {
+          console.error('Error signing out' + err);
         });
     },
     signUserIn(obj, payload) {
       firebase
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
-        .catch((err) => {
-          console.error("Error signing in", err);
+        .catch(err => {
+          console.error('Error signing in', err);
           this.state.appError = err;
           return new Promise(() => {
             setTimeout(() => {
@@ -85,15 +86,15 @@ export default new Vuex.Store({
     signUserUp(obj, payload) {
       const newUser = {
         displayName: payload.displayName,
-        role: payload.role,
+        role: payload.role
       };
       this.state.newUser = newUser;
       firebase
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
-        .catch((err) => {
-          console.error("Error signing up" + err);
+        .catch(err => {
+          console.error('Error signing up' + err);
         });
-    },
-  },
+    }
+  }
 });

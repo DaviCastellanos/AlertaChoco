@@ -26,7 +26,7 @@
         <span v-html="data.value"></span>
       </template>
       <template v-slot:cell(botonVerificar)="data">
-        <b-button size="sm" :to="data.value" class="mr-2" variant="warning">Verificar</b-button>
+        <b-button v-if="userCanVerify" size="sm" :to="data.value" class="mr-2" variant="warning">Verificar</b-button>
       </template>
     </b-table>
   </div>
@@ -125,14 +125,10 @@ export default {
       return items;
     },
     getPublicItems(feature) {
-      const date = new Date(feature.fechaReporte);
-      const date2 = new Date(feature.fechaOcurrencia);
       return {
-        fechaReporte: this.FormatForHuman(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()),
+        fechaReporte: feature.fechaReporte,
         verificado: this.FormatForHuman(feature.verificado),
-        fechaOcurrencia: this.FormatForHuman(
-          date2.getDate() + '/' + (date2.getMonth() + 1) + '/' + date2.getFullYear()
-        ),
+        fechaOcurrencia: feature.fechaOcurrencia,
         departamentoOcurrencia: this.FormatForHuman(feature.departamentoOcurrencia),
         municipioOcurrencia: this.FormatForHuman(feature.municipioOcurrencia),
         entornoOcurrencia: this.FormatForHuman(feature.entornoOcurrencia),
@@ -159,16 +155,10 @@ export default {
       };
     },
     getSensitiveItems(feature) {
-      const date = new Date(feature.fechaReporte);
-      const date2 = new Date(feature.fechaOcurrencia);
-      const date3 = new Date(feature.fechaValidacion);
-
       return {
-        fechaReporte: this.FormatForHuman(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()),
+        fechaReporte: feature.fechaReporte,
         verificado: this.FormatForHuman(feature.verificado),
-        fechaOcurrencia: this.FormatForHuman(
-          date2.getDate() + '/' + (date2.getMonth() + 1) + '/' + date2.getFullYear()
-        ),
+        fechaOcurrencia: feature.fechaOcurrencia,
         departamentoOcurrencia: this.FormatForHuman(feature.departamentoOcurrencia),
         municipioOcurrencia: this.FormatForHuman(feature.municipioOcurrencia),
         entornoOcurrencia: this.FormatForHuman(feature.entornoOcurrencia),
@@ -201,9 +191,7 @@ export default {
         relatoDonde: this.FormatForHuman(feature.relatoDonde),
         situacionActual: this.FormatForHuman(feature.situacionActual),
         recibeLlamada: this.FormatForHuman(feature.recibeLlamada),
-        fechaValidacion: this.FormatForHuman(
-          date3.getDate() + '/' + (date3.getMonth() + 1) + '/' + date3.getFullYear()
-        ),
+        fechaValidacion: feature.fechaValidacion,
         territorioColectivo: this.FormatForHuman(feature.territorioColectivo),
         presuntoResponsable: this.FormatForHuman(feature.presuntoResponsable),
         situacionAsociada: this.FormatForHuman(feature.situacionAsociada),
@@ -213,16 +201,10 @@ export default {
       };
     },
     getPrivateItems(feature) {
-      const date = new Date(feature.fechaReporte);
-      const date2 = new Date(feature.fechaOcurrencia);
-      const date3 = new Date(feature.fechaValidacion);
-
       return {
-        fechaReporte: this.FormatForHuman(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()),
+        fechaReporte: feature.fechaReporte,
         verificado: this.FormatForHuman(feature.verificado),
-        fechaOcurrencia: this.FormatForHuman(
-          date2.getDate() + '/' + (date2.getMonth() + 1) + '/' + date2.getFullYear()
-        ),
+        fechaOcurrencia: feature.fechaOcurrencia,
         departamentoOcurrencia: this.FormatForHuman(feature.departamentoOcurrencia),
         municipioOcurrencia: this.FormatForHuman(feature.municipioOcurrencia),
         entornoOcurrencia: this.FormatForHuman(feature.entornoOcurrencia),
@@ -255,9 +237,7 @@ export default {
         relatoDonde: this.FormatForHuman(feature.relatoDonde),
         situacionActual: this.FormatForHuman(feature.situacionActual),
         recibeLlamada: this.FormatForHuman(feature.recibeLlamada),
-        fechaValidacion: this.FormatForHuman(
-          date3.getDate() + '/' + (date3.getMonth() + 1) + '/' + date3.getFullYear()
-        ),
+        fechaValidacion: feature.fechaValidacion,
         territorioColectivo: this.FormatForHuman(feature.territorioColectivo),
         presuntoResponsable: this.FormatForHuman(feature.presuntoResponsable),
         situacionAsociada: this.FormatForHuman(feature.situacionAsociada),
@@ -272,6 +252,11 @@ export default {
     }
   },
   computed: {
+    userCanVerify() {
+      if (this.userAccess == 'sensitive' || this.userAccess == 'private') return true;
+
+      return false;
+    },
     userAccess() {
       if (!this.$store.getters.user || !this.$store.getters.user.role) return 'public';
       const role = this.$store.getters.user.role;
