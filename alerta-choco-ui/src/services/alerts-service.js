@@ -38,7 +38,7 @@ export default {
 
     const alerts = await alertsHandler.postRequest(access, data2, headers);
 
-    //console.log('Alerts reponse is ', alerts.features[0]);
+    console.log('Alerts reponse is ', alerts.features[0]);
 
     return alerts;
   },

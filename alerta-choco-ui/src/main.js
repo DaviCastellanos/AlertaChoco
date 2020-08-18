@@ -26,7 +26,9 @@ Vue.mixin({
   methods: {
     FormatForm(str) {
       //let upper = str.charAt(0).toUpperCase() + str.slice(1);
-      let upper = str.replace('_', ' ');
+      if (typeof str !== 'string') return str;
+
+      let upper = str.replace(/_/g, ' ');
       //console.log(upper);
       return upper;
     },

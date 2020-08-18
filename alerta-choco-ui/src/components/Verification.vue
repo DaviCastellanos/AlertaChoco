@@ -71,7 +71,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>¿Otra subcategoría? ¿cuál?: {{FormatForm(this.subcategoriaEventoOtra)}}</h6>
+          <h6>¿Otra subcategoría? ¿cuál?: </h6>
           <b-form-input
             v-model="subcategoriaEventoOtra"
             aria-describedby="input-live-feedback"
@@ -313,7 +313,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Tipo de evento:</h6>
+          <h6>Tipo de evento: {{FormatForm(this.tipoEvento)}}</h6>
           <b-form-select
             v-model="tipoEvento"
             :options="this.opcionesTipo"
@@ -323,7 +323,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Categoría:</h6>
+          <h6>Categoría: {{FormatForm(this.categoriaEvento)}}</h6>
           <b-form-select
             v-model="categoriaEvento"
             :options="this.opcionesCategoria"
@@ -352,7 +352,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Pertenencia étnica:</h6>
+          <h6>Pertenencia étnica: {{FormatForm(this.etniaVictima)}}</h6>
           <b-form-select
             v-model="etniaVictima"
             :options="this.opcionesEtnia"
@@ -392,7 +392,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Sexo:</h6>
+          <h6>Sexo: {{FormatForm(this.sexo)}}</h6>
           <b-form-select
             v-model="sexo"
             :options="this.opcionesSexo"
@@ -401,7 +401,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Identidad de género:</h6>
+          <h6>Identidad de género: {{FormatForm(this.identidadGenero)}}</h6>
           <b-form-select
             v-model="identidadGenero"
             :options="this.opcionesIdentidad"
@@ -576,7 +576,7 @@ export default {
       if(!data)
         return'';   
 
-      return data;  
+      return this.FormatForm(data);  
     },
     lengthState(str) {
       if(!str)
