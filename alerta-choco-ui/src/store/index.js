@@ -58,6 +58,15 @@ export default new Vuex.Store({
     },
     SET_CURRENT_VIEW(state, view) {
       this.state.currentView = view;
+    },
+    SET_APP_ERROR(state, err) {
+      console.error('App Error', err);
+      this.state.appError = err;
+      return new Promise(() => {
+        setTimeout(() => {
+          this.state.appError = null;
+        }, 5000);
+      });
     }
   },
   actions: {

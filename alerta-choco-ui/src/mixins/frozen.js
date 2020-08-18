@@ -54,28 +54,28 @@ export default {
       opcionesMedidas: [
         { value: '', text: 'Selecciona una' },
         { value: 'Sin informacion', text: 'Sin información' },
-        { value: 'Solicitada - en tramite', text: 'Solicitada - en trámite' },
-        { value: 'Solicitada - negada', text: 'Solicitada - negada' },
-        { value: 'Solicitada - Otorgada', text: 'Solicitada - Otorgada' },
+        { value: 'Solicitada: en tramite', text: 'Solicitada: en trámite' },
+        { value: 'Solicitada: negada', text: 'Solicitada: negada' },
+        { value: 'Solicitada: otorgada', text: 'Solicitada: otorgada' },
         { value: 'Levantada', text: 'Levantada' }
       ],
       opcionesSubcategoria: [
         { value: '', text: 'Selecciona varias (Usa cmd o ctrl)' },
-        { value: '0', text: 'Abuso Sexual' },
-        { value: '1', text: 'Accidente o incidente con Minas Antipersona o Municiones sin explotar' },
+        { value: '0', text: 'Abuso sexual' },
+        { value: '1', text: 'Accidente o incidente con minas antipersona o municiones sin explotar' },
         { value: '2', text: 'Actos contra los derechos reproductivos' },
         { value: '3', text: 'Actos contra los derechos sexuales' },
         { value: '4', text: 'Amenazas' },
         { value: '5', text: 'Ataque a bienes civiles' },
         { value: '6', text: 'Ataque indiscriminado' },
-        { value: '7', text: 'Bloqueo de Vías' },
+        { value: '7', text: 'Bloqueo de vías' },
         { value: '8', text: 'Bombardeo' },
         { value: '9', text: 'Confinamiento' },
         { value: '10', text: 'Confrontación armada o combates' },
         { value: '11', text: 'Control social' },
-        { value: '12', text: 'Desaparición Forzada' },
-        { value: '13', text: 'Desnudez Forzada' },
-        { value: '14', text: 'Desplazamiento Forzado' },
+        { value: '12', text: 'Desaparición forzada' },
+        { value: '13', text: 'Desnudez forzada' },
+        { value: '14', text: 'Desplazamiento forzado' },
         { value: '15', text: 'Despojo de tierras y territorios' },
         { value: '16', text: 'Detención arbitraria' },
         { value: '17', text: 'Enamoramiento' },
@@ -112,7 +112,7 @@ export default {
         { value: '', text: 'Selecciona varias (Usa cmd o ctrl)' },
         { value: '0', text: 'Autoridad espiritual / sabedor tradicional' },
         { value: '1', text: 'Líder / esa organizativo' },
-        { value: '2', text: 'Familiar Defensor / a' },
+        { value: '2', text: 'Familiar defensor / a' },
         { value: '3', text: 'Líder / esa cultural' },
         { value: '4', text: 'Etnoeducador' },
         { value: '5', text: 'Partera' },
@@ -121,11 +121,11 @@ export default {
       opcionesDiscapacidad: [
         { value: '', text: 'Selecciona varias (Usa cmd o ctrl)' },
         { value: '0', text: 'Ninguna' },
-        { value: '1', text: 'Emocianal (No puede relacionarse con otros)  ' },
-        { value: '2', text: 'Motora (No puede moverse con facilidad)' },
-        { value: '3', text: 'Cognitiva (No puede aprender, razonar, pensar, hablar, facilmente)' },
-        { value: '4', text: 'Visual (No puede ver)' },
-        { value: '5', text: 'Auditiva (No puede oir)' }
+        { value: '1', text: 'Emocional (no puede relacionarse con otros)  ' },
+        { value: '2', text: 'Motora (no puede moverse con facilidad)' },
+        { value: '3', text: 'Cognitiva (no puede aprender, razonar, pensar, hablar, facilmente)' },
+        { value: '4', text: 'Visual (no puede ver)' },
+        { value: '5', text: 'Auditiva (no puede oir)' }
       ],
       opcionesAfectados: [
         { value: '', text: 'Selecciona varias (Usa cmd o ctrl)' },
@@ -157,8 +157,8 @@ export default {
       ],
       opcionesResponsables: [
         { value: '', text: 'Selecciona varias (Usa cmd o ctrl)' },
-        { value: '0', text: 'Fuerza Pública' },
-        { value: '1', text: 'Grupo Guerrillero' },
+        { value: '0', text: 'Fuerza pública' },
+        { value: '1', text: 'Grupo guerrillero' },
         { value: '2', text: 'Grupo heredero del paramilitarismo' },
         { value: '3', text: 'Grupo disidente de guerrillas' },
         { value: '4', text: 'Grupo de seguridad privada' },
@@ -181,13 +181,13 @@ export default {
   methods: {
     getObjectTexts(object, values) {
       if (!values) return 'N/A';
-
+      values = values.split(',');
       let obj = undefined;
 
       if (object === 'opcionesSubcategoria') obj = this.opcionesSubcategoria;
       if (object === 'opcionesEtniaAfectados') obj = this.opcionesEtniaAfectados;
       if (object === 'opcionesRol') obj = this.opcionesRol;
-      if (object === 'opcionesDiscapacidad') obj = this.opcionesRol;
+      if (object === 'opcionesDiscapacidad') obj = this.opcionesDiscapacidad;
       if (object === 'opcionesAfectados') obj = this.opcionesAfectados;
       if (object === 'opcionesDerechos') obj = this.opcionesDerechos;
       if (object === 'opcionesResponsables') obj = this.opcionesResponsables;
@@ -197,12 +197,10 @@ export default {
         console.error(object + ' is undefined');
         return;
       }
-
       let str = '';
       for (var i = 0; i < values.length; i++) {
-        str += obj[values[i] + 1].text;
-        if (i < values.length - 1) str += ', ';
-        else if (i == values.length - 1) str += '.';
+        str += obj[parseInt(values[i]) + 1].text.toLowerCase();
+        if (i < values.length - 1) str += ' - ';
       }
       return str;
     }

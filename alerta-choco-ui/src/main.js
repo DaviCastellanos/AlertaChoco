@@ -24,16 +24,41 @@ Vue.use(BootstrapVue);
 
 Vue.mixin({
   methods: {
+    FormatForm(str) {
+      //let upper = str.charAt(0).toUpperCase() + str.slice(1);
+      let upper = str.replace('_', ' ');
+      //console.log(upper);
+      return upper;
+    },
     FormatAsDate(miliseconds) {
+      miliseconds = parseInt(miliseconds);
+      if (!miliseconds) return 'N/A';
       const dt = new Date(miliseconds);
-      return dt.getDate() + '/' + (dt.getMonth() + 1) + '/' + dt.getFullYear();
+      return dt.getUTCDate() + '/' + (dt.getUTCMonth() + 1) + '/' + dt.getUTCFullYear();
+    },
+    FormatDateForDB(str) {
+      if (str.includes('-')) {
+        const date = str.split('-');
+
+        if (date[1] && date[1][0] == '0') date[1] = date[1][1];
+
+        if (date[2] && date[2][0] == '0') date[2] = date[2][1];
+        const newDate = date[1] + '/' + date[2] + '/' + date[0];
+        //console.log('1 returning' + newDate);
+        return newDate;
+      } else {
+        const dt = new Date(parseInt(str));
+        const formated = dt.getUTCMonth() + 1 + '/' + dt.getUTCDate() + '/' + dt.getUTCFullYear();
+        //console.log('2 returning' + formated);
+        return formated;
+      }
     },
     FormatForDB(str) {
       const lower = str.toString().toLowerCase();
       return lower.replace(/ /g, '_');
     },
     FormatForHuman(str) {
-      if (!str || str == '31/12/1969') return 'N/A';
+      if (!str || typeof str !== 'string') return 'N/A';
 
       if (str === 'True') return 'Si';
 

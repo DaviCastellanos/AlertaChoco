@@ -173,12 +173,9 @@ export default {
       return this.validatePassword && this.password === this.validatePassword;
     },
     csvExport() {
-      const arrData = this.alertsItems;
+      const arrData = this.alertsItems();
       let csvContent = 'data:text/csv;charset=utf-8,';
-      csvContent += [
-        Object.keys(arrData[0].attributes).join(';'),
-        ...arrData.map(item => Object.values(item.attributes).join(';'))
-      ]
+      csvContent += [Object.keys(arrData[0]).join(';'), ...arrData.map(item => Object.values(item).join(';'))]
         .join('\n')
         .replace(/(^\[)|(\]$)/gm, '');
 
@@ -187,16 +184,10 @@ export default {
       link.setAttribute('href', data);
       link.setAttribute('download', 'ALERTAS_RED_ANANSI.csv');
       link.click();
-    }
-  },
-  watch: {
-    appError(val) {
-      if (val) this.$refs['error-modal'].show();
-      else this.$refs['error-modal'].hide();
     },
-    alertsItems(val) {
-      if (!val) return;
+    alertsItems() {
       let items = [];
+      let val = JSON.parse(JSON.stringify(this.$store.getters.alerts));
       val.forEach(el => {
         el.attributes.fechaReporte = this.FormatAsDate(el.attributes.fechaReporte);
 
@@ -244,12 +235,14 @@ export default {
 
         items.push(el.attributes);
       });
-      //console.log('alert items ', items);
+      console.log('alert items ', items);
       return items;
-    },
-    alertsHeaders(val) {
-      if (!val) return;
-      return Object.keys(val[0].attributes.toString());
+    }
+  },
+  watch: {
+    appError(val) {
+      if (val) this.$refs['error-modal'].show();
+      else this.$refs['error-modal'].hide();
     }
   },
   computed: {
@@ -265,12 +258,6 @@ export default {
     userName() {
       if (this.$store.getters.user) return this.$store.getters.user.email;
       else return '';
-    },
-    alertsItems() {
-      return this.$store.getters.alerts;
-    },
-    alertsHeaders() {
-      return this.$store.getters.alerts;
     }
   }
 };

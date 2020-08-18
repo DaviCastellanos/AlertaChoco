@@ -45,13 +45,13 @@
           <b-form-datepicker
             id="datepicker"
             v-model="fechaOcurrencia"
-            :state="lengthState(fechaOcurrencia)"
-            placeholder="Selecciona fecha"
+            :state="lengthState(this.fechaOcurrencia)"
+            :placeholder="FormatAsDate(this.fechaOcurrencia)"
           ></b-form-datepicker>
         </div>
 
         <div class="mt-3">
-          <h6>Entorno de ocurrencia:</h6>
+          <h6>Entorno de ocurrencia: {{ FormatForm(this.entornoOcurrencia) }}</h6>
           <b-form-select
             v-model="entornoOcurrencia"
             :options="this.opcionesEntorno"
@@ -71,7 +71,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>¿Otra subcategoría? ¿cuál?:</h6>
+          <h6>¿Otra subcategoría? ¿cuál?: {{FormatForm(this.subcategoriaEventoOtra)}}</h6>
           <b-form-input
             v-model="subcategoriaEventoOtra"
             aria-describedby="input-live-feedback"
@@ -101,7 +101,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Medidas de protección existentes:</h6>
+          <h6>Medidas de protección existentes: {{ FormatForm(this.medidasProteccionExistentes)}}</h6>
           <b-form-select
             v-model="medidasProteccionExistentes"
             :options="this.opcionesMedidas"
@@ -110,7 +110,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Otras víctimas:</h6>
+          <h6>Otras víctimas: {{ FormatForm(this.otrasVictimas)}}</h6>
           <b-form-select
             v-model="otrasVictimas"
             :options="this.opcionesVictimas"
@@ -224,7 +224,7 @@
         <div class="mt-3">
           <h6>¿Otra institución? ¿cuál?</h6>
           <b-form-input
-            v-model="otraInstitucion"
+            v-model="institucionOtra"
             aria-describedby="input-live-feedback"
             placeholder="Opcional"
             trim
@@ -287,8 +287,8 @@
           <b-form-datepicker
             id="datepicker"
             v-model="fechaValidacion"
-            :state="lengthState(fechaValidacion)"
-            placeholder="Selecciona fecha"
+            :state="lengthState(FormatAsDate(fechaValidacion))"
+            :placeholder="FormatAsDate(this.fechaValidacion)"
           ></b-form-datepicker>
         </div>
 
@@ -318,6 +318,7 @@
             v-model="tipoEvento"
             :options="this.opcionesTipo"
             :state="lengthState(tipoEvento)"
+            :placeholder="this.tipoEvento"
           ></b-form-select>
         </div>
 
@@ -467,6 +468,14 @@
         ></b-form-select>
       </div>
     </b-row>
+    <b-button
+          @click="this.validate"
+          size="lg"
+          class="text-light m-3"
+          variant="warning"
+          block
+          >Validar</b-button
+        >
   </b-container>
 </template>
 <script>
@@ -514,50 +523,65 @@ export default {
       accionesMitigacion: "",
       riesgoPercibido: "",
       institucionesEnum: [],
-      otraInstitucion: "",
+      institucionOtra: "",
     };
   },
   methods: {
-    cleanData() {
-      (this.fechaOcurrencia = ""),
-        (this.fechaValidacion = ""),
-        (this.departamentoOcurrencia = ""),
-        (this.municipioOcurrencia = ""),
-        (this.entornoOcurrencia = ""),
-        (this.territorioColectivo = ""),
-        (this.barrio = ""),
-        (this.tipoEvento = ""),
-        (this.categoriaEvento = ""),
-        (this.subcategoriaEventoEnum = []),
-        (this.subcategoriaEventoOtra = ""),
-        (this.nombreVictima = ""),
-        (this.edadVictima = ""),
-        (this.etniaVictima = ""),
-        (this.rolVictimaEnum = []),
-        (this.rolVictimaOtro = ""),
-        (this.discapacidadEnum = []),
-        (this.sexo = ""),
-        (this.identidadGenero = ""),
-        (this.perfilVictima = ""),
-        (this.medidasProteccionExistentes = ""),
-        (this.otrasVictimas = ""),
-        (this.totalVictimas = ""),
-        (this.otrasVictimasNombres = ""),
-        (this.relacionVictima = ""),
-        (this.afectadosEnum = []),
-        (this.familias = ""),
-        (this.numeroPersonas = ""),
-        (this.etniaAfectadosEnum = []),
-        (this.derechosDDHEnum = []),
-        (this.tipoResponsableEnum = []),
-        (this.presuntoResponsable = ""),
-        (this.situacionAsociada = ""),
-        (this.accionesMitigacion = ""),
-        (this.riesgoPercibido = ""),
-        (this.institucionesEnum = []),
-        (this.otraInstitucion = "");
+    fillForm() {
+      this.fechaOcurrencia = this.validateData(this.alert.attributes.fechaOcurrencia.toString()),
+      this.fechaValidacion = this.validateData(this.alert.attributes.fechaValidacion.toString()),
+      this.departamentoOcurrencia = this.validateData(this.alert.attributes.departamentoOcurrencia),
+      this.municipioOcurrencia = this.validateData(this.alert.attributes.municipioOcurrencia),
+      this.entornoOcurrencia = this.validateData(this.alert.attributes.entornoOcurrencia),
+      this.territorioColectivo = this.validateData(this.alert.attributes.territorioColectivo),
+      this.barrio = this.validateData(this.alert.attributes.barrio),
+      this.tipoEvento = this.validateData(this.alert.attributes.tipoEvento),
+      this.categoriaEvento = this.validateData(this.alert.attributes.categoriaEvento),
+      this.subcategoriaEventoEnum = this.validateData(this.alert.attributes.subcategoriaEventoEnum, true),
+      this.subcategoriaEventoOtra = this.validateData(this.alert.attributes.subcategoriaEventoOtra),
+      this.nombreVictima = this.validateData(this.alert.attributes.nombreVictima),
+      this.edadVictima = this.validateData(this.alert.attributes.edadVictima),
+      this.etniaVictima = this.validateData(this.alert.attributes.etniaVictima),
+      this.rolVictimaEnum = this.validateData(this.alert.attributes.rolVictimaEnum, true),
+      this.rolVictimaOtro = this.validateData(this.alert.attributes.rolVictimaOtro),
+      this.discapacidadEnum = this.validateData(this.alert.attributes.discapacidadEnum, true),
+      this.sexo = this.validateData(this.alert.attributes.sexo),
+      this.identidadGenero = this.validateData(this.alert.attributes.identidadGenero),
+      this.perfilVictima = this.validateData(this.alert.attributes.perfilVictima),
+      this.medidasProteccionExistentes = this.validateData(this.alert.attributes.medidasProteccionExistentes),
+      this.otrasVictimas = this.validateData(this.alert.attributes.otrasVictimas),
+      this.totalVictimas = this.validateData(this.alert.attributes.totalVictimas),
+      this.otrasVictimasNombres = this.validateData(this.alert.attributes.otrasVictimasNombres),
+      this.relacionVictima = this.validateData(this.alert.attributes.relacionVictima),
+      this.afectadosEnum = this.validateData(this.alert.attributes.afectadosEnum, true),
+      this.familias = this.validateData(this.alert.attributes.familias),
+      this.numeroPersonas = this.validateData(this.alert.attributes.numeroPersonas),
+      this.etniaAfectadosEnum = this.validateData(this.alert.attributes.etniaAfectadosEnum, true),
+      this.derechosDDHEnum = this.validateData(this.alert.attributes.derechosDDHEnum, true),
+      this.tipoResponsableEnum = this.validateData(this.alert.attributes.tipoResponsableEnum, true),
+      this.presuntoResponsable = this.validateData(this.alert.attributes.presuntoResponsable),
+      this.situacionAsociada = this.validateData(this.alert.attributes.situacionAsociada),
+      this.accionesMitigacion = this.validateData(this.alert.attributes.accionesMitigacion),
+      this.riesgoPercibido = this.validateData(this.alert.attributes.riesgoPercibido),
+      this.institucionesEnum = this.validateData(this.alert.attributes.institucionesEnum, true),
+      this.institucionOtra = this.validateData(this.alert.attributes.institucionOtra);
+    },
+    validateData(data, obj) {
+      if(obj)
+      {
+        if(!data)return []
+        return data.split(',');
+      }
+
+      if(!data)
+        return'';   
+
+      return data;  
     },
     lengthState(str) {
+      if(!str)
+      return true;
+
       if (str.length > 256) return false;
 
       if (str.length <= 0) return false;
@@ -568,8 +592,8 @@ export default {
       let alert = '[{ "attributes" : {';
       alert += '"OBJECTID":"' + this.alert.attributes.OBJECTID + '",';
       alert += '"verificado":"True",';
-      alert += '"fechaOcurrencia":"' + this.fechaOcurrencia + '",';
-      alert += '"fechaValidacion":"' + this.fechaValidacion + '",';
+      alert += '"fechaOcurrencia":"' + this.FormatDateForDB(this.fechaOcurrencia) + '",';
+      alert += '"fechaValidacion":"' + this.FormatDateForDB(this.fechaValidacion) + '",';
       alert +=
         '"departamentoOcurrencia":"' +
         this.FormatForDB(this.departamentoOcurrencia) +
@@ -661,19 +685,26 @@ export default {
         this.FormatForDB(this.institucionesEnum) +
         '",';
       alert +=
-        '"otraInstitucion":"' + this.FormatForDB(this.otraInstitucion) + '"';
+        '"institucionOtra":"' + this.FormatForDB(this.institucionOtra) + '"';
       alert += "}}]";
 
-      console.log(alert);
+      //console.log(alert);
       return alert;
     },
     async validate() {
       const response = await AlertsService.verifyAlert(this.wrapAlert());
-      console.log(response);
+      //console.log(response);
+      if(response.updateResults[0].success) {
+        this.$router.push({name:'Home'})
+      }
+      else{
+        this.$store.commit('SET_APP_ERROR', response.updateResults[0].error.description)
+      } 
     },
   },
   created () {
       this.alert = this.$store.getters.alertById(this.$route.params.id);
+      this.fillForm();
   }
 };
 </script>
