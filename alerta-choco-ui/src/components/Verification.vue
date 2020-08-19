@@ -1,5 +1,9 @@
 <template>
   <b-container fluid id="form">
+
+    <div class="mt-3">
+    <h4>Alerta</h4>
+    </div>
     <b-row>
       <b-col>
         <div class="mt-3">
@@ -39,198 +43,8 @@
             ></span>
           </p>
         </div>
-
-        <div class="mt-3">
-          <h6>Fecha de ocurrencia:</h6>
-          <b-form-datepicker
-            id="datepicker"
-            v-model="fechaOcurrencia"
-            :state="lengthState(this.fechaOcurrencia)"
-            :placeholder="FormatAsDate(this.fechaOcurrencia)"
-          ></b-form-datepicker>
-        </div>
-
-        <div class="mt-3">
-          <h6>Entorno de ocurrencia: {{ FormatForm(this.entornoOcurrencia) }}</h6>
-          <b-form-select
-            v-model="entornoOcurrencia"
-            :options="this.opcionesEntorno"
-            :state="lengthState(entornoOcurrencia)"
-          ></b-form-select>
-        </div>
-
-        <div class="mt-3">
-          <h6>Subcategoría:</h6>
-          <b-form-select
-            v-model="subcategoriaEventoEnum"
-            :options="this.opcionesSubcategoria"
-            multiple
-            :select-size="10"
-            :state="lengthState(subcategoriaEventoEnum)"
-          ></b-form-select>
-        </div>
-
-        <div class="mt-3">
-          <h6>¿Otra subcategoría? ¿cuál?: </h6>
-          <b-form-input
-            v-model="subcategoriaEventoOtra"
-            aria-describedby="input-live-feedback"
-            placeholder="opcional"
-            trim
-          ></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>Territorio colectivo:</h6>
-          <b-form-input
-            v-model="territorioColectivo"
-            :state="lengthState(territorioColectivo)"
-            aria-describedby="input-live-feedback"
-            trim
-          ></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>Barrio:</h6>
-          <b-form-input
-            v-model="barrio"
-            :state="lengthState(barrio)"
-            aria-describedby="input-live-feedback"
-            trim
-          ></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>Medidas de protección existentes: {{ FormatForm(this.medidasProteccionExistentes)}}</h6>
-          <b-form-select
-            v-model="medidasProteccionExistentes"
-            :options="this.opcionesMedidas"
-            :state="lengthState(medidasProteccionExistentes)"
-          ></b-form-select>
-        </div>
-
-        <div class="mt-3">
-          <h6>Otras víctimas: {{ FormatForm(this.otrasVictimas)}}</h6>
-          <b-form-select
-            v-model="otrasVictimas"
-            :options="this.opcionesVictimas"
-            :state="lengthState(otrasVictimas)"
-          ></b-form-select>
-        </div>
-
-        <div class="mt-3">
-          <h6>Total víctimas:</h6>
-          <b-form-input
-            v-model="totalVictimas"
-            :state="lengthState(totalVictimas)"
-            aria-describedby="input-live-feedback"
-            trim
-          ></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>Nombres de otras víctimas:</h6>
-          <b-form-input
-            v-model="otrasVictimasNombres"
-            :state="lengthState(otrasVictimasNombres)"
-            aria-describedby="input-live-feedback"
-            trim
-          ></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>Relación con la víctima:</h6>
-          <b-form-input
-            v-model="relacionVictima"
-            :state="lengthState(relacionVictima)"
-            aria-describedby="input-live-feedback"
-            trim
-          ></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>Tipo de sujeto afectado:</h6>
-          <b-form-select
-            v-model="afectadosEnum"
-            :options="this.opcionesAfectados"
-            multiple
-            :select-size="3"
-            :state="lengthState(afectadosEnum)"
-          ></b-form-select>
-        </div>
-
-        <div class="mt-3">
-          <h6>No. de familias afectadas:</h6>
-          <b-form-input
-            v-model="familias"
-            :state="lengthState(familias)"
-            aria-describedby="input-live-feedback"
-            trim
-          ></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>No. de personas afectadas:</h6>
-          <b-form-input
-            v-model="numeroPersonas"
-            :state="lengthState(numeroPersonas)"
-            aria-describedby="input-live-feedback"
-            trim
-          ></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>Pertenencia étnica de afectados:</h6>
-          <b-form-select
-            v-model="etniaAfectadosEnum"
-            :options="this.opcionesEtniaAfectados"
-            multiple
-            :select-size="3"
-            :state="lengthState(etniaAfectadosEnum)"
-          ></b-form-select>
-        </div>
-
-        <div class="mt-3">
-          <h6>Situación asociada:</h6>
-          <b-form-input
-            v-model="situacionAsociada"
-            :state="lengthState(situacionAsociada)"
-            aria-describedby="input-live-feedback"
-            trim
-          ></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>Riesgo percibido:</h6>
-          <b-form-input
-            v-model="riesgoPercibido"
-            :state="lengthState(riesgoPercibido)"
-            aria-describedby="input-live-feedback"
-            trim
-          ></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>Instituciones Informadas:</h6>
-          <b-form-select
-            v-model="institucionesEnum"
-            :options="this.opcionesInstituciones"
-            multiple
-            :select-size="5"
-            :state="lengthState(institucionesEnum)"
-          ></b-form-select>
-        </div>
-
-        <div class="mt-3">
-          <h6>¿Otra institución? ¿cuál?</h6>
-          <b-form-input
-            v-model="institucionOtra"
-            aria-describedby="input-live-feedback"
-            placeholder="Opcional"
-            trim
-          ></b-form-input>
-        </div>
       </b-col>
+
       <b-col>
         <div class="mt-3">
           <h6>Cuándo pasó:</h6>
@@ -239,11 +53,6 @@
               v-html="FormatForHuman(this.alert.attributes.relatoCuando)"
             ></span>
           </p>
-        </div>
-
-        <div class="mt-3">
-          <h6>Fecha reporte:</h6>
-          <p>{{ new Date(this.alert.attributes.fechaReporte) }}</p>
         </div>
 
         <div class="mt-3">
@@ -281,8 +90,22 @@
             ></span>
           </p>
         </div>
+      </b-col>
+    </b-row>
 
-        <div class="mt-3">
+    <hr />
+
+    <div class="mt-3">
+    <h4>Tiempo</h4>
+    </div>
+    <b-row>
+      <b-col>
+    <div class="mt-3">
+          <h6>Fecha reporte:</h6>
+          <p>{{ FormatAsDate(this.alert.attributes.fechaReporte) }}</p>
+        </div>
+
+        <div class="mt-3 mb-3">
           <h6>Fecha de validacion:</h6>
           <b-form-datepicker
             id="datepicker"
@@ -291,6 +114,28 @@
             :placeholder="FormatAsDate(this.fechaValidacion)"
           ></b-form-datepicker>
         </div>
+
+      </b-col>
+      <b-col>
+        <div class="mt-3">
+          <h6>Fecha de ocurrencia:</h6>
+          <b-form-datepicker
+            id="datepicker"
+            v-model="fechaOcurrencia"
+            :state="lengthState(this.fechaOcurrencia)"
+            :placeholder="FormatAsDate(this.fechaOcurrencia)"
+          ></b-form-datepicker>
+        </div>
+        </b-col>
+    </b-row>
+
+    <hr />
+
+    <div class="mt-3">
+    <h4>Lugar</h4>
+    </div>
+    <b-row>
+      <b-col>
 
         <div class="mt-3">
           <h6>Departamento ocurrencia:</h6>
@@ -313,13 +158,67 @@
         </div>
 
         <div class="mt-3">
-          <h6>Tipo de evento: {{FormatForm(this.tipoEvento)}}</h6>
+          <h6>Entorno de ocurrencia: {{ FormatForm(this.entornoOcurrencia) }}</h6>
           <b-form-select
-            v-model="tipoEvento"
-            :options="this.opcionesTipo"
-            :state="lengthState(tipoEvento)"
-            :placeholder="this.tipoEvento"
+            v-model="entornoOcurrencia"
+            :options="this.opcionesEntorno"
+            :state="lengthState(entornoOcurrencia)"
           ></b-form-select>
+        </div>
+      </b-col>
+
+      <b-col>
+        <div class="mt-3">
+          <h6>Territorio colectivo:</h6>
+          <b-form-input
+            v-model="territorioColectivo"
+            :state="lengthState(territorioColectivo)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
+        </div>
+
+        <div class="mt-3">
+          <h6>Barrio:</h6>
+          <b-form-input
+            v-model="barrio"
+            :state="lengthState(barrio)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
+        </div>
+
+      </b-col>
+    </b-row>
+
+    <hr />
+
+    <div class="mt-3">
+    <h4>Evento</h4>
+    </div>
+
+    <b-row>
+      <b-col>
+        <div class="mt-3">
+          <h6>Subcategoría:</h6>
+          <b-form-select
+            v-model="subcategoriaEventoEnum"
+            :options="this.opcionesSubcategoria"
+            multiple
+            :select-size="10"
+            :state="lengthState(subcategoriaEventoEnum)"
+          ></b-form-select>
+        </div>
+      </b-col>
+      <b-col>
+        <div class="mt-3">
+            <h6>¿Otra subcategoría? ¿cuál?: </h6>
+            <b-form-input
+              v-model="subcategoriaEventoOtra"
+              aria-describedby="input-live-feedback"
+              placeholder="opcional"
+              trim
+            ></b-form-input>
         </div>
 
         <div class="mt-3">
@@ -332,6 +231,27 @@
         </div>
 
         <div class="mt-3">
+          <h6>Tipo de evento: {{FormatForm(this.tipoEvento)}}</h6>
+          <b-form-select
+            v-model="tipoEvento"
+            :options="this.opcionesTipo"
+            :state="lengthState(tipoEvento)"
+            :placeholder="this.tipoEvento"
+          ></b-form-select>
+        </div>
+
+      </b-col>
+    </b-row>  
+
+    <hr />
+
+    <div class="mt-3">
+    <h4>Víctimas</h4>
+    </div>
+
+    <b-row>
+      <b-col>
+      <div class="mt-3">
           <h6>Nombre Víctima:</h6>
           <b-form-input
             v-model="nombreVictima"
@@ -350,6 +270,58 @@
             trim
           ></b-form-input>
         </div>
+
+        <div class="mt-3">
+          <h6>¿Tiene discapacidad?:</h6>
+          <b-form-select
+            v-model="discapacidadEnum"
+            :options="this.opcionesDiscapacidad"
+            multiple
+            :select-size="3"
+            :state="lengthState(discapacidadEnum)"
+          ></b-form-select>
+        </div>
+
+        <div class="mt-3">
+          <h6>Sexo: {{FormatForm(this.sexo)}}</h6>
+          <b-form-select
+            v-model="sexo"
+            :options="this.opcionesSexo"
+            :state="lengthState(sexo)"
+          ></b-form-select>
+        </div>
+
+        <div class="mt-3">
+          <h6>Perfil de la víctima:</h6>
+          <b-form-input
+            v-model="perfilVictima"
+            :state="lengthState(perfilVictima)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
+        </div>
+
+        <div class="mt-3">
+          <h6>Otras víctimas: {{ FormatForm(this.otrasVictimas)}}</h6>
+          <b-form-select
+            v-model="otrasVictimas"
+            :options="this.opcionesVictimas"
+            :state="lengthState(otrasVictimas)"
+          ></b-form-select>
+        </div>
+
+        <div class="mt-3">
+          <h6>Relación con la víctima:</h6>
+          <b-form-input
+            v-model="relacionVictima"
+            :state="lengthState(relacionVictima)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
+        </div>
+
+      </b-col>
+      <b-col>
 
         <div class="mt-3">
           <h6>Pertenencia étnica: {{FormatForm(this.etniaVictima)}}</h6>
@@ -381,26 +353,6 @@
         </div>
 
         <div class="mt-3">
-          <h6>¿Tiene discapacidad?:</h6>
-          <b-form-select
-            v-model="discapacidadEnum"
-            :options="this.opcionesDiscapacidad"
-            multiple
-            :select-size="3"
-            :state="lengthState(discapacidadEnum)"
-          ></b-form-select>
-        </div>
-
-        <div class="mt-3">
-          <h6>Sexo: {{FormatForm(this.sexo)}}</h6>
-          <b-form-select
-            v-model="sexo"
-            :options="this.opcionesSexo"
-            :state="lengthState(sexo)"
-          ></b-form-select>
-        </div>
-
-        <div class="mt-3">
           <h6>Identidad de género: {{FormatForm(this.identidadGenero)}}</h6>
           <b-form-select
             v-model="identidadGenero"
@@ -410,50 +362,87 @@
         </div>
 
         <div class="mt-3">
-          <h6>Perfil de la víctima:</h6>
-          <b-form-input
-            v-model="perfilVictima"
-            :state="lengthState(perfilVictima)"
-            aria-describedby="input-live-feedback"
-            trim
-          ></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>Tipo de presunto responsable:</h6>
+          <h6>Medidas de protección existentes: {{ FormatForm(this.medidasProteccionExistentes)}}</h6>
           <b-form-select
-            v-model="tipoResponsableEnum"
-            :options="this.opcionesResponsables"
-            multiple
-            :select-size="3"
-            :state="lengthState(tipoResponsableEnum)"
+            v-model="medidasProteccionExistentes"
+            :options="this.opcionesMedidas"
+            :state="lengthState(medidasProteccionExistentes)"
           ></b-form-select>
         </div>
 
         <div class="mt-3">
-          <h6>Presunto responsable:</h6>
+          <h6>Total víctimas:</h6>
           <b-form-input
-            v-model="presuntoResponsable"
-            :state="lengthState(presuntoResponsable)"
+            v-model="totalVictimas"
+            :state="lengthState(totalVictimas)"
             aria-describedby="input-live-feedback"
             trim
           ></b-form-input>
         </div>
 
         <div class="mt-3">
-          <h6>Acciones de mitigación:</h6>
+          <h6>Nombres de otras víctimas:</h6>
           <b-form-input
-            v-model="accionesMitigacion"
-            :state="lengthState(accionesMitigacion)"
+            v-model="otrasVictimasNombres"
+            :state="lengthState(otrasVictimasNombres)"
             aria-describedby="input-live-feedback"
             trim
           ></b-form-input>
         </div>
+      </b-col>
+    </b-row>
 
-        <!-- This will only be shown if the preceding input has an invalid state -->
-        <b-form-invalid-feedback id="input-live-feedback">
-          Máximo 256 carácteres
-        </b-form-invalid-feedback>
+        <hr />
+
+    <div class="mt-3">
+    <h4>Afectación</h4>
+    </div>
+
+    <b-row>
+      <b-col>
+
+        <div class="mt-3">
+          <h6>Tipo de sujeto afectado:</h6>
+          <b-form-select
+            v-model="afectadosEnum"
+            :options="this.opcionesAfectados"
+            multiple
+            :select-size="3"
+            :state="lengthState(afectadosEnum)"
+          ></b-form-select>
+        </div>
+
+        <div class="mt-3">
+          <h6>No. de familias afectadas:</h6>
+          <b-form-input
+            v-model="familias"
+            :state="lengthState(familias)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
+        </div>
+      </b-col>  
+      <b-col>
+        <div class="mt-3">
+          <h6>Pertenencia étnica de afectados:</h6>
+          <b-form-select
+            v-model="etniaAfectadosEnum"
+            :options="this.opcionesEtniaAfectados"
+            multiple
+            :select-size="3"
+            :state="lengthState(etniaAfectadosEnum)"
+          ></b-form-select>
+        </div>
+
+        <div class="mt-3">
+          <h6>No. de personas afectadas:</h6>
+          <b-form-input
+            v-model="numeroPersonas"
+            :state="lengthState(numeroPersonas)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
+        </div>
       </b-col>
     </b-row>
     <b-row>
@@ -468,13 +457,110 @@
         ></b-form-select>
       </div>
     </b-row>
+      <hr />
+
+    <div class="mt-3">
+    <h4>Agresión</h4>
+    </div>
+    <b-row>
+      <b-col>
+
+        <div class="mt-3">
+          <h6>Tipo de presunto responsable:</h6>
+          <b-form-select
+            v-model="tipoResponsableEnum"
+            :options="this.opcionesResponsables"
+            multiple
+            :select-size="5"
+            :state="lengthState(tipoResponsableEnum)"
+          ></b-form-select>
+        </div>
+      </b-col>
+      <b-col>
+        <div class="mt-3">
+          <h6>Presunto responsable:</h6>
+          <b-form-input
+            v-model="presuntoResponsable"
+            :state="lengthState(presuntoResponsable)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
+        </div>
+
+        <div class="mt-3">
+          <h6>Situación asociada:</h6>
+          <b-form-input
+            v-model="situacionAsociada"
+            :state="lengthState(situacionAsociada)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
+        </div>
+      </b-col>
+    </b-row>
+    <hr />
+
+    <div class="mt-3">
+    <h4>Capacidad</h4>
+    </div>
+    <b-row>
+      <b-col>
+        <div class="mt-3">
+          <h6>Instituciones Informadas:</h6>
+          <b-form-select
+            v-model="institucionesEnum"
+            :options="this.opcionesInstituciones"
+            multiple
+            :select-size="10"
+            :state="lengthState(institucionesEnum)"
+          ></b-form-select>
+        </div>
+      </b-col>
+      <b-col>
+
+        <div class="mt-3">
+          <h6>¿Otra institución? ¿cuál?</h6>
+          <b-form-input
+            v-model="institucionOtra"
+            aria-describedby="input-live-feedback"
+            placeholder="Opcional"
+            trim
+          ></b-form-input>
+        </div>
+
+        <div class="mt-3">
+          <h6>Acciones de mitigación:</h6>
+          <b-form-input
+            v-model="accionesMitigacion"
+            :state="lengthState(accionesMitigacion)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
+        </div>
+
+        <div class="mt-3">
+          <h6>Riesgo percibido:</h6>
+          <b-form-input
+            v-model="riesgoPercibido"
+            :state="lengthState(riesgoPercibido)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
+        </div>
+
+        <!-- This will only be shown if the preceding input has an invalid state -->
+        <b-form-invalid-feedback id="input-live-feedback">
+          Máximo 256 carácteres
+        </b-form-invalid-feedback>
+      </b-col>
+    </b-row>
     <b-button
           @click="this.validate"
           size="lg"
-          class="text-light m-3"
+          class="text-light mt-5 mb-3"
           variant="warning"
           block
-          >Validar</b-button
+          >Guardar</b-button
         >
   </b-container>
 </template>
