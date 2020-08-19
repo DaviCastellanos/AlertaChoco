@@ -11,7 +11,6 @@ export default new Vuex.Store({
   state: {
     alerts: Object,
     user: null,
-    newUser: null,
     arcgisToken: String,
     currentView: 'map',
     appError: String
@@ -39,16 +38,6 @@ export default new Vuex.Store({
   mutations: {
     SET_USER(state, newUser) {
       this.state.user = newUser;
-      if (this.state.user && this.state.newUser) {
-        firebase.auth().currentUser.updateProfile({
-          photoURL: this.state.newUser.role,
-          displayName: this.state.newUser.displayName
-        });
-
-        this.state.user.role = this.state.newUser.role;
-        this.state.user.displayName = this.state.newUser.displayName;
-        this.state.newUser = null;
-      }
     },
     SET_ALERTS(state, alerts) {
       //console.log(alerts);
@@ -94,14 +83,28 @@ export default new Vuex.Store({
         });
     },
     signUserUp(obj, payload) {
-      const newUser = {
-        displayName: payload.displayName,
-        role: payload.role
-      };
-      this.state.newUser = newUser;
-      firebase
+      var secondaryApp = firebase.initializeApp(
+        {
+          apiKey: 'AIzaSyBlZRLdDeTs76Ntzm3udLA5tPwzCyUJke0',
+          authDomain: 'alertachoco.firebaseapp.com',
+          databaseURL: 'https://alertachoco.firebaseio.com',
+          projectId: 'alertachoco',
+          storageBucket: 'alertachoco.appspot.com'
+        },
+        'Secondary'
+      );
+
+      secondaryApp
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
+        .then(() => {
+          secondaryApp.auth().currentUser.updateProfile({
+            photoURL: payload.role,
+            displayName: payload.displayName
+          });
+          secondaryApp.auth().signOut();
+          secondaryApp.delete();
+        })
         .catch(err => {
           console.error('Error signing up' + err);
         });
