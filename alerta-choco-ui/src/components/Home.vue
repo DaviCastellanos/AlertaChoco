@@ -39,8 +39,8 @@ export default {
     userAccess() {
       if (!this.$store.getters.user || !this.$store.getters.user.role) return 'public';
       const role = this.$store.getters.user.role;
-      if (role === 'admin') return 'private';
-      if (role === 'defensor' || role === 'analyst') return 'sensitive';
+      if (role === 'admin' || role === 'analista') return 'private';
+      if (role === 'defensor') return 'sensitive';
       return null;
     }
   },

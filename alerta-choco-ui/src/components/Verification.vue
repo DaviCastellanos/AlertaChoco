@@ -789,7 +789,6 @@ export default {
     },
   },
   created () {
-      console.log(this.$store.getters.alerts.length)
       this.alert = this.$store.getters.alertById(this.$route.params.id);
       this.fillForm();
   }

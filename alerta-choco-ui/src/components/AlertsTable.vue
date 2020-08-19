@@ -1,5 +1,17 @@
 <template>
   <div id="table">
+    <b-modal
+      id="deletion-modal"
+      title="Eliminar Reporte"
+      ok-title="Eliminar"
+      cancel-title="Cancelar"
+      ok-variant="danger"
+      @ok="deleteAlert()"
+    >
+      <h6>¿Seguro deseas eliminar el reporte?</h6>
+      <h6>Esta informacion no se puede recuperar.</h6>
+    </b-modal>
+
     <b-table responsive sticky-header="750px" striped hover light :items="this.getItems()" :fields="this.getFields()">
       <template v-slot:cell(relatoQue)="data">
         <span v-html="data.value"></span>
@@ -28,6 +40,11 @@
       <template v-slot:cell(botonVerificar)="data">
         <b-button v-if="userCanVerify" size="sm" :to="data.value" class="mr-2" variant="warning">Verificar</b-button>
       </template>
+      <template v-slot:cell(botonEliminar)="data">
+        <b-button v-if="userIsAdmin" size="sm" @click="ShowDeleteModal(data.value)" class="mr-2" variant="danger"
+          >Eliminar</b-button
+        >
+      </template>
     </b-table>
   </div>
 </template>
@@ -35,6 +52,7 @@
 <script>
 import { BTable } from 'bootstrap-vue';
 import froze from '../mixins/frozen.js';
+import { AlertsService } from '@/services';
 
 export default {
   mixins: [froze],
@@ -43,7 +61,7 @@ export default {
   },
   data() {
     return {
-      selectedAlert: {}
+      selectedAlert: Number
     };
   },
   methods: {
@@ -110,6 +128,7 @@ export default {
       }
 
       Array.prototype.push.apply(headers, [{ key: 'botonVerificar', tdClass: 'w-5', label: '' }]);
+      Array.prototype.push.apply(headers, [{ key: 'botonEliminar', tdClass: 'w-5', label: '' }]);
       return headers;
     },
     getItems() {
@@ -250,22 +269,45 @@ export default {
         telefono: this.FormatForHuman(feature.telefono),
         codigoAnansi: this.FormatForHuman(feature.codigoAnansi),
         nombreVictima: this.FormatForHuman(feature.nombreVictima),
-        completado: this.FormatForHuman(feature.completado)
+        completado: this.FormatForHuman(feature.completado),
+        botonEliminar: feature.OBJECTID
       };
+    },
+    ShowDeleteModal(id) {
+      this.selectedAlert = id;
+      this.$bvModal.show('deletion-modal');
+    },
+    async deleteAlert() {
+      const response = await AlertsService.deleteAlert(this.selectedAlert);
+      console.log(response);
+      if (!response.deleteResults[0].success) {
+        this.$store.commit('SET_APP_ERROR', response.deleteResults[0].error.description);
+      } else {
+        const newAlerts = this.$store.getters.alerts.filter(el => {
+          if (el.attributes.OBJECTID != this.selectedAlert) return true;
+          return false;
+        });
+        this.$store.commit('SET_ALERTS', newAlerts);
+      }
     }
   },
   computed: {
     userCanVerify() {
-      if (this.userAccess == 'sensitive' || this.userAccess == 'private') return true;
+      if (this.userAccess == 'private') return true;
 
       return false;
     },
     userAccess() {
       if (!this.$store.getters.user || !this.$store.getters.user.role) return 'public';
       const role = this.$store.getters.user.role;
-      if (role === 'admin') return 'private';
-      if (role === 'defensor' || role === 'analyst') return 'sensitive';
+      if (role === 'admin' || role === 'analista') return 'private';
+      if (role === 'defensor') return 'sensitive';
       return null;
+    },
+    userIsAdmin() {
+      if (!this.$store.getters.user) return false;
+
+      return this.$store.getters.user.role == 'admin';
     }
   }
 };
