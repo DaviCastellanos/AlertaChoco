@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import store from './store';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
@@ -67,6 +68,8 @@ Vue.mixin({
       if (str === 'False') return 'No';
 
       if (str.includes('firebase')) return `<a href="${str}" target="_blank">Multimedia</a>`;
+
+      if (str.includes('whatsapp')) str = str.replace('whatsapp:', '');
 
       return str.replace(/_/g, ' ');
     }

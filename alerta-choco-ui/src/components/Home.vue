@@ -7,72 +7,68 @@
 </template>
 
 <script>
-import WebMap from "@/components/WebMap.vue";
-import AlertsTable from "@/components/AlertsTable.vue";
-import FeedChart from "@/components/FeedChart.vue";
-import AlertsService from "@/services/alerts-service.js";
+import WebMap from '@/components/WebMap.vue';
+import AlertsTable from '@/components/AlertsTable.vue';
+import FeedChart from '@/components/FeedChart.vue';
+import AlertsService from '@/services/alerts-service.js';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     WebMap,
     AlertsTable,
-    FeedChart,
+    FeedChart
   },
   watch: {
     userAccess(val) {
       if (val) {
         this.alertsRequest();
       }
-    },
+    }
   },
   computed: {
     mapSelected() {
-      return this.$store.getters.currentView === "map";
+      return this.$store.getters.currentView === 'map';
     },
     statsSelected() {
-      return this.$store.getters.currentView === "statistics";
+      return this.$store.getters.currentView === 'statistics';
     },
     tableSelected() {
-      return this.$store.getters.currentView === "table";
+      return this.$store.getters.currentView === 'table';
     },
     userAccess() {
-      if (!this.$store.getters.user || !this.$store.getters.user.role)
-        return "public";
+      if (!this.$store.getters.user || !this.$store.getters.user.role) return 'public';
       const role = this.$store.getters.user.role;
-      if (role === "admin") return "private";
-      if (role === "defensor" || role === "analyst") return "sensitive";
+      if (role === 'admin') return 'private';
+      if (role === 'defensor' || role === 'analyst') return 'sensitive';
       return null;
-    },
+    }
   },
   methods: {
     async tokenRequest() {
       const token = await AlertsService.getArcgisToken();
 
       if (!token) {
-        console.error("Arcgis token is null");
+        console.error('Arcgis token is null');
         return;
       }
+      this.$store.commit('SET_ARCGIS_TOKEN', token);
       this.alertsRequest();
-      this.$store.commit("SET_ARCGIS_TOKEN", token);
     },
     async alertsRequest() {
-      const response = await AlertsService.getAlerts(
-        this.$store.getters.arcgisToken,
-        this.userAccess
-      );
+      const response = await AlertsService.getAlerts(this.$store.getters.arcgisToken, this.userAccess);
 
       if (!response) {
-        console.error("Alerts response is null");
+        console.error('Alerts response is null');
         return;
       }
 
-      this.$store.commit("SET_ALERTS", response.features);
-    },
+      this.$store.commit('SET_ALERTS', response.features);
+    }
   },
   mounted() {
     this.tokenRequest();
-  },
+  }
 };
 </script>
 

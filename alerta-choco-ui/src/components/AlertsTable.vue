@@ -247,7 +247,7 @@ export default {
         accionesMitigacion: this.FormatForHuman(feature.accionesMitigacion),
         riesgoPercibido: this.FormatForHuman(feature.riesgoPercibido),
         institucionesEnum: this.getObjectTexts('opcionesInstituciones', feature.institucionesEnum),
-        telefono: this.FormatForHuman(feature.telefono.replace('whatsapp:', '')),
+        telefono: this.FormatForHuman(feature.telefono),
         codigoAnansi: this.FormatForHuman(feature.codigoAnansi),
         nombreVictima: this.FormatForHuman(feature.nombreVictima),
         completado: this.FormatForHuman(feature.completado)
