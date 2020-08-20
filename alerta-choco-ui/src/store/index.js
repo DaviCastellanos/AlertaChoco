@@ -5,7 +5,6 @@ import 'firebase/auth';
 import _ from 'lodash';
 import { Object } from 'core-js';
 import UsersService from '@/services/users-service.js';
-//import usersService from '../services/users-service';
 
 Vue.use(Vuex);
 
@@ -73,18 +72,17 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    deleteAccount() {
-      // console.log('looking for user ' + firebase.auth().currentUser.email);
-      // const user = _.find(this.state.users, { attributes: { email: firebase.auth().currentUser.email } });
-      // console.log('Deleting user ' + user.OBJECTID);
+    deleteAccount({ commit }) {
+      const id = this.state.user.OBJECTID;
       firebase
         .auth()
         .currentUser.delete()
         .then(() => {
-          //usersService.deleteUser(user.OBJECTID);
+          UsersService.deleteUser(id);
         })
         .catch(err => {
-          console.error('Error signing out' + err);
+          console.error('Error signing out ' + err);
+          commit('SET_APP_ERROR', err);
         });
     },
     signUserOut() {
@@ -109,7 +107,7 @@ export default new Vuex.Store({
           });
         });
     },
-    signUserUp(obj, payload) {
+    async signUserUp(obj, payload) {
       var secondaryApp = firebase.initializeApp(
         {
           apiKey: 'AIzaSyBlZRLdDeTs76Ntzm3udLA5tPwzCyUJke0',
@@ -121,22 +119,27 @@ export default new Vuex.Store({
         'Secondary'
       );
 
-      secondaryApp
+      const response = await secondaryApp
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
-        .then(() => {
-          secondaryApp.auth().currentUser.updateProfile({
-            photoURL: payload.role,
-            displayName: payload.displayName
-          });
-          UsersService.saveUser(payload.email, payload.role);
-
-          secondaryApp.auth().signOut();
-          secondaryApp.delete();
-        })
         .catch(err => {
           console.error('Error signing up' + err);
         });
+
+      if (!response) {
+        secondaryApp.auth().signOut();
+        secondaryApp.delete();
+        return;
+      }
+
+      const arcgisUser = await UsersService.saveUser(payload.email, payload.role);
+
+      secondaryApp.auth().currentUser.updateProfile({
+        displayName: payload.displayName + '/' + payload.role + '/' + arcgisUser.addResults[0].objectId
+      });
+
+      secondaryApp.auth().signOut();
+      secondaryApp.delete();
     }
   }
 });

@@ -22,22 +22,23 @@
         <b-dropdown class="text-light" variant="warning" right v-if="isUserAuthenticated">
           <b-dropdown-item disabled>{{ userName }}</b-dropdown-item>
           <b-dropdown-item
+            v-if="isUserAuthenticated"
+            @click="csvExport()"
+            size="sm"
+            class="text-light my-2 my-sm-0"
+            type="submit"
+            >Exportar datos</b-dropdown-item
+          >
+
+          <b-dropdown-item
             v-if="userIsAdmin"
             v-b-modal.create
             size="sm"
             class="text-light my-2 my-sm-0 mr-2"
             type="submit"
-            >Crear usuario</b-dropdown-item
+            >Crear otro usuario</b-dropdown-item
           >
 
-          <b-dropdown-item
-            v-if="isUserAuthenticated"
-            @click="onDeleteAccount()"
-            size="sm"
-            class="text-light my-2 my-sm-0"
-            type="submit"
-            >Eliminar cuenta</b-dropdown-item
-          >
           <b-dropdown-item
             v-if="isUserAuthenticated"
             @click="onSignOut()"
@@ -49,15 +50,27 @@
 
           <b-dropdown-item
             v-if="isUserAuthenticated"
-            @click="csvExport()"
+            @click="showDeleteUserModal()"
             size="sm"
             class="text-light my-2 my-sm-0"
             type="submit"
-            >Exportar datos</b-dropdown-item
+            >Eliminar usuario</b-dropdown-item
           >
         </b-dropdown>
       </b-navbar-nav>
     </b-navbar>
+
+    <b-modal
+      id="delete-user"
+      title="Eliminar Usuario"
+      ok-title="Eliminar"
+      cancel-title="Cancelar"
+      ok-variant="danger"
+      @ok="deleteUser()"
+    >
+      <h6>¿Seguro deseas eliminar este usuario?</h6>
+      <h6>Esta acción no se puede deshacer.</h6>
+    </b-modal>
 
     <b-modal
       ref="error-modal"
@@ -166,7 +179,10 @@ export default {
     onSignOut() {
       this.$store.dispatch('signUserOut');
     },
-    onDeleteAccount() {
+    showDeleteUserModal() {
+      this.$bvModal.show('delete-user');
+    },
+    deleteUser() {
       this.$store.dispatch('deleteAccount');
     },
     cleanInput() {

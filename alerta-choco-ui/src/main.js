@@ -91,10 +91,13 @@ new Vue({
     });
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        const params = user.displayName.split('/');
         const newUser = {
           email: user.email,
           id: user.uid,
-          role: user.photoURL
+          role: params[1],
+          OBJECTID: params[2],
+          displayName: params[0]
         };
         this.$store.commit('SET_USER', newUser);
       } else {

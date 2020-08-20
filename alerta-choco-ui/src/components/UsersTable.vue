@@ -43,7 +43,8 @@ export default {
 <style scoped>
 #table {
   padding: 0;
-  margin: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   width: 100%;
   height: 100%;
 }
