@@ -567,9 +567,10 @@
 <script>
 import { AlertsService } from "@/services";
 import frozen from "@/mixins/frozen.js"
+import coordinates from "@/mixins/coordinates.js"
 
 export default {
-  mixins: [frozen],
+  mixins: [frozen, coordinates],
   data() {
     return {
       alert: Object,
@@ -675,7 +676,7 @@ export default {
       return true;
     },
     wrapAlert() {
-      let alert = '[{ "attributes" : {';
+      let alert = `[{ "geometry" : {"x": ${this.getCoordinates(this.municipioOcurrencia).x},"y": ${this.getCoordinates(this.municipioOcurrencia).y},"spatialReference": {"wkid": 4326}},"attributes" : {`;
       alert += '"OBJECTID":"' + this.alert.attributes.OBJECTID + '",';
       alert += '"verificado":"True",';
       alert += '"fechaOcurrencia":"' + this.FormatDateForDB(this.fechaOcurrencia) + '",';

@@ -78,6 +78,8 @@ export default {
         return;
       }
 
+      //console.log(response.features);
+
       this.$store.commit('SET_ALERTS', response.features);
     },
     async usersRequest() {
