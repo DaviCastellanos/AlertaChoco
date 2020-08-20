@@ -12,11 +12,31 @@ export default {
         { value: 'Individual', text: 'Individual' },
         { value: 'Colectivo', text: 'Colectivo' }
       ],
+      opcionesEvolucionSituacion: [
+        { value: '', text: 'Selecciona una' },
+        { value: 'Escalamiento de la situación', text: 'Escalamiento de la situación' },
+        { value: 'Desescalamiento de la situacion', text: 'Desescalamiento de la situacion' },
+        { value: 'Continuidad de la situación', text: 'Continuidad de la situación' }
+      ],
       opcionesEntorno: [
         { value: '', text: 'Selecciona una' },
         { value: 'Rural', text: 'Rural' },
         { value: 'Cabecera municipal', text: 'Cabecera municipal' },
         { value: 'Centro poblado', text: 'Centro poblado' }
+      ],
+      opcionesTipoRespuesta: [
+        { value: '', text: 'Selecciona una' },
+        { value: 'Gestión', text: 'Gestión' },
+        { value: 'Consulta al titular del derecho', text: 'Consulta al titular del derecho' },
+        { value: 'Implementación de alguna medida', text: 'Implementación de alguna medida' },
+        { value: 'Otra', text: 'Otra' }
+      ],
+      opcionesTrato: [
+        { value: '', text: 'Selecciona una' },
+        { value: 'Muy bien', text: 'Muy bien' },
+        { value: 'Bien', text: 'Bien' },
+        { value: 'Mal', text: 'Mal' },
+        { value: 'Muy mal', text: 'Muy mal' }
       ],
       opcionesEtnia: [
         { value: '', text: 'Selecciona una' },
@@ -33,6 +53,14 @@ export default {
           value: 'Ninguna de las anteriores',
           text: 'Ninguna de las anteriores'
         }
+      ],
+      opcionesAccion: [
+        { value: '', text: 'Selecciona una' },
+        { value: 'Diálogo con las instituciones', text: 'Diálogo con las instituciones' },
+        { value: 'Acciones administrativas', text: 'Acciones administrativas' },
+        { value: 'Acciones judiciales', text: 'Acciones judiciales' },
+        { value: 'Acciones pacíficas de hecho', text: 'Acciones pacíficas de hecho' },
+        { value: 'Otra', text: 'Otra' }
       ],
       opcionesSexo: [
         { value: '', text: 'Selecciona una' },
@@ -164,6 +192,12 @@ export default {
         { value: '4', text: 'Grupo de seguridad privada' },
         { value: '5', text: 'Desconocido' }
       ],
+      opcionesTipoSeguimiento: [
+        { value: '', text: 'Selecciona varias (Usa cmd o ctrl)' },
+        { value: '0', text: 'Evolución de la situación' },
+        { value: '1', text: 'Acción de seguimiento' },
+        { value: '2', text: 'Respuesta Institucional' }
+      ],
       opcionesInstituciones: [
         { value: '', text: 'Selecciona varias (Usa cmd o ctrl)' },
         { value: '0', text: 'Policía' },
@@ -174,6 +208,22 @@ export default {
         { value: '5', text: 'Personería' },
         { value: '6', text: 'Alcaldía (secretarías)' },
         { value: '7', text: 'Comisaría o Inspección de Policia' },
+        { value: '8', text: 'Otra' }
+      ],
+      opcionesEntidades: [
+        { value: '', text: 'Selecciona varias (Usa cmd o ctrl)' },
+        { value: '0', text: 'Alcaldía (secretarías)' },
+        { value: '1', text: 'Comisarías o inspección de policía' },
+        { value: '2', text: 'Comisión Interamericana de Derechos Humanos' },
+        { value: '3', text: 'Corte Constitucional' },
+        { value: '4', text: 'Juzgado' },
+        { value: '5', text: 'Procuraduría' },
+        { value: '6', text: 'Defensoría del Pueblo' },
+        { value: '7', text: 'Ejército' },
+        { value: '4', text: 'Otras fuerzas militares' },
+        { value: '5', text: 'Personería' },
+        { value: '6', text: 'Policía' },
+        { value: '7', text: 'Unidad Nacional de Protección' },
         { value: '8', text: 'Otra' }
       ]
     };
@@ -192,6 +242,11 @@ export default {
       if (object === 'opcionesDerechos') obj = this.opcionesDerechos;
       if (object === 'opcionesResponsables') obj = this.opcionesResponsables;
       if (object === 'opcionesInstituciones') obj = this.opcionesInstituciones;
+      if (object === 'opcionesTipoSeguimiento') obj = this.opcionesTipoSeguimiento;
+      if (object === 'opcionesEvolucionSituacion') obj = this.opcionesEvolucionSituacion;
+      if (object === 'opcionesEntidades') obj = this.opcionesEntidades;
+      if (object === 'opcionesTrato') obj = this.opcionesTrato;
+      if (object === 'opcionesTipoRespuesta') obj = this.opcionesTipoRespuesta;
 
       if (!obj) {
         console.error(object + ' is undefined');

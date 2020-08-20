@@ -40,6 +40,9 @@
       <template v-slot:cell(botonVerificar)="data">
         <b-button v-if="userCanVerify" size="sm" :to="data.value" class="mr-2" variant="warning">Verificar</b-button>
       </template>
+      <template v-slot:cell(botonSeguir)="data">
+        <b-button v-if="userIsAuthenticated" size="sm" :to="data.value" class="mr-2" variant="warning">Seguir</b-button>
+      </template>
       <template v-slot:cell(botonEliminar)="data">
         <b-button v-if="userIsAdmin" size="sm" @click="ShowDeleteModal(data.value)" class="mr-2" variant="danger"
           >Eliminar</b-button
@@ -128,6 +131,7 @@ export default {
       }
 
       Array.prototype.push.apply(headers, [{ key: 'botonVerificar', tdClass: 'w-5', label: '' }]);
+      Array.prototype.push.apply(headers, [{ key: 'botonSeguir', tdClass: 'w-5', label: '' }]);
       Array.prototype.push.apply(headers, [{ key: 'botonEliminar', tdClass: 'w-5', label: '' }]);
       return headers;
     },
@@ -202,6 +206,7 @@ export default {
         derechosDDHEnum: this.getObjectTexts('opcionesDerechos', feature.derechosDDHEnum),
         tipoResponsableEnum: this.getObjectTexts('opcionesResponsables', feature.tipoResponsableEnum),
         botonVerificar: '/verify/' + feature.idAlerta,
+        botonSeguir: '/followup/' + feature.idAlerta,
         primerMensaje: this.FormatForHuman(feature.primerMensaje),
         puedeReportar: this.FormatForHuman(feature.puedeReportar),
         relatoQue: this.FormatForHuman(feature.relatoQue),
@@ -249,6 +254,7 @@ export default {
         derechosDDHEnum: this.getObjectTexts('opcionesDerechos', feature.derechosDDHEnum),
         tipoResponsableEnum: this.getObjectTexts('opcionesResponsables', feature.tipoResponsableEnum),
         botonVerificar: '/verify/' + feature.idAlerta,
+        botonSeguir: '/followup/' + feature.idAlerta,
         primerMensaje: this.FormatForHuman(feature.primerMensaje),
         puedeReportar: this.FormatForHuman(feature.puedeReportar),
         relatoQue: this.FormatForHuman(feature.relatoQue),
@@ -308,6 +314,11 @@ export default {
       if (!this.$store.getters.user) return false;
 
       return this.$store.getters.user.role == 'admin';
+    },
+    userIsAuthenticated() {
+      if (!this.$store.getters.user) return false;
+
+      return true;
     }
   }
 };
