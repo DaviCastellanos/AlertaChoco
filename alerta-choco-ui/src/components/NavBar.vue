@@ -8,6 +8,7 @@
           <b-nav-item to="/" @click="changeView('map')">Mapa</b-nav-item>
           <b-nav-item to="/" @click="changeView('table')">Tabla</b-nav-item>
           <b-nav-item to="/" @click="changeView('statistics')">Estadísticas</b-nav-item>
+          <b-nav-item v-if="userIsAdmin" to="/" @click="changeView('users')">Users</b-nav-item>
         </b-navbar-nav>
         <b-button
           v-if="!isUserAuthenticated"
@@ -27,6 +28,15 @@
             class="text-light my-2 my-sm-0 mr-2"
             type="submit"
             >Crear usuario</b-dropdown-item
+          >
+
+          <b-dropdown-item
+            v-if="isUserAuthenticated"
+            @click="onDeleteAccount()"
+            size="sm"
+            class="text-light my-2 my-sm-0"
+            type="submit"
+            >Eliminar cuenta</b-dropdown-item
           >
           <b-dropdown-item
             v-if="isUserAuthenticated"
@@ -155,6 +165,9 @@ export default {
     },
     onSignOut() {
       this.$store.dispatch('signUserOut');
+    },
+    onDeleteAccount() {
+      this.$store.dispatch('deleteAccount');
     },
     cleanInput() {
       this.email = null;

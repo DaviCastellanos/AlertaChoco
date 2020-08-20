@@ -4,6 +4,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import _ from 'lodash';
 import { Object } from 'core-js';
+import UsersService from '@/services/users-service.js';
+//import usersService from '../services/users-service';
 
 Vue.use(Vuex);
 
@@ -13,7 +15,8 @@ export default new Vuex.Store({
     user: null,
     arcgisToken: String,
     currentView: 'map',
-    appError: String
+    appError: String,
+    users: null
   },
   getters: {
     currentView(state) {
@@ -28,11 +31,17 @@ export default new Vuex.Store({
     alerts(state) {
       return state.alerts;
     },
+    users(state) {
+      return state.users;
+    },
     appError(state) {
       return state.appError;
     },
     alertById: state => id => {
       return _.find(state.alerts, { attributes: { idAlerta: id } });
+    },
+    findUserByEmail: state => email => {
+      return _.find(state.users, { attributes: { email: email } });
     }
   },
   mutations: {
@@ -42,6 +51,10 @@ export default new Vuex.Store({
     SET_ALERTS(state, alerts) {
       //console.log(alerts);
       this.state.alerts = alerts;
+    },
+    SET_USERS(state, users) {
+      //console.log('SET_USERS', users);
+      this.state.users = users;
     },
     SET_ARCGIS_TOKEN(state, token) {
       this.state.arcgisToken = token;
@@ -60,6 +73,20 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    deleteAccount() {
+      // console.log('looking for user ' + firebase.auth().currentUser.email);
+      // const user = _.find(this.state.users, { attributes: { email: firebase.auth().currentUser.email } });
+      // console.log('Deleting user ' + user.OBJECTID);
+      firebase
+        .auth()
+        .currentUser.delete()
+        .then(() => {
+          //usersService.deleteUser(user.OBJECTID);
+        })
+        .catch(err => {
+          console.error('Error signing out' + err);
+        });
+    },
     signUserOut() {
       firebase
         .auth()
@@ -102,6 +129,8 @@ export default new Vuex.Store({
             photoURL: payload.role,
             displayName: payload.displayName
           });
+          UsersService.saveUser(payload.email, payload.role);
+
           secondaryApp.auth().signOut();
           secondaryApp.delete();
         })

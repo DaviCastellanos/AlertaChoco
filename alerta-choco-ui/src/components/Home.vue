@@ -3,6 +3,7 @@
     <web-map v-show="mapSelected" />
     <feed-chart v-show="statsSelected" />
     <alerts-table v-show="tableSelected" />
+    <users-table v-show="usersSelected" />
   </b-container>
 </template>
 
@@ -10,20 +11,26 @@
 import WebMap from '@/components/WebMap.vue';
 import AlertsTable from '@/components/AlertsTable.vue';
 import FeedChart from '@/components/FeedChart.vue';
+import UsersTable from '@/components/UsersTable.vue';
 import AlertsService from '@/services/alerts-service.js';
+import UsersService from '@/services/users-service.js';
 
 export default {
   name: 'App',
   components: {
     WebMap,
     AlertsTable,
-    FeedChart
+    FeedChart,
+    UsersTable
   },
   watch: {
     userAccess(val) {
       if (val) {
         this.alertsRequest();
       }
+    },
+    userRole(val) {
+      if (val === 'admin') this.usersRequest();
     }
   },
   computed: {
@@ -36,12 +43,20 @@ export default {
     tableSelected() {
       return this.$store.getters.currentView === 'table';
     },
+    usersSelected() {
+      return this.$store.getters.currentView === 'users';
+    },
     userAccess() {
       if (!this.$store.getters.user || !this.$store.getters.user.role) return 'public';
       const role = this.$store.getters.user.role;
       if (role === 'admin' || role === 'analista') return 'private';
       if (role === 'defensor') return 'sensitive';
       return null;
+    },
+    userRole() {
+      if (!this.$store.getters.user) return null;
+
+      return this.$store.getters.user.role;
     }
   },
   methods: {
@@ -64,6 +79,16 @@ export default {
       }
 
       this.$store.commit('SET_ALERTS', response.features);
+    },
+    async usersRequest() {
+      const response = await UsersService.getUsers(this.$store.getters.arcgisToken);
+
+      if (!response) {
+        console.error('Users response is null');
+        return;
+      }
+
+      this.$store.commit('SET_USERS', response.features);
     }
   },
   mounted() {
