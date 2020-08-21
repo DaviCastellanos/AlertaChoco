@@ -5,43 +5,48 @@ const followUpHandler = new AxiosHandler();
 const tokenHandler = new AxiosHandler();
 
 export default {
-  // async getArcgisToken() {
-  //   const data = qs.stringify({
-  //     grant_type: 'client_credentials',
-  //     client_id: process.env.VUE_APP_ARCGIS_CLIENT_ID,
-  //     client_secret: process.env.VUE_APP_ARCGIS_CLIENT_SECRET
-  //   });
+  async getFollowUpIds(token) {
+    let req =
+      'https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/seguimientos/FeatureServer/0/query?f=json&where=1=1&outSr=4326&outFields=OBJECTID, idAlerta';
 
-  //   const headers = {
-  //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-  //   };
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    };
 
-  //   const response = await tokenHandler.postRequest(`https://www.arcgis.com/sharing/rest/oauth2/token`, data, headers);
-  //   //console.log("token is " + response.access_token);
-  //   return response.access_token;
-  // },
-  // async getAlerts(token, userAccess) {
-  //   let access = process.env.VUE_APP_ALERT_PUBLIC_INFO;
+    const data2 = qs.stringify({
+      token: token
+    });
+    //console.log('access is ' + access);
 
-  //   if (userAccess === 'private') access = process.env.VUE_APP_ALERT_PRIVATE_INFO;
+    const followUps = await followUpHandler.postRequest(req, data2, headers);
 
-  //   if (userAccess === 'sensitive') access = process.env.VUE_APP_ALERT_SENSITIVE_INFO;
+    //console.log('FollowUp ids reponse is ', followUps.features);
 
-  //   const headers = {
-  //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-  //   };
+    return followUps;
+  },
+  async getFollowUpInfo(token, OBJECTID) {
+    let req = 'https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/seguimientos/FeatureServer/0/query';
 
-  //   const data2 = qs.stringify({
-  //     token: token
-  //   });
-  //   //console.log('access is ' + access);
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    };
 
-  //   const alerts = await alertsHandler.postRequest(access, data2, headers);
+    const data = qs.stringify({
+      f: 'json',
+      token: token,
+      where: `OBJECTID=${OBJECTID}`,
+      outSr: '4326',
+      outFields:
+        'OBJECTID, idAlerta, tipoSeguimientoEnum, fechaAccionRespuesta, descripcionSituacion, evolucionSituacion, actoresInvolucrados,  accionesMitigacion, riesgoPercibido, institucionesInformadasEnum, otraInstitucion accionSeguimiento, otraAccionSeguimiento, descripcionAccion, entidadesAccionEnum, otraEntidad, dependenciaEntidad, resultadoEsperado, tiempoEsperado, quienPresentaAccion, personaContacto, telefonoContacto, emailContacto, trato, tipoRespuesta, otraRespuesta, entidadesRespuestaEnum, otraEntidadRespuesta, dependenciaEntidadRespuesta, descripcionRespuesta, mitigaRiesgo, protegeDefensores, esperaOtraRespuesta, personaContactoInstitucion, telefonoContactoInstitucion, emailContactoInstitucion, quienRecibeRespuesta, personaRecibeRespuesta, telefonoContactoRespuesta, emailContactoRespuesta, tratoRespuesta'
+    });
+    //console.log('access is ' + access);
 
-  //   //console.log('Alerts reponse is ', alerts.features[0]);
+    const followUps = await followUpHandler.postRequest(req, data, headers);
 
-  //   return alerts;
-  // },
+    //console.log('FollowUp ids reponse is ', followUps.features[0].attributes);
+
+    return followUps.features[0].attributes;
+  },
   async save(followUp) {
     const tokenData = qs.stringify({
       grant_type: 'client_credentials',

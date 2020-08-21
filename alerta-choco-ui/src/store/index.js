@@ -15,7 +15,8 @@ export default new Vuex.Store({
     arcgisToken: String,
     currentView: 'map',
     appError: String,
-    users: null
+    users: null,
+    followUpIds: null
   },
   getters: {
     currentView(state) {
@@ -54,6 +55,10 @@ export default new Vuex.Store({
     SET_USERS(state, users) {
       //console.log('SET_USERS', users);
       this.state.users = users;
+    },
+    SET_FOLLOW_UP_IDS(state, ids) {
+      //console.log('SET_FOLLOW_UP_IDS', ids);
+      this.state.followUpIds = ids;
     },
     SET_ARCGIS_TOKEN(state, token) {
       this.state.arcgisToken = token;

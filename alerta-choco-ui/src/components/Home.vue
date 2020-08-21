@@ -14,6 +14,7 @@ import FeedChart from '@/components/FeedChart.vue';
 import UsersTable from '@/components/UsersTable.vue';
 import AlertsService from '@/services/alerts-service.js';
 import UsersService from '@/services/users-service.js';
+import FollowUpsService from '@/services/follow-ups-service.js';
 
 export default {
   name: 'App',
@@ -69,6 +70,7 @@ export default {
       }
       this.$store.commit('SET_ARCGIS_TOKEN', token);
       this.alertsRequest();
+      this.followUpIdsRequest();
     },
     async alertsRequest() {
       const response = await AlertsService.getAlerts(this.$store.getters.arcgisToken, this.userAccess);
@@ -91,6 +93,16 @@ export default {
       }
 
       this.$store.commit('SET_USERS', response.features);
+    },
+    async followUpIdsRequest() {
+      const response = await FollowUpsService.getFollowUpIds(this.$store.getters.arcgisToken);
+
+      if (!response) {
+        console.error('Folow up ids response is null');
+        return;
+      }
+
+      this.$store.commit('SET_FOLLOW_UP_IDS', response.features);
     }
   },
   mounted() {
