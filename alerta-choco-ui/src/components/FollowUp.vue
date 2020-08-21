@@ -10,6 +10,7 @@
           <h6>Fecha en la que ocurre acción o respuesta:</h6>
           <b-form-datepicker
             id="datepicker"
+            :state="lengthState(fechaAccionRespuesta)"
             v-model="fechaAccionRespuesta"
           ></b-form-datepicker>
         </div>
@@ -100,9 +101,9 @@
           <h6>¿Otra institución? ¿cuál?:</h6>
           <b-form-input
             v-model="otraInstitucion"
-            :state="lengthState(otraInstitucion)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -131,9 +132,9 @@
           <h6>¿Otra acción? ¿cuál?:</h6>
           <b-form-input
             v-model="otraAccionSeguimiento"
-            :state="lengthState(otraAccionSeguimiento)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
         
@@ -195,9 +196,9 @@
           <h6>¿Otra entidad? ¿cuál?:</h6>
           <b-form-input
             v-model="otraEntidad"
-            :state="lengthState(otraEntidad)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -215,9 +216,9 @@
           <h6>Persona de contacto: </h6>
           <b-form-input
             v-model="personaContacto"
-            :state="lengthState(personaContacto)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -225,9 +226,9 @@
           <h6>Teléfono de contacto: </h6>
           <b-form-input
             v-model="telefonoContacto"
-            :state="lengthState(telefonoContacto)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -235,9 +236,9 @@
           <h6>Email de contacto: </h6>
           <b-form-input
             v-model="emailContacto"
-            :state="lengthState(emailContacto)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -276,9 +277,9 @@
           <h6>Otra respuesta: </h6>
           <b-form-input
             v-model="otraRespuesta"
-            :state="lengthState(otraRespuesta)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -297,9 +298,9 @@
           <h6>¿Otra? ¿cuál?: </h6>
           <b-form-input
             v-model="otraEntidadRespuesta"
-            :state="lengthState(otraEntidadRespuesta)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -360,9 +361,9 @@
           <h6>Persona de contacto en la institución: </h6>
           <b-form-input
             v-model="personaContactoInstitucion"
-            :state="lengthState(personaContactoInstitucion)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -370,9 +371,9 @@
           <h6>Telefono de contacto de la persona en la institución: </h6>
           <b-form-input
             v-model="telefonoContactoInstitucion"
-            :state="lengthState(telefonoContactoInstitucion)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -380,9 +381,9 @@
           <h6>Email de contacto de la persona en la institución: </h6>
           <b-form-input
             v-model="emailContactoInstitucion"
-            :state="lengthState(emailContactoInstitucion)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -400,9 +401,9 @@
           <h6>Persona de contacto que recibe la respuesta: </h6>
           <b-form-input
             v-model="personaRecibeRespuesta"
-            :state="lengthState(personaRecibeRespuesta)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -410,9 +411,9 @@
           <h6>Teléfono de la persona de contacto que recibe la respuesta: </h6>
           <b-form-input
             v-model="telefonoContactoRespuesta"
-            :state="lengthState(telefonoContactoRespuesta)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -420,9 +421,9 @@
           <h6>Email de la persona de contacto que recibe la respuesta: </h6>
           <b-form-input
             v-model="emailContactoRespuesta"
-            :state="lengthState(emailContactoRespuesta)"
             aria-describedby="input-live-feedback"
             trim
+            placeholder = 'Opcional'
           ></b-form-input>
         </div>
 
@@ -447,6 +448,7 @@
           size="lg"
           class="text-light mt-5 mb-3"
           variant="warning"
+          :disabled="this.requiredFieldsCompleted"
           block
           >Guardar</b-button
         >
@@ -567,6 +569,38 @@ export default {
       else{
         this.$store.commit('SET_APP_ERROR', response.addResults[0].error.description)
       } 
+    },
+  },
+  computed: {
+    requiredFieldsCompleted() {
+      if(!this.tipoSeguimientoEnum ||
+      !this.fechaAccionRespuesta ||
+      !this.descripcionSituacion ||
+      !this.evolucionSituacion ||
+      !this.actoresInvolucrados ||
+      !this.accionesMitigacion ||
+      !this.riesgoPercibido ||
+      !this.institucionesInformadasEnum ||
+      !this.accionSeguimiento ||
+      !this.descripcionAccion ||
+      !this.entidadesAccionEnum ||
+      !this.dependenciaEntidad ||
+      !this.resultadoEsperado ||
+      !this.tiempoEsperado ||
+      !this.quienPresentaAccion ||
+      !this.trato ||
+      !this.tipoRespuesta ||
+      !this.entidadesRespuestaEnum ||
+      !this.dependenciaEntidadRespuesta ||
+      !this.descripcionRespuesta ||
+      !this.mitigaRiesgo ||
+      !this.protegeDefensores ||
+      !this.esperaOtraRespuesta ||
+      !this.quienRecibeRespuesta ||
+      !this.tratoRespuesta)
+      return true;
+
+      return false;
     },
   },
   created () {
