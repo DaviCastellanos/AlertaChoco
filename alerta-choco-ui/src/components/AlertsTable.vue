@@ -12,7 +12,17 @@
       <h6>Esta informacion no se puede recuperar.</h6>
     </b-modal>
 
-    <b-table responsive sticky-header="750px" striped hover light :items="this.getItems()" :fields="this.getFields()">
+    <b-table
+      responsive
+      sticky-header="700px"
+      striped
+      hover
+      light
+      selectable
+      :items="this.getItems()"
+      :fields="this.getFields()"
+      @row-selected="onRowSelected"
+    >
       <template v-slot:cell(relatoQue)="data">
         <span v-html="data.value"></span>
       </template>
@@ -68,6 +78,10 @@ export default {
     };
   },
   methods: {
+    onRowSelected(items) {
+      if (!items || !items[0] || !items[0].idAlerta) return;
+      this.$store.commit('SET_REPORT_ALERT', items[0].idAlerta);
+    },
     getFields() {
       let headers = [
         { key: 'fechaReporte', tdClass: 'w-5', label: 'Ingresó al sistema', sortable: true },
@@ -175,7 +189,8 @@ export default {
         numeroPersonas: feature.numeroPersonas,
         derechosDDHEnum: this.getObjectTexts('opcionesDerechos', feature.derechosDDHEnum),
         tipoResponsableEnum: this.getObjectTexts('opcionesResponsables', feature.tipoResponsableEnum),
-        botonVerificar: '/verify/' + feature.idAlerta
+        botonVerificar: '/verify/' + feature.idAlerta,
+        idAlerta: feature.idAlerta
       };
     },
     getSensitiveItems(feature) {
@@ -223,7 +238,8 @@ export default {
         situacionAsociada: this.FormatForHuman(feature.situacionAsociada),
         accionesMitigacion: this.FormatForHuman(feature.accionesMitigacion),
         riesgoPercibido: this.FormatForHuman(feature.riesgoPercibido),
-        institucionesEnum: this.getObjectTexts('opcionesInstituciones', feature.institucionesEnum)
+        institucionesEnum: this.getObjectTexts('opcionesInstituciones', feature.institucionesEnum),
+        idAlerta: feature.idAlerta
       };
     },
     getPrivateItems(feature) {
@@ -276,7 +292,8 @@ export default {
         codigoAnansi: this.FormatForHuman(feature.codigoAnansi),
         nombreVictima: this.FormatForHuman(feature.nombreVictima),
         completado: this.FormatForHuman(feature.completado),
-        botonEliminar: feature.OBJECTID
+        botonEliminar: feature.OBJECTID,
+        idAlerta: feature.idAlerta
       };
     },
     ShowDeleteModal(id) {

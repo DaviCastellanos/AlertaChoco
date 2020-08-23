@@ -2,14 +2,14 @@
   <b-container fluid>
     <web-map v-show="mapSelected" />
     <feed-chart v-show="statsSelected" />
-    <alerts-table v-show="tableSelected" />
+    <reports v-show="tableSelected" />
     <users-table v-show="usersSelected" />
   </b-container>
 </template>
 
 <script>
 import WebMap from '@/components/WebMap.vue';
-import AlertsTable from '@/components/AlertsTable.vue';
+import Reports from '@/components/Reports.vue';
 import FeedChart from '@/components/FeedChart.vue';
 import UsersTable from '@/components/UsersTable.vue';
 import AlertsService from '@/services/alerts-service.js';
@@ -20,7 +20,7 @@ export default {
   name: 'App',
   components: {
     WebMap,
-    AlertsTable,
+    Reports,
     FeedChart,
     UsersTable
   },
