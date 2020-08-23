@@ -7,98 +7,82 @@
     <b-row>
       <b-col>
         <div class="mt-3">
-          <h6>Id Alerta:</h6>
-          <p>{{ this.alert.attributes.idAlerta }}</p>
+          <h6>Id Alerta: {{ this.idAlerta }}</h6>
         </div>
 
         <div class="mt-3">
           <h6>Código ANANSI:</h6>
-          <p>{{ this.alert.attributes.codigoAnansi }}</p>
+          <b-form-input
+            v-model="codigoAnansi"
+            :state="lengthState(codigoAnansi)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
         </div>
 
         <div class="mt-3">
           <h6>Teléfono:</h6>
-          <p>{{ this.alert.attributes.telefono }}</p>
-        </div>
-
-        <div class="mt-3">
-          <h6>Puede reportar:</h6>
-          <p>{{ FormatForHuman(this.alert.attributes.puedeReportar) }}</p>
+          <b-form-input
+            v-model="telefono"
+            :state="lengthState(telefono)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
         </div>
 
         <div class="mt-3">
           <h6>Cómo pasó:</h6>
-          <p>
-            <span
-              v-html="FormatForHuman(this.alert.attributes.relatoComo)"
-            ></span>
-          </p>
+          <b-form-input
+            v-model="relatoComo"
+            :state="lengthState(relatoComo)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
         </div>
 
-        <div class="mt-3">
-          <h6>Situación actual:</h6>
-          <p>
-            <span
-              v-html="FormatForHuman(this.alert.attributes.situacionActual)"
-            ></span>
-          </p>
-        </div>
       </b-col>
 
       <b-col>
         <div class="mt-3">
-          <h6>Cuándo pasó:</h6>
-          <p>
-            <span
-              v-html="FormatForHuman(this.alert.attributes.relatoCuando)"
-            ></span>
-          </p>
-        </div>
-
-        <div class="mt-3">
-          <h6>Primer mensaje:</h6>
-          <p>
-            <span
-              v-html="FormatForHuman(this.alert.attributes.primerMensaje)"
-            ></span>
-          </p>
-        </div>
-
-        <div class="mt-3">
           <h6>Qué pasó:</h6>
-          <p>
-            <span
-              v-html="FormatForHuman(this.alert.attributes.relatoQue)"
-            ></span>
-          </p>
+          <b-form-input
+            v-model="relatoQue"
+            :state="lengthState(relatoQue)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
         </div>
 
-        <div class="mt-3">
+         <div class="mt-3">
           <h6>Dónde pasó:</h6>
-          <p>
-            <span
-              v-html="FormatForHuman(this.alert.attributes.relatoDonde)"
-            ></span>
-          </p>
+          <b-form-input
+            v-model="relatoDonde"
+            :state="lengthState(relatoDonde)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
         </div>
 
         <div class="mt-3">
           <h6>A quién le pasó:</h6>
-          <p>
-            <span
-              v-html="FormatForHuman(this.alert.attributes.relatoQuien)"
-            ></span>
-          </p>
+          <b-form-input
+            v-model="relatoQuien"
+            :state="lengthState(relatoQuien)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
         </div>
 
         <div class="mt-3">
-          <h6>Recibe llamada:</h6>
-          <p>
-            <span
-              v-html="FormatForHuman(this.alert.attributes.recibeLlamada)"
-            ></span>
-          </p>
+          <h6>Situación actual:</h6>
+          <b-form-input
+            v-model="situacionActual"
+            :state="lengthState(situacionActual)"
+            aria-describedby="input-live-feedback"
+            trim
+          ></b-form-input>
         </div>
+
       </b-col>
     </b-row>
 
@@ -109,17 +93,13 @@
     </div>
     <b-row>
       <b-col>
-    <div class="mt-3">
-          <h6>Fecha reporte:</h6>
-          <p>{{ FormatAsDate(this.alert.attributes.fechaReporte) }}</p>
-        </div>
 
         <div class="mt-3 mb-3">
-          <h6>Fecha de validacion:</h6>
+          <h6>Fecha de Reporte:</h6>
           <b-form-datepicker
             id="datepicker"
             v-model="fechaValidacion"
-            :state="lengthState(FormatAsDate(fechaValidacion))"
+            :state="lengthState(fechaValidacion)"
             :placeholder="FormatAsDate(this.fechaValidacion)"
           ></b-form-datepicker>
         </div>
@@ -564,12 +544,13 @@
       </b-col>
     </b-row>
     <b-button
-          @click="this.validate"
+          @click="this.save"
           size="lg"
           class="text-light mt-5 mb-3"
           variant="warning"
           block
-          >Guardar</b-button
+          :disabled="requiredFieldsCompleted()"
+          >Crear</b-button
         >
   </b-container>
 </template>
@@ -577,12 +558,20 @@
 import { AlertsService } from "@/services";
 import frozen from "@/mixins/frozen.js"
 import coordinates from "@/mixins/coordinates.js"
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
   mixins: [frozen, coordinates],
   data() {
     return {
-      alert: Object,
+      idAlerta:"",
+      codigoAnansi:"",
+      telefono:"",
+      relatoComo:"",
+      situacionActual:"",
+      relatoQue:"",
+      relatoDonde:"",
+      relatoQuien:"",
       fechaOcurrencia: "",
       fechaValidacion: "",
       departamentoOcurrencia: "",
@@ -623,44 +612,49 @@ export default {
     };
   },
   methods: {
-    fillForm() {
-      this.fechaOcurrencia = this.validateData(this.alert.attributes.fechaOcurrencia.toString()),
-      this.fechaValidacion = this.validateData(this.alert.attributes.fechaValidacion.toString()),
-      this.departamentoOcurrencia = this.validateData(this.alert.attributes.departamentoOcurrencia),
-      this.municipioOcurrencia = this.validateData(this.alert.attributes.municipioOcurrencia),
-      this.entornoOcurrencia = this.validateData(this.alert.attributes.entornoOcurrencia),
-      this.territorioColectivo = this.validateData(this.alert.attributes.territorioColectivo),
-      this.barrio = this.validateData(this.alert.attributes.barrio),
-      this.tipoEvento = this.validateData(this.alert.attributes.tipoEvento),
-      this.categoriaEvento = this.validateData(this.alert.attributes.categoriaEvento),
-      this.subcategoriaEventoEnum = this.validateData(this.alert.attributes.subcategoriaEventoEnum, true),
-      this.subcategoriaEventoOtra = this.validateData(this.alert.attributes.subcategoriaEventoOtra),
-      this.nombreVictima = this.validateData(this.alert.attributes.nombreVictima),
-      this.edadVictima = this.validateData(this.alert.attributes.edadVictima),
-      this.etniaVictima = this.validateData(this.alert.attributes.etniaVictima),
-      this.rolVictimaEnum = this.validateData(this.alert.attributes.rolVictimaEnum, true),
-      this.rolVictimaOtro = this.validateData(this.alert.attributes.rolVictimaOtro),
-      this.discapacidadEnum = this.validateData(this.alert.attributes.discapacidadEnum, true),
-      this.sexo = this.validateData(this.alert.attributes.sexo),
-      this.identidadGenero = this.validateData(this.alert.attributes.identidadGenero),
-      this.perfilVictima = this.validateData(this.alert.attributes.perfilVictima),
-      this.medidasProteccionExistentes = this.validateData(this.alert.attributes.medidasProteccionExistentes),
-      this.otrasVictimas = this.validateData(this.alert.attributes.otrasVictimas),
-      this.totalVictimas = this.validateData(this.alert.attributes.totalVictimas),
-      this.otrasVictimasNombres = this.validateData(this.alert.attributes.otrasVictimasNombres),
-      this.relacionVictima = this.validateData(this.alert.attributes.relacionVictima),
-      this.afectadosEnum = this.validateData(this.alert.attributes.afectadosEnum, true),
-      this.familias = this.validateData(this.alert.attributes.familias),
-      this.numeroPersonas = this.validateData(this.alert.attributes.numeroPersonas),
-      this.etniaAfectadosEnum = this.validateData(this.alert.attributes.etniaAfectadosEnum, true),
-      this.derechosDDHEnum = this.validateData(this.alert.attributes.derechosDDHEnum, true),
-      this.tipoResponsableEnum = this.validateData(this.alert.attributes.tipoResponsableEnum, true),
-      this.presuntoResponsable = this.validateData(this.alert.attributes.presuntoResponsable),
-      this.situacionAsociada = this.validateData(this.alert.attributes.situacionAsociada),
-      this.accionesMitigacion = this.validateData(this.alert.attributes.accionesMitigacion),
-      this.riesgoPercibido = this.validateData(this.alert.attributes.riesgoPercibido),
-      this.institucionesEnum = this.validateData(this.alert.attributes.institucionesEnum, true),
-      this.institucionOtra = this.validateData(this.alert.attributes.institucionOtra);
+    requiredFieldsCompleted() {
+      if(!this.codigoAnansi ||
+      !this.telefono ||
+      !this.relatoComo ||
+      !this.situacionActual ||
+      !this.relatoQue ||
+      !this.relatoDonde ||
+      !this.relatoQuien ||
+      !this.fechaOcurrencia ||
+      !this.fechaValidacion ||
+      !this.departamentoOcurrencia ||
+      !this.municipioOcurrencia ||
+      !this.entornoOcurrencia ||
+      !this.territorioColectivo ||
+      !this.barrio ||
+      !this.tipoEvento ||
+      !this.categoriaEvento ||
+      !this.subcategoriaEventoEnum ||
+      !this.nombreVictima ||
+      !this.edadVictima ||
+      !this.etniaVictima ||
+      !this.rolVictimaEnum ||
+      !this.discapacidadEnum ||
+      !this.sexo ||
+      !this.identidadGenero ||
+      !this.perfilVictima ||
+      !this.medidasProteccionExistentes ||
+      !this.totalVictimas ||
+      !this.relacionVictima ||
+      !this.afectadosEnum ||
+      !this.familias ||
+      !this.numeroPersonas ||
+      !this.etniaAfectadosEnum ||
+      !this.derechosDDHEnum ||
+      !this.tipoResponsableEnum ||
+      !this.presuntoResponsable ||
+      !this.situacionAsociada ||
+      !this.accionesMitigacion ||
+      !this.riesgoPercibido ||
+      !this.institucionesEnum)
+      return true;
+
+      return false;
     },
     validateData(data, obj) {
       if(obj)
@@ -675,8 +669,6 @@ export default {
       return this.FormatForm(data);  
     },
     lengthState(str) {
-      if(!str)
-      return true;
 
       if (str.length > 256) return false;
 
@@ -686,121 +678,76 @@ export default {
     },
     wrapAlert() {
       let alert = `[{ "geometry" : {"x": ${this.getCoordinates(this.municipioOcurrencia).x},"y": ${this.getCoordinates(this.municipioOcurrencia).y},"spatialReference": {"wkid": 4326}},"attributes" : {`;
-      alert += '"OBJECTID":"' + this.alert.attributes.OBJECTID + '",';
       alert += '"verificado":"True",';
+      alert += '"idAlerta":"' + this.FormatForDB(this.idAlerta) + '",';
+      alert += '"codigoAnansi":"' + this.FormatForDB(this.codigoAnansi) + '",';
+      alert += '"telefono":"' + this.FormatForDB(this.telefono) + '",';
+      alert += '"relatoComo":"' + this.FormatForDB(this.relatoComo) + '",';
+      alert += '"relatoDonde":"' + this.FormatForDB(this.relatoDonde) + '",';
+      alert += '"relatoQue":"' + this.FormatForDB(this.relatoQue) + '",';
+      alert += '"relatoQuien":"' + this.FormatForDB(this.relatoQuien) + '",';
+      alert += '"situacionActual":"' + this.FormatForDB(this.situacionActual) + '",';      
+      alert += '"fechaReporte":"' + this.FormatDateForDB(this.fechaValidacion) + '",';      
+      alert += '"relatoCuando":"N/A",';      
+      alert += '"puedeReportar":"N/A",';    
+      alert += '"recibeLlamada":"N/A",';      
+      alert += '"primerMensaje":"N/A",';     
+      alert += '"completado":"True",';   
       alert += '"fechaOcurrencia":"' + this.FormatDateForDB(this.fechaOcurrencia) + '",';
       alert += '"fechaValidacion":"' + this.FormatDateForDB(this.fechaValidacion) + '",';
-      alert +=
-        '"departamentoOcurrencia":"' +
-        this.FormatForDB(this.departamentoOcurrencia) +
-        '",';
-      alert +=
-        '"municipioOcurrencia":"' +
-        this.FormatForDB(this.municipioOcurrencia) +
-        '",';
-      alert +=
-        '"entornoOcurrencia":"' +
-        this.FormatForDB(this.entornoOcurrencia) +
-        '",';
-      alert +=
-        '"territorioColectivo":"' +
-        this.FormatForDB(this.territorioColectivo) +
-        '",';
+      alert += '"departamentoOcurrencia":"' + this.FormatForDB(this.departamentoOcurrencia) + '",';
+      alert += '"municipioOcurrencia":"' + this.FormatForDB(this.municipioOcurrencia) + '",';
+      alert += '"entornoOcurrencia":"' + this.FormatForDB(this.entornoOcurrencia) + '",';
+      alert += '"territorioColectivo":"' + this.FormatForDB(this.territorioColectivo) + '",';
       alert += '"barrio":"' + this.FormatForDB(this.barrio) + '",';
       alert += '"tipoEvento":"' + this.FormatForDB(this.tipoEvento) + '",';
-      alert +=
-        '"categoriaEvento":"' + this.FormatForDB(this.categoriaEvento) + '",';
-      alert +=
-        '"subcategoriaEventoEnum":"' +
-        this.FormatForDB(this.subcategoriaEventoEnum) +
-        '",';
-      alert +=
-        '"subcategoriaEventoOtra":"' +
-        this.FormatForDB(this.subcategoriaEventoOtra) +
-        '",';
-      alert +=
-        '"nombreVictima":"' + this.FormatForDB(this.nombreVictima) + '",';
+      alert += '"categoriaEvento":"' + this.FormatForDB(this.categoriaEvento) + '",';
+      alert += '"subcategoriaEventoEnum":"' + this.FormatForDB(this.subcategoriaEventoEnum) + '",';
+      alert += '"subcategoriaEventoOtra":"' + this.FormatForDB(this.subcategoriaEventoOtra) + '",';
+      alert += '"nombreVictima":"' + this.FormatForDB(this.nombreVictima) + '",';
       alert += '"edadVictima":"' + this.FormatForDB(this.edadVictima) + '",';
       alert += '"etniaVictima":"' + this.FormatForDB(this.etniaVictima) + '",';
-      alert +=
-        '"rolVictimaEnum":"' + this.FormatForDB(this.rolVictimaEnum) + '",';
-      alert +=
-        '"rolVictimaOtro":"' + this.FormatForDB(this.rolVictimaOtro) + '",';
-      alert +=
-        '"discapacidadEnum":"' + this.FormatForDB(this.discapacidadEnum) + '",';
+      alert += '"rolVictimaEnum":"' + this.FormatForDB(this.rolVictimaEnum) + '",';
+      alert += '"rolVictimaOtro":"' + this.FormatForDB(this.rolVictimaOtro) + '",';
+      alert += '"discapacidadEnum":"' + this.FormatForDB(this.discapacidadEnum) + '",';
       alert += '"sexo":"' + this.FormatForDB(this.sexo) + '",';
-      alert +=
-        '"identidadGenero":"' + this.FormatForDB(this.identidadGenero) + '",';
-      alert +=
-        '"perfilVictima":"' + this.FormatForDB(this.perfilVictima) + '",';
-      alert +=
-        '"medidasProteccionExistentes":"' +
-        this.FormatForDB(this.medidasProteccionExistentes) +
-        '",';
-      alert +=
-        '"otrasVictimas":"' + this.FormatForDB(this.otrasVictimas) + '",';
-      alert +=
-        '"totalVictimas":"' + this.FormatForDB(this.totalVictimas) + '",';
-      alert +=
-        '"otrasVictimasNombres":"' +
-        this.FormatForDB(this.otrasVictimasNombres) +
-        '",';
-      alert +=
-        '"relacionVictima":"' + this.FormatForDB(this.relacionVictima) + '",';
-      alert +=
-        '"afectadosEnum":"' + this.FormatForDB(this.afectadosEnum) + '",';
+      alert += '"identidadGenero":"' + this.FormatForDB(this.identidadGenero) + '",';
+      alert += '"perfilVictima":"' + this.FormatForDB(this.perfilVictima) + '",';
+      alert += '"medidasProteccionExistentes":"' + this.FormatForDB(this.medidasProteccionExistentes) + '",';
+      alert += '"otrasVictimas":"' + this.FormatForDB(this.otrasVictimas) + '",';
+      alert += '"totalVictimas":"' + this.FormatForDB(this.totalVictimas) + '",';
+      alert += '"otrasVictimasNombres":"' + this.FormatForDB(this.otrasVictimasNombres) +'",';
+      alert += '"relacionVictima":"' + this.FormatForDB(this.relacionVictima) + '",';
+      alert += '"afectadosEnum":"' + this.FormatForDB(this.afectadosEnum) + '",';
       alert += '"familias":"' + this.FormatForDB(this.familias) + '",';
-      alert +=
-        '"numeroPersonas":"' + this.FormatForDB(this.numeroPersonas) + '",';
-      alert +=
-        '"etniaAfectadosEnum":"' +
-        this.FormatForDB(this.etniaAfectadosEnum) +
-        '",';
-      alert +=
-        '"derechosDDHEnum":"' + this.FormatForDB(this.derechosDDHEnum) + '",';
-      alert +=
-        '"tipoResponsableEnum":"' +
-        this.FormatForDB(this.tipoResponsableEnum) +
-        '",';
-      alert +=
-        '"presuntoResponsable":"' +
-        this.FormatForDB(this.presuntoResponsable) +
-        '",';
-      alert +=
-        '"situacionAsociada":"' +
-        this.FormatForDB(this.situacionAsociada) +
-        '",';
-      alert +=
-        '"accionesMitigacion":"' +
-        this.FormatForDB(this.accionesMitigacion) +
-        '",';
-      alert +=
-        '"riesgoPercibido":"' + this.FormatForDB(this.riesgoPercibido) + '",';
-      alert +=
-        '"institucionesEnum":"' +
-        this.FormatForDB(this.institucionesEnum) +
-        '",';
-      alert +=
-        '"institucionOtra":"' + this.FormatForDB(this.institucionOtra) + '"';
+      alert += '"numeroPersonas":"' + this.FormatForDB(this.numeroPersonas) + '",';
+      alert += '"etniaAfectadosEnum":"' + this.FormatForDB(this.etniaAfectadosEnum) + '",';
+      alert += '"derechosDDHEnum":"' + this.FormatForDB(this.derechosDDHEnum) + '",';
+      alert += '"tipoResponsableEnum":"' + this.FormatForDB(this.tipoResponsableEnum) + '",';
+      alert += '"presuntoResponsable":"' + this.FormatForDB(this.presuntoResponsable) +  '",';
+      alert += '"situacionAsociada":"' + this.FormatForDB(this.situacionAsociada) + '",';
+      alert += '"accionesMitigacion":"' + this.FormatForDB(this.accionesMitigacion) + '",';
+      alert += '"riesgoPercibido":"' + this.FormatForDB(this.riesgoPercibido) + '",';
+      alert += '"institucionesEnum":"' + this.FormatForDB(this.institucionesEnum) + '",';
+      alert += '"institucionOtra":"' + this.FormatForDB(this.institucionOtra) + '"';
       alert += "}}]";
 
       //console.log(alert);
       return alert;
     },
-    async validate() {
-      const response = await AlertsService.verifyAlert(this.wrapAlert());
+    async save() {
+      const response = await AlertsService.saveAlert(this.wrapAlert());
       //console.log(response);
-      if(response.updateResults[0].success) {
+      if(response.addResults[0].success) {
         this.$router.push({name:'Home'})
       }
       else{
-        this.$store.commit('SET_APP_ERROR', response.updateResults[0].error.description)
+        this.$store.commit('SET_APP_ERROR', response.addResults[0].error.description)
       } 
     },
   },
   created () {
-      this.alert = this.$store.getters.alertById(this.$route.params.id);
-      this.fillForm();
+      this.idAlerta = uuidv4();
   }
 };
 </script>

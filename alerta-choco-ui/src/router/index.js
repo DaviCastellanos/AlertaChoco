@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from '@/components/Home.vue';
 import Verification from '@/components/Verification.vue';
 import FollowUp from '@/components/FollowUp.vue';
+import HREventCreation from '@/components/HREventCreation.vue';
 
 Vue.use(Router);
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/followup/:id',
       name: 'FollowUp',
       component: FollowUp
+    },
+    {
+      path: '/createhrevent/',
+      name: 'CreateHREvent',
+      component: HREventCreation
     }
   ]
 });

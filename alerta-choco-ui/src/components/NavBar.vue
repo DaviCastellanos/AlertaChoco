@@ -9,6 +9,7 @@
           <b-nav-item to="/" @click="changeView('table')">Tabla</b-nav-item>
           <b-nav-item to="/" @click="changeView('statistics')">Estadísticas</b-nav-item>
           <b-nav-item v-if="userIsAdmin" to="/" @click="changeView('users')">Usuarios</b-nav-item>
+          <b-nav-item v-if="userAccessIsPrivate" to="/createhrevent">Crear evento</b-nav-item>
         </b-navbar-nav>
         <b-button
           v-if="!isUserAuthenticated"
@@ -283,6 +284,12 @@ export default {
     },
     userIsAdmin() {
       return this.isUserAuthenticated && this.$store.getters.user.role === 'admin';
+    },
+    userAccessIsPrivate() {
+      return (
+        this.isUserAuthenticated &&
+        (this.$store.getters.user.role === 'admin' || this.$store.getters.user.role === 'analista')
+      );
     },
     userName() {
       if (this.$store.getters.user) return this.$store.getters.user.email;
