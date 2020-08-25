@@ -4,6 +4,7 @@ import Home from '@/components/Home.vue';
 import Verification from '@/components/Verification.vue';
 import FollowUp from '@/components/FollowUp.vue';
 import HREventCreation from '@/components/HREventCreation.vue';
+import PPEventCreation from '@/components/PPEventCreation.vue';
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/createhrevent/',
       name: 'CreateHREvent',
       component: HREventCreation
+    },
+    {
+      path: '/createppevent/',
+      name: 'CreatePPEvent',
+      component: PPEventCreation
     }
   ]
 });

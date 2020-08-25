@@ -9,7 +9,8 @@
           <b-nav-item to="/" @click="changeView('table')">Tabla</b-nav-item>
           <b-nav-item to="/" @click="changeView('statistics')">Estadísticas</b-nav-item>
           <b-nav-item v-if="userIsAdmin" to="/" @click="changeView('users')">Usuarios</b-nav-item>
-          <b-nav-item v-if="userAccessIsPrivate" to="/createhrevent">Crear evento</b-nav-item>
+          <b-nav-item v-if="userAccessIsPrivate" to="/createhrevent">Crear evento DH</b-nav-item>
+          <b-nav-item v-if="userAccessIsPrivate" to="/createppevent">Crear evento PP</b-nav-item>
         </b-navbar-nav>
         <b-button
           v-if="!isUserAuthenticated"
