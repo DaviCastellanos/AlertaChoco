@@ -1,3 +1,4 @@
+const _ = require('lodash');
 export default {
   data() {
     return {
@@ -55,6 +56,16 @@ export default {
           value: '8. Reconciliación. convivencia y construcción de paz.',
           text: '8. Reconciliación. convivencia y construcción de paz.'
         }
+      ],
+      opcionesBloqueo: [
+        { value: '', text: 'Selecciona una' },
+        { value: 'Presupuestal', text: 'Presupuestal' },
+        { value: 'Administrativo', text: 'Administrativo' },
+        { value: 'Operativo - logístico', text: 'Operativo - logístico' },
+        { value: 'Legal', text: 'Legal' },
+        { value: 'Coordinación - articulación', text: 'Coordinación - articulación' },
+        { value: 'Planeación', text: 'Planeación' },
+        { value: 'Otro', text: 'Otro' }
       ],
       opcionesImplementacion: [
         { value: '', text: 'Selecciona una' },
@@ -2218,41 +2229,8 @@ export default {
     };
   },
   methods: {
-    getPolicyTexts(object, values) {
-      if (!values) return 'N/A';
-      values = values.split(',');
-      let obj = undefined;
-
-      if (object === 'opcionesReporte') obj = this.opcionesReporte;
-      if (object === 'opcionesSubregion') obj = this.opcionesSubregion;
-      if (object === 'opcionesPilar') obj = this.opcionesPilar;
-
-      if (object === 'opcionesIniciativasSubregion') obj = this.opcionesIniciativasSubregion;
-      if (object === 'opcionesIniciativasAcandi') obj = this.opcionesIniciativasAcandi;
-      if (object === 'opcionesIniciativasBojaya') obj = this.opcionesIniciativasBojaya;
-      if (object === 'opcionesIniciativasCarmenDelDarien') obj = this.opcionesIniciativasCarmenDelDarien;
-      if (object === 'opcionesIniciativasCondoto') obj = this.opcionesIniciativasCondoto;
-      if (object === 'opcionesIniciativasElLitoralDelSanJuan') obj = this.opcionesIniciativasElLitoralDelSanJuan;
-      if (object === 'opcionesIniciativasIstmina') obj = this.opcionesIniciativasIstmina;
-      if (object === 'opcionesIniciativasMedioAtrato') obj = this.opcionesIniciativasMedioAtrato;
-      if (object === 'opcionesIniciativasMedioSanJuan') obj = this.opcionesIniciativasMedioSanJuan;
-      if (object === 'opcionesIniciativasMurindo') obj = this.opcionesIniciativasMurindo;
-      if (object === 'opcionesIniciativasNovita') obj = this.opcionesIniciativasNovita;
-      if (object === 'opcionesIniciativasRiosucio') obj = this.opcionesIniciativasRiosucio;
-      if (object === 'opcionesIniciativasSipi') obj = this.opcionesIniciativasSipi;
-      if (object === 'opcionesIniciativasUnguia') obj = this.opcionesIniciativasUnguia;
-      if (object === 'opcionesIniciativasVigiaDelFuerte') obj = this.opcionesIniciativasVigiaDelFuerte;
-
-      if (!obj) {
-        console.error(object + ' is undefined');
-        return;
-      }
-      let str = '';
-      for (var i = 0; i < values.length; i++) {
-        str += obj[parseInt(values[i]) + 1].text.toLowerCase();
-        if (i < values.length - 1) str += ' - ';
-      }
-      return str;
+    getPolicyTexts(obj, code) {
+      return _.find(obj, { value: code }).text;
     }
   }
 };

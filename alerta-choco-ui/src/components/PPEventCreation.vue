@@ -156,6 +156,8 @@
             :state="lengthState(tiempoIncidencia)"
             aria-describedby="input-live-feedback"
             trim
+            type="number"
+            min="0"
           ></b-form-input>
         </div>
         <div class="mt-3">
@@ -246,6 +248,7 @@
             :options="this.opcionesInstituciones"
             :select-size="10"
             :state="lengthState(entidadesEstadoEnum2)"
+            multiple
           ></b-form-select>
         </div>
 
@@ -470,6 +473,17 @@
 
     <b-row>
       <b-col>
+
+          <div class="mt-3">
+            <h6>Tipo de bloqueo:</h6>
+            <b-form-select
+              v-model="tipoBloqueo"
+              :options="this.opcionesBloqueo"
+              :select-size="5"
+              :state="lengthState(tipoBloqueo)"
+            ></b-form-select>
+          </div>
+
          <div class="mt-3">
           <h6>Institucion/es en la/s que se identifica el bloqueo</h6>
           <b-form-select
@@ -570,7 +584,6 @@
 import  PolicyService  from "@/services/policy-service.js";
 import PublicPolicyOptions from "@/mixins/public-policy-options.js"
 
-
 export default {
   mixins: [PublicPolicyOptions],
   data() {
@@ -635,7 +648,6 @@ export default {
       !this.subregion ||
       !this.pilar ||
       !this.municipio ||
-      !this.iniciativa ||
       !this.codigoIniciativa ||
       !this.fechaOcurrencia ||
       !this.descripcionAccion ||
@@ -652,7 +664,6 @@ export default {
       !this.avanza1 ||
       !this.retrasa1 ||
       !this.accionNecesaria ||
-      !this.implementacionContacto ||
       !this.tipoImplementacion2 ||
       !this.organizacion ||
       !this.agencia ||
@@ -702,7 +713,7 @@ export default {
       alert += '"pilar":"' + this.FormatForDB(this.pilar) + '",';
       alert += '"municipio":"' + this.FormatForDB(this.municipio) + '",';
       alert += '"iniciativa":"' + this.FormatForDB(this.iniciativa) + '",';
-      alert += '"codigoInciativa":"' + this.FormatForDB(this.codigoInciativa) + '",';
+      alert += '"codigoIniciativa":"' + this.FormatForDB(this.codigoIniciativa) + '",';
       alert += '"fechaOcurrencia":"' + this.FormatDateForDB(this.fechaOcurrencia) + '",';
       alert += '"descripcionAccion":"' + this.FormatForDB(this.descripcionAccion) + '",';      
       alert += '"entidadesEstadoEnum1":"' + this.FormatForDB(this.entidadesEstadoEnum1) + '",';     
@@ -740,24 +751,23 @@ export default {
       alert += '"tipoBloqueo":"' + this.FormatForDB(this.tipoBloqueo) + '",';
       alert += '"entidadesEstadoEnum3":"' + this.FormatForDB(this.entidadesEstadoEnum3) + '",';
       alert += '"entidadOtra3":"' + this.FormatForDB(this.entidadOtra3) + '",';
-      alert += '"dependenciaBloqueo":"' + this.FormatForDB(this.dependenciaBloqueo) + '"';
-      alert += '"descripcionBloqueo":"' + this.FormatForDB(this.descripcionBloqueo) + '"';
-      alert += '"efectoBloqueo":"' + this.FormatForDB(this.efectoBloqueo) + '"';
-      alert += '"impactoBloqueo":"' + this.FormatForDB(this.impactoBloqueo) + '"';
-      alert += '"accionesBloqueo":"' + this.FormatForDB(this.accionesBloqueo) + '"';
-      alert += '"institucionesBloqueo":"' + this.FormatForDB(this.institucionesBloqueo) + '"';
-      alert += '"municipioOtro":"' + this.FormatForDB(this.municipioOtro) + '"';
-      alert += '"iniciativaOtra":"' + this.FormatForDB(this.iniciativaOtra) + '"';
-      alert += '"tiempoUnidad":"' + this.FormatForDB(this.tiempoUnidad) + '"';
+      alert += '"dependenciaBloqueo":"' + this.FormatForDB(this.dependenciaBloqueo) + '",';
+      alert += '"descripcionBloqueo":"' + this.FormatForDB(this.descripcionBloqueo) + '",';
+      alert += '"efectoBloqueo":"' + this.FormatForDB(this.efectoBloqueo) + '",';
+      alert += '"impactoBloqueo":"' + this.FormatForDB(this.impactoBloqueo) + '",';
+      alert += '"accionesBloqueo":"' + this.FormatForDB(this.accionesBloqueo) + '",';
+      alert += '"institucionesBloqueo":"' + this.FormatForDB(this.institucionesBloqueo) + '",';
+      alert += '"municipioOtro":"' + this.FormatForDB(this.municipioOtro) + '",';
+      alert += '"iniciativaOtra":"' + this.FormatForDB(this.iniciativaOtra) + '",';
+      alert += '"tiempoUnidad":"' + this.FormatForDB(this.tiempoUnidad)+ '"';
       alert += "}}]";
 
       //console.log(alert);
       return alert;
     },
     async save() {
-      console.log(this.wrapPolicy());
       const response = await PolicyService.savePolicy(this.wrapPolicy());
-      console.log(response);
+      //console.log(response);
       if(response.addResults[0].success) {
         this.$router.push({name:'Home'})
       }
@@ -768,11 +778,13 @@ export default {
   },
     computed: {
       opcionesMunicipios() {
+        
         if(this.subregion == 'Chocó') return this.opcionesMunicipiosChoco
 
         return [{ value: '', text: 'Selecciona una' }, { value: 'Otro', text: 'Otro' }]
       }, 
       opcionesIniciativas() {
+        //console.log('texto es ' + this.getPolicyTexts(this.opcionesIniciativas, this.codigoIniciativa))
         if(this.subregion != 'Chocó') return [{ value: '', text: 'Selecciona una' }, { value: 'Otro', text: 'Otro' }];
         
         if(this.municipio == 'Acandí') return this.opcionesIniciativasAcandi;
@@ -802,4 +814,5 @@ export default {
   padding: 0;
   height: 100%;
   width: 100%;
-}tyle>
+}
+<style>

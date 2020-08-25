@@ -57,6 +57,7 @@ Vue.mixin({
       }
     },
     FormatForDB(str) {
+      if (!str) return '';
       const lower = str.toString().toLowerCase();
       return lower.replace(/ /g, '_');
     },
