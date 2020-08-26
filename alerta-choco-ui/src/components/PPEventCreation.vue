@@ -778,7 +778,6 @@ export default {
   },
     computed: {
       opcionesMunicipios() {
-        
         if(this.subregion == 'Chocó') return this.opcionesMunicipiosChoco
 
         return [{ value: '', text: 'Selecciona una' }, { value: 'Otro', text: 'Otro' }]

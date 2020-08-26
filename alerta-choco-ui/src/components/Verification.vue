@@ -159,11 +159,17 @@
         <div class="mt-3">
           <h6>Municipio ocurrencia:</h6>
           <b-form-input
+            type="text"
             v-model="municipioOcurrencia"
             :state="lengthState(municipioOcurrencia)"
             aria-describedby="input-live-feedback"
             trim
+            lazy
           ></b-form-input>
+        </div>
+
+        <div class="mt-2 ml-2" v-if="this.arcgisAddress" >
+          <span class="font-italic">{{this.arcgisAddress.address }}.</span> ¿Sobreescribir coordenadas? <input class="lg" type="checkbox" v-model="overrideCoordinates">
         </div>
 
         <div class="mt-3">
@@ -575,6 +581,7 @@
 </template>
 <script>
 import { AlertsService } from "@/services";
+import GeocodeService from "@/services/geocode-service.js";
 import frozen from "@/mixins/frozen.js"
 import coordinates from "@/mixins/coordinates.js"
 
@@ -582,6 +589,7 @@ export default {
   mixins: [frozen, coordinates],
   data() {
     return {
+      geocodeBusy: false,
       alert: Object,
       fechaOcurrencia: "",
       fechaValidacion: "",
@@ -620,12 +628,36 @@ export default {
       riesgoPercibido: "",
       institucionesEnum: [],
       institucionOtra: "",
+      arcgisAddress: "",
+      overrideCoordinates: false
     };
   },
+  watch:{
+    municipioOcurrencia: function(val){
+      this.lookForCoordinates(val);
+    }
+  },
   methods: {
+    async lookForCoordinates(mun) {
+      console.log("LookForCoordinates of " + mun);
+      if(this.geocodeBusy)
+        return;
+
+      this.geocodeBusy = true;  
+      const response = await GeocodeService.getCoordinates(this.$store.getters.arcgisToken, mun);
+      console.log('Coordinates ', response)
+
+      if(response && response.locations[0] && response.locations[0].address){ 
+        this.arcgisAddress = {"address":response.locations[0].address,
+                              "x": response.locations[0].location.x,
+                              "y": response.locations[0].location.y}
+      }
+      
+      this.geocodeBusy = false;  
+    },
     fillForm() {
-      this.fechaOcurrencia = this.validateData(this.alert.attributes.fechaOcurrencia.toString()),
-      this.fechaValidacion = this.validateData(this.alert.attributes.fechaValidacion.toString()),
+      this.fechaOcurrencia = this.validateData(this.alert.attributes.fechaOcurrencia),
+      this.fechaValidacion = this.validateData(this.alert.attributes.fechaValidacion),
       this.departamentoOcurrencia = this.validateData(this.alert.attributes.departamentoOcurrencia),
       this.municipioOcurrencia = this.validateData(this.alert.attributes.municipioOcurrencia),
       this.entornoOcurrencia = this.validateData(this.alert.attributes.entornoOcurrencia),
@@ -672,6 +704,9 @@ export default {
       if(!data)
         return'';   
 
+       if(typeof data === 'number')
+          data = data.toString(); 
+
       return this.FormatForm(data);  
     },
     lengthState(str) {
@@ -685,8 +720,13 @@ export default {
       return true;
     },
     wrapAlert() {
-      let alert = `[{ "geometry" : {"x": ${this.getCoordinates(this.municipioOcurrencia).x},"y": ${this.getCoordinates(this.municipioOcurrencia).y},"spatialReference": {"wkid": 4326}},"attributes" : {`;
-      alert += '"OBJECTID":"' + this.alert.attributes.OBJECTID + '",';
+      let alert = '[{'
+      
+      if(this.overrideCoordinates){
+        alert +=`"geometry" : {"x": ${this.arcgisAddress.x},"y": ${this.arcgisAddress.y},"spatialReference": {"wkid": 4326}},`
+      }
+
+      alert += '"attributes" : {"OBJECTID":"' + this.alert.attributes.OBJECTID + '",';
       alert += '"verificado":"True",';
       alert += '"fechaOcurrencia":"' + this.FormatDateForDB(this.fechaOcurrencia) + '",';
       alert += '"fechaValidacion":"' + this.FormatDateForDB(this.fechaValidacion) + '",';
@@ -788,8 +828,9 @@ export default {
       return alert;
     },
     async validate() {
+      console.log("Wrapping alert. Override coordenates is " + this.overrideCoordinates, this.wrapAlert())
       const response = await AlertsService.verifyAlert(this.wrapAlert());
-      //console.log(response);
+      console.log(response);
       if(response.updateResults[0].success) {
         this.$router.push({name:'Home'})
       }

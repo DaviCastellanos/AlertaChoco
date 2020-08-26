@@ -53,11 +53,7 @@ export default {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     };
 
-    const response = await tokenHandler.postRequest(
-      `https://www.arcgis.com/sharing/rest/oauth2/token`,
-      tokenData,
-      header
-    );
+    const response = await tokenHandler.postRequest(`https://www.arcgis.com/sharing/rest/oauth2/token`, tokenData, header);
 
     const updateData = qs.stringify({
       f: 'json',
@@ -65,11 +61,7 @@ export default {
       adds: alert
     });
 
-    const saveResponse = await alertsHandler.postRequest(
-      `https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/applyEdits`,
-      updateData,
-      header
-    );
+    const saveResponse = await alertsHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/applyEdits`, updateData, header);
     //console.log("alerts is " + alerts.features);
 
     return saveResponse;
@@ -85,11 +77,7 @@ export default {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     };
 
-    const response = await tokenHandler.postRequest(
-      `https://www.arcgis.com/sharing/rest/oauth2/token`,
-      tokenData,
-      header
-    );
+    const response = await tokenHandler.postRequest(`https://www.arcgis.com/sharing/rest/oauth2/token`, tokenData, header);
 
     const updateData = qs.stringify({
       f: 'json',
@@ -97,11 +85,7 @@ export default {
       updates: alert
     });
 
-    const updateResponse = await alertsHandler.postRequest(
-      `https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/applyEdits`,
-      updateData,
-      header
-    );
+    const updateResponse = await alertsHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/applyEdits`, updateData, header);
     //console.log("alerts is " + alerts.features);
 
     return updateResponse;
@@ -117,11 +101,7 @@ export default {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     };
 
-    const response = await tokenHandler.postRequest(
-      `https://www.arcgis.com/sharing/rest/oauth2/token`,
-      tokenData,
-      header
-    );
+    const response = await tokenHandler.postRequest(`https://www.arcgis.com/sharing/rest/oauth2/token`, tokenData, header);
 
     const deleteData = qs.stringify({
       f: 'json',
@@ -129,11 +109,7 @@ export default {
       deletes: '[' + id + ']'
     });
 
-    const deleteResponse = await alertsHandler.postRequest(
-      `https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/applyEdits`,
-      deleteData,
-      header
-    );
+    const deleteResponse = await alertsHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/applyEdits`, deleteData, header);
 
     return deleteResponse;
   }
