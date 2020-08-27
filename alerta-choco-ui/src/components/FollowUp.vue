@@ -14,8 +14,6 @@
             v-model="fechaAccionRespuesta"
           ></b-form-datepicker>
         </div>
-      </b-col>
-      <b-col>
       <div class="mt-3">
           <h6>Tipo de seguimiento: </h6>
           <b-form-select
@@ -84,8 +82,6 @@
           ></b-form-input>
         </div>
 
-      </b-col>
-      <b-col>
         <div class="mt-3">
           <h6>Instituciones informadas:</h6>
           <b-form-select
@@ -188,9 +184,6 @@
             :state="lengthState(entidadesAccionEnum)"
           ></b-form-select>
         </div>
-
-      </b-col>
-      <b-col>
 
         <div class="mt-3">
           <h6>¿Otra entidad? ¿cuál?:</h6>
@@ -329,7 +322,6 @@
           <b-form-select
             v-model="mitigaRiesgo"
             :options="this.opcionesVictimas"
-            :select-size="3"
             :state="lengthState(mitigaRiesgo)"
           ></b-form-select>
         </div>
@@ -339,20 +331,15 @@
           <b-form-select
             v-model="protegeDefensores"
             :options="this.opcionesVictimas"
-            :select-size="3"
             :state="lengthState(protegeDefensores)"
           ></b-form-select>
         </div>
-
-      </b-col>
-      <b-col>
 
         <div class="mt-3">
           <h6>¿Se espera otras respuestas de esta u otras instituciones? </h6>
           <b-form-select
             v-model="esperaOtraRespuesta"
             :options="this.opcionesVictimas"
-            :select-size="3"
             :state="lengthState(esperaOtraRespuesta)"
           ></b-form-select>
         </div>
@@ -450,7 +437,7 @@
           variant="warning"
           :disabled="this.requiredFieldsCompleted"
           block
-          >Guardar</b-button
+          >Crear seguimiento</b-button
         >
   </b-container>
 </template>
@@ -615,4 +602,4 @@ export default {
   padding: 0;
   height: 100%;
   width: 100%;
-}tyle>
+}<style>

@@ -90,7 +90,7 @@ export default {
 
     return updateResponse;
   },
-  async deleteAlert(id) {
+  async deleteAlert(OBJECTID) {
     const tokenData = qs.stringify({
       grant_type: 'client_credentials',
       client_id: process.env.VUE_APP_ARCGIS_CLIENT_ID,
@@ -106,7 +106,7 @@ export default {
     const deleteData = qs.stringify({
       f: 'json',
       token: response.access_token,
-      deletes: '[' + id + ']'
+      deletes: '[' + OBJECTID + ']'
     });
 
     const deleteResponse = await alertsHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/applyEdits`, deleteData, header);

@@ -29,9 +29,6 @@ export default {
   watch: {
     arcgisToken(newValue) {
       this.drawMap(newValue);
-    },
-    municipiosVisible() {
-      this.view.map.findLayerById('municipios').visible = !this.view.map.findLayerById('municipios').visible;
     }
   },
   methods: {
@@ -106,6 +103,9 @@ export default {
       // destroy the map view
       this.view.container = null;
     }
+  },
+  mounted() {
+    if (this.arcgisToken.length > 1) this.drawMap(this.arcgisToken);
   }
 };
 </script>

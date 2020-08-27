@@ -5,82 +5,36 @@
     </div>
     <b-row>
       <b-col>
-        <div class="mt-3">
-          <h6>Id Alerta:</h6>
-          <p>{{ this.alert.attributes.idAlerta }}</p>
+        <div class="mt-3" v-if="this.alert.attributes.idAlerta">
+          <span class="font-weight-bold">Id Alerta: </span> <span>{{ FormatForHuman(this.alert.attributes.idAlerta) }}</span>
         </div>
 
-        <div class="mt-3">
-          <h6>Código ANANSI:</h6>
-          <p>{{ this.alert.attributes.codigoAnansi }}</p>
+        <div class="mt-3" v-if="this.alert.attributes.codigoAnansi">
+          <span class="font-weight-bold">Código Anansi: </span> <span>{{ FormatForHuman(this.alert.attributes.codigoAnansi) }}</span>
         </div>
 
-        <div class="mt-3">
-          <h6>Teléfono:</h6>
-          <p>{{ this.alert.attributes.telefono }}</p>
+        <div class="mt-3" v-if="this.alert.attributes.telefono">
+          <span class="font-weight-bold">Teléfono: </span> <span>{{ FormatForHuman(this.alert.attributes.telefono) }}</span>
         </div>
 
-        <div class="mt-3">
-          <h6>Puede reportar:</h6>
-          <p>{{ FormatForHuman(this.alert.attributes.puedeReportar) }}</p>
-        </div>
+        <div class="mt-3" v-if="this.alert.attributes.relatoQue"><span class="font-weight-bold">Qué pasó: </span> <span v-html="FormatForHuman(this.alert.attributes.relatoQue)"></span></div>
 
-        <div class="mt-3">
-          <h6>Cómo pasó:</h6>
-          <p>
-            <span v-html="FormatForHuman(this.alert.attributes.relatoComo)"></span>
-          </p>
-        </div>
+        <div class="mt-3" v-if="this.alert.attributes.primerMensaje"><span class="font-weight-bold">Primer mensaje: </span> <span v-html="FormatForHuman(this.alert.attributes.primerMensaje)"></span></div>
 
-        <div class="mt-3">
-          <h6>Situación actual:</h6>
-          <p>
-            <span v-html="FormatForHuman(this.alert.attributes.situacionActual)"></span>
-          </p>
-        </div>
-      </b-col>
+        <div class="mt-3" v-if="this.alert.attributes.relatoComo"><span class="font-weight-bold">Cómo pasó: </span> <span v-html="FormatForHuman(this.alert.attributes.relatoComo)"></span></div>
 
-      <b-col>
-        <div class="mt-3">
-          <h6>Cuándo pasó:</h6>
-          <p>
-            <span v-html="FormatForHuman(this.alert.attributes.relatoCuando)"></span>
-          </p>
-        </div>
+        <div class="mt-3" v-if="this.alert.attributes.relatoCuando"><span class="font-weight-bold">Cuándo pasó: </span> <span v-html="FormatForHuman(this.alert.attributes.relatoCuando)"></span></div>
 
-        <div class="mt-3">
-          <h6>Primer mensaje:</h6>
-          <p>
-            <span v-html="FormatForHuman(this.alert.attributes.primerMensaje)"></span>
-          </p>
-        </div>
+        <div class="mt-3" v-if="this.alert.attributes.relatoDonde"><span class="font-weight-bold">Dónde pasó: </span> <span v-html="FormatForHuman(this.alert.attributes.relatoDonde)"></span></div>
 
-        <div class="mt-3">
-          <h6>Qué pasó:</h6>
-          <p>
-            <span v-html="FormatForHuman(this.alert.attributes.relatoQue)"></span>
-          </p>
-        </div>
+        <div class="mt-3" v-if="this.alert.attributes.relatoQuien"><span class="font-weight-bold">A quién le pasó: </span> <span v-html="FormatForHuman(this.alert.attributes.relatoQuien)"></span></div>
 
-        <div class="mt-3">
-          <h6>Dónde pasó:</h6>
-          <p>
-            <span v-html="FormatForHuman(this.alert.attributes.relatoDonde)"></span>
-          </p>
-        </div>
+        <div class="mt-3" v-if="this.alert.attributes.situacionActual"><span class="font-weight-bold">Situación actual: </span> <span v-html="FormatForHuman(this.alert.attributes.situacionActual)"></span></div>
 
-        <div class="mt-3">
-          <h6>A quién le pasó:</h6>
-          <p>
-            <span v-html="FormatForHuman(this.alert.attributes.relatoQuien)"></span>
-          </p>
-        </div>
+        <div class="mt-3" v-if="this.alert.attributes.recibeLlamada"><span class="font-weight-bold">Recibe llamada: </span> <span v-html="FormatForHuman(this.alert.attributes.recibeLlamada)"></span></div>
 
-        <div class="mt-3">
-          <h6>Recibe llamada:</h6>
-          <p>
-            <span v-html="FormatForHuman(this.alert.attributes.recibeLlamada)"></span>
-          </p>
+        <div class="mt-3" v-if="this.alert.attributes.puedeReportar">
+          <span class="font-weight-bold">Puede reportar: </span> <span>{{ FormatForHuman(this.alert.attributes.puedeReportar) }}</span>
         </div>
       </b-col>
     </b-row>
@@ -101,8 +55,7 @@
           <h6>Fecha de validacion:</h6>
           <b-form-datepicker id="datepicker" v-model="fechaValidacion" :state="lengthState(FormatAsDate(fechaValidacion))" :placeholder="FormatAsDate(this.fechaValidacion)"></b-form-datepicker>
         </div>
-      </b-col>
-      <b-col>
+
         <div class="mt-3">
           <h6>Fecha de ocurrencia:</h6>
           <b-form-datepicker id="datepicker" v-model="fechaOcurrencia" :state="lengthState(this.fechaOcurrencia)" :placeholder="FormatAsDate(this.fechaOcurrencia)"></b-form-datepicker>
@@ -135,9 +88,7 @@
           <h6>Entorno de ocurrencia: {{ FormatForm(this.entornoOcurrencia) }}</h6>
           <b-form-select v-model="entornoOcurrencia" :options="this.opcionesEntorno" :state="lengthState(entornoOcurrencia)"></b-form-select>
         </div>
-      </b-col>
 
-      <b-col>
         <div class="mt-3">
           <h6>Territorio colectivo:</h6>
           <b-form-input v-model="territorioColectivo" :state="lengthState(territorioColectivo)" aria-describedby="input-live-feedback" trim></b-form-input>
@@ -162,8 +113,7 @@
           <h6>Subcategoría:</h6>
           <b-form-select v-model="subcategoriaEventoEnum" :options="this.opcionesSubcategoria" multiple :select-size="10" :state="lengthState(subcategoriaEventoEnum)"></b-form-select>
         </div>
-      </b-col>
-      <b-col>
+
         <div class="mt-3">
           <h6>¿Otra subcategoría? ¿cuál?:</h6>
           <b-form-input v-model="subcategoriaEventoOtra" aria-describedby="input-live-feedback" placeholder="opcional" trim></b-form-input>
@@ -196,7 +146,7 @@
 
         <div class="mt-3">
           <h6>Edad Víctima:</h6>
-          <b-form-input v-model="edadVictima" :state="lengthState(edadVictima)" aria-describedby="input-live-feedback" trim></b-form-input>
+          <b-form-input type="number" v-model="edadVictima" :state="lengthState(edadVictima)" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
 
         <div class="mt-3">
@@ -223,8 +173,7 @@
           <h6>Relación con la víctima:</h6>
           <b-form-input v-model="relacionVictima" :state="lengthState(relacionVictima)" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
-      </b-col>
-      <b-col>
+
         <div class="mt-3">
           <h6>Pertenencia étnica: {{ FormatForm(this.etniaVictima) }}</h6>
           <b-form-select v-model="etniaVictima" :options="this.opcionesEtnia" :state="lengthState(etniaVictima)"></b-form-select>
@@ -252,7 +201,7 @@
 
         <div class="mt-3">
           <h6>Total víctimas:</h6>
-          <b-form-input v-model="totalVictimas" :state="lengthState(totalVictimas)" aria-describedby="input-live-feedback" trim></b-form-input>
+          <b-form-input type="number" v-model="totalVictimas" :state="lengthState(totalVictimas)" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
 
         <div class="mt-3">
@@ -277,10 +226,9 @@
 
         <div class="mt-3">
           <h6>No. de familias afectadas:</h6>
-          <b-form-input v-model="familias" :state="lengthState(familias)" aria-describedby="input-live-feedback" trim></b-form-input>
+          <b-form-input type="number" v-model="familias" :state="lengthState(familias)" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
-      </b-col>
-      <b-col>
+
         <div class="mt-3">
           <h6>Pertenencia étnica de afectados:</h6>
           <b-form-select v-model="etniaAfectadosEnum" :options="this.opcionesEtniaAfectados" multiple :select-size="3" :state="lengthState(etniaAfectadosEnum)"></b-form-select>
@@ -288,7 +236,7 @@
 
         <div class="mt-3">
           <h6>No. de personas afectadas:</h6>
-          <b-form-input v-model="numeroPersonas" :state="lengthState(numeroPersonas)" aria-describedby="input-live-feedback" trim></b-form-input>
+          <b-form-input type="number" v-model="numeroPersonas" :state="lengthState(numeroPersonas)" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
       </b-col>
     </b-row>
@@ -309,8 +257,7 @@
           <h6>Tipo de presunto responsable:</h6>
           <b-form-select v-model="tipoResponsableEnum" :options="this.opcionesResponsables" multiple :select-size="5" :state="lengthState(tipoResponsableEnum)"></b-form-select>
         </div>
-      </b-col>
-      <b-col>
+
         <div class="mt-3">
           <h6>Presunto responsable:</h6>
           <b-form-input v-model="presuntoResponsable" :state="lengthState(presuntoResponsable)" aria-describedby="input-live-feedback" trim></b-form-input>
@@ -333,8 +280,7 @@
           <h6>Instituciones Informadas:</h6>
           <b-form-select v-model="institucionesEnum" :options="this.opcionesInstituciones" multiple :select-size="10" :state="lengthState(institucionesEnum)"></b-form-select>
         </div>
-      </b-col>
-      <b-col>
+
         <div class="mt-3">
           <h6>¿Otra institución? ¿cuál?</h6>
           <b-form-input v-model="institucionOtra" aria-describedby="input-live-feedback" placeholder="Opcional" trim></b-form-input>
@@ -356,7 +302,7 @@
         </b-form-invalid-feedback>
       </b-col>
     </b-row>
-    <b-button @click="this.validate" size="lg" class="text-light mt-5 mb-3" variant="warning" block>Guardar</b-button>
+    <b-button @click="this.validate" size="lg" class="text-light mt-5 mb-3" variant="warning" block>{{ buttonText }}</b-button>
   </b-container>
 </template>
 <script>
@@ -409,12 +355,14 @@ export default {
       institucionesEnum: [],
       institucionOtra: '',
       arcgisAddress: '',
-      overrideCoordinates: false
+      overrideCoordinates: false,
+      hasInited: false
     };
   },
   watch: {
     municipioOcurrencia: function(val) {
-      this.lookForCoordinates(val);
+      if (this.hasInited) this.lookForCoordinates(val);
+      this.hasInited = true;
     },
     userAccess() {
       this.init();
@@ -551,7 +499,8 @@ export default {
       const response = await AlertsService.verifyAlert(this.wrapAlert());
       //console.log(response);
       if (response.updateResults[0].success) {
-        this.$router.push({ name: 'Home' });
+        this.$store.commit('SET_UPDATE_NEEDED', true);
+        this.$router.push({ path: '/' });
       } else {
         this.$store.commit('SET_APP_ERROR', response.updateResults[0].error.description);
       }
@@ -583,6 +532,10 @@ export default {
     }
   },
   computed: {
+    buttonText() {
+      if (this.alert.attributes.verificado == 'True') return 'Guardar';
+      return 'Validar';
+    },
     userAccess() {
       if (!this.$store.getters.user || !this.$store.getters.user.role) return 'public';
       const role = this.$store.getters.user.role;

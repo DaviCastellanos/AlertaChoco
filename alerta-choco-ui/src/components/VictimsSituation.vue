@@ -28,7 +28,7 @@ export default {
       return from + ' - ' + until;
     },
     drawChart(alerts) {
-      if (!alerts) return;
+      if (alerts.length <= 1) return;
 
       const curr = new Date();
       const first = curr.getDate() - curr.getDay();
@@ -36,16 +36,16 @@ export default {
 
       let week4Sunday = new Date(lastSunday);
       const week4 = this.weekDateName(new Date(week4Sunday.setDate(week4Sunday.getDate() + 7)));
-      console.log('week4Sunday ' + week4Sunday);
+      //console.log('week4Sunday ' + week4Sunday);
       let week3Sunday = new Date(lastSunday);
       const week3 = this.weekDateName(new Date(week3Sunday.setDate(week3Sunday.getDate())));
-      console.log('week3Sunday ' + week3Sunday);
+      //console.log('week3Sunday ' + week3Sunday);
       let week2Sunday = new Date(lastSunday);
       const week2 = this.weekDateName(new Date(week2Sunday.setDate(week2Sunday.getDate() - 7)));
-      console.log('week2Sunday ' + week2Sunday);
+      //console.log('week2Sunday ' + week2Sunday);
       let week1Sunday = new Date(lastSunday);
       const week1 = this.weekDateName(new Date(week1Sunday.setDate(week1Sunday.getDate() - 14)));
-      console.log('week1Sunday ' + week1Sunday);
+      //console.log('week1Sunday ' + week1Sunday);
 
       let partialSeries = [
         {
@@ -149,7 +149,7 @@ export default {
       //console.log('week0Sunday ', week0Sunday);
       for (var i = 0; i < categoriesAndDates.length; i++) {
         const entryDate = new Date(categoriesAndDates[i].date);
-        console.log('entry date ', entryDate);
+        //console.log('entry date ', entryDate);
         if (!categoriesAndDates[i].category) {
           if (entryDate > week3Sunday) {
             partialSeries[3].data[3].y++;
@@ -232,6 +232,7 @@ export default {
   },
   watch: {
     alerts(newAlerts) {
+      //console.log('alerts length is ' + newAlerts.length);
       this.drawChart(newAlerts);
     }
   },
@@ -272,6 +273,9 @@ export default {
         series: this.customSeries
       };
     }
+  },
+  mounted() {
+    if (this.alerts) this.drawChart(this.alerts);
   }
 };
 </script>

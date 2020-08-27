@@ -17,9 +17,12 @@ export default new Vuex.Store({
     appError: String,
     users: null,
     followUpIds: null,
-    reportAlert: null
+    updateNeeded: false
   },
   getters: {
+    updateNeeded(state) {
+      return state.updateNeeded;
+    },
     followUpIds(state) {
       return state.followUpIds;
     },
@@ -38,9 +41,6 @@ export default new Vuex.Store({
     users(state) {
       return state.users;
     },
-    reportAlert(state) {
-      return state.reportAlert;
-    },
     appError(state) {
       return state.appError;
     },
@@ -55,14 +55,12 @@ export default new Vuex.Store({
     SET_USER(state, newUser) {
       this.state.user = newUser;
     },
+    SET_UPDATE_NEEDED(state, bool) {
+      this.state.updateNeeded = bool;
+    },
     SET_ALERTS(state, alerts) {
       //console.log(alerts);
       this.state.alerts = alerts;
-    },
-    SET_REPORT_ALERT(state, id) {
-      //console.log('SET_USERS', users);
-      const alert = _.find(state.alerts, { attributes: { idAlerta: id } });
-      this.state.reportAlert = alert;
     },
     SET_USERS(state, users) {
       //console.log('SET_USERS', users);
