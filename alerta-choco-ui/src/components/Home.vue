@@ -1,17 +1,21 @@
 <template>
   <b-container fluid>
-    <web-map v-show="mapSelected" />
-    <feed-chart v-show="statsSelected" />
-    <reports v-show="tableSelected" />
-    <users-table v-show="usersSelected" />
+    <b-row>
+      <b-col>
+        <web-map />
+      </b-col>
+      <b-col>
+        <chart-alert-events />
+        <victims-situation />
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
 import WebMap from '@/components/WebMap.vue';
-import Reports from '@/components/Reports.vue';
-import FeedChart from '@/components/FeedChart.vue';
-import UsersTable from '@/components/UsersTable.vue';
+import ChartAlertEvents from '@/components/ChartAlertsEvents.vue';
+import VictimsSituation from '@/components/VictimsSituation.vue';
 import AlertsService from '@/services/alerts-service.js';
 import UsersService from '@/services/users-service.js';
 import FollowUpsService from '@/services/follow-ups-service.js';
@@ -20,9 +24,8 @@ export default {
   name: 'App',
   components: {
     WebMap,
-    Reports,
-    FeedChart,
-    UsersTable
+    ChartAlertEvents,
+    VictimsSituation
   },
   watch: {
     userAccess(val) {
@@ -35,18 +38,6 @@ export default {
     }
   },
   computed: {
-    mapSelected() {
-      return this.$store.getters.currentView === 'map';
-    },
-    statsSelected() {
-      return this.$store.getters.currentView === 'statistics';
-    },
-    tableSelected() {
-      return this.$store.getters.currentView === 'table';
-    },
-    usersSelected() {
-      return this.$store.getters.currentView === 'users';
-    },
     userAccess() {
       if (!this.$store.getters.user || !this.$store.getters.user.role) return 'public';
       const role = this.$store.getters.user.role;
