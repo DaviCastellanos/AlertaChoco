@@ -233,7 +233,7 @@ export default {
   watch: {
     alerts(newAlerts) {
       //console.log('alerts length is ' + newAlerts.length);
-      this.drawChart(newAlerts);
+      if (newAlerts) this.drawChart(newAlerts);
     }
   },
   computed: {

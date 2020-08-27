@@ -1,10 +1,5 @@
 <template>
   <div id="table">
-    <b-modal id="deletion-modal" title="Eliminar Reporte" ok-title="Eliminar" cancel-title="Cancelar" ok-variant="danger" @ok="deleteAlert()">
-      <h6>¿Seguro deseas eliminar el reporte?</h6>
-      <h6>Esta informacion no se puede recuperar.</h6>
-    </b-modal>
-
     <b-table responsive sticky-header="700px" striped hover light selectable :items="this.getItems()" :fields="this.getFields()" @row-selected="onRowSelected"> </b-table>
   </div>
 </template>
@@ -12,7 +7,6 @@
 <script>
 import { BTable } from 'bootstrap-vue';
 import froze from '../mixins/frozen.js';
-import { AlertsService } from '@/services';
 
 export default {
   mixins: [froze],
@@ -61,23 +55,6 @@ export default {
         subcategoriaEventoEnum: this.getObjectTexts('opcionesSubcategoria', feature.subcategoriaEventoEnum),
         idAlerta: feature.idAlerta
       };
-    },
-    ShowDeleteModal(id) {
-      this.selectedAlert = id;
-      this.$bvModal.show('deletion-modal');
-    },
-    async deleteAlert() {
-      const response = await AlertsService.deleteAlert(this.selectedAlert);
-      console.log(response);
-      if (!response.deleteResults[0].success) {
-        this.$store.commit('SET_APP_ERROR', response.deleteResults[0].error.description);
-      } else {
-        const newAlerts = this.$store.getters.alerts.filter(el => {
-          if (el.attributes.OBJECTID != this.selectedAlert) return true;
-          return false;
-        });
-        this.$store.commit('SET_ALERTS', newAlerts);
-      }
     }
   },
   computed: {

@@ -283,17 +283,17 @@
     <hr />
     <div class="mt-3">
       <b-row>
-        <b-col>
+        <b-col v-if="userAccessIsPrivate">
           <div class="mt-3">
             <b-button size="lg" :to="verifyURL" class="text-light my-2 my-sm-0" variant="warning">{{ this.buttonText }}</b-button>
           </div>
         </b-col>
-        <b-col>
+        <b-col v-if="userIsAuthenticated">
           <div class="mt-3">
             <b-button size="lg" :to="followUpURL" class="text-light my-2 my-sm-0" variant="warning">Seguir</b-button>
           </div>
         </b-col>
-        <b-col>
+        <b-col v-if="userIsAdmin">
           <div class="mt-3">
             <b-button size="lg" :to="deleteURL" class="text-light my-2 my-sm-0" variant="danger">Eliminar</b-button>
           </div>
@@ -306,9 +306,10 @@
 <script>
 import FollowUpsService from '@/services/follow-ups-service.js';
 import frozen from '@/mixins/frozen.js';
+import helpers from '@/mixins/helpers.js';
 
 export default {
-  mixins: [frozen],
+  mixins: [frozen, helpers],
   data() {
     return {
       alert: Number,
