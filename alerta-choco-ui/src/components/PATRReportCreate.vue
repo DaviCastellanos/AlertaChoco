@@ -40,6 +40,7 @@
             v-model="municipio"
             :options="this.opcionesMunicipios"
             :state="lengthState(municipio)"
+            lazy
           ></b-form-select>
         </div>
 
@@ -49,8 +50,13 @@
             v-model="municipioOtro"
             aria-describedby="input-live-feedback"
             trim
+            lazy
             placeholder='Opcional'
           ></b-form-input>
+        </div>
+
+        <div class="mt-2 ml-2" v-if="this.arcgisAddress">
+          <span class="font-italic">{{ this.arcgisAddress.address }}.</span> ¿Sobreescribir coordenadas? <input class="lg" type="checkbox" v-model="overrideCoordinates" />
         </div>
 
         <div class="mt-3">
@@ -583,6 +589,7 @@
 <script>
 import  PolicyService  from "@/services/policy-service.js";
 import PublicPolicyOptions from "@/mixins/public-policy-options.js"
+import GeocodeService from '@/services/geocode-service.js';
 
 export default {
   mixins: [PublicPolicyOptions],
@@ -639,8 +646,20 @@ export default {
       institucionesBloqueo: "",
       municipioOtro: "",
       iniciativaOtra: "",
-      tiempoUnidad:""
+      tiempoUnidad:"",
+      arcgisAddress: '',
+      overrideCoordinates: false
     };
+  },
+  watch:{
+    municipio: function(val) {
+      if(val == "Otro")
+      return;
+      this.lookForCoordinates(val);
+    },
+    municipioOtro: function(val) {
+      this.lookForCoordinates(val);
+    },
   },
   methods: {
     requiredFieldsCompleted() {
@@ -707,7 +726,14 @@ export default {
       return true;
     },
     wrapPolicy() {
-      let alert = `[{ "geometry" : {"x": 1,"y": -1,"spatialReference": {"wkid": 4326}},"attributes" : {`;
+      let alert = '[{';
+
+      if (this.overrideCoordinates)
+        alert += `"geometry" : {"x": ${this.arcgisAddress.x},"y": ${this.arcgisAddress.y},"spatialReference": {"wkid": 4326}},`;
+      else 
+        alert += '"geometry" : {"x": -74.063644,"y": 4.624335,"spatialReference": {"wkid": 4326}},';
+
+      alert += '"attributes" : {';
       alert += '"tipoReporte":"' + this.FormatForDB(this.tipoReporte) + '",';
       alert += '"subregion":"' + this.FormatForDB(this.subregion) + '",';
       alert += '"pilar":"' + this.FormatForDB(this.pilar) + '",';
@@ -766,14 +792,30 @@ export default {
       return alert;
     },
     async save() {
+      //console.log(this.wrapPolicy());
       const response = await PolicyService.savePolicy(this.wrapPolicy());
       //console.log(response);
       if(response.addResults[0].success) {
-        this.$router.push({name:'Home'})
+        this.$store.commit('SET_UPDATE_NEEDED', true);
+        this.$router.push({ path: '/' });
       }
       else{
         this.$store.commit('SET_APP_ERROR', response.addResults[0].error.description)
       } 
+    },
+    async lookForCoordinates(mun) {
+     // console.log('LookForCoordinates of ' + mun);
+      if (this.geocodeBusy) return;
+
+      this.geocodeBusy = true;
+      const response = await GeocodeService.getCoordinates(this.$store.getters.arcgisToken, mun);
+      //console.log('Coordinates ', response);
+
+      if (response && response.locations[0] && response.locations[0].address) {
+        this.arcgisAddress = { address: response.locations[0].address, x: response.locations[0].location.x, y: response.locations[0].location.y };
+      }
+
+      this.geocodeBusy = false;
     },
   },
     computed: {

@@ -138,7 +138,12 @@
             :state="lengthState(municipioOcurrencia)"
             aria-describedby="input-live-feedback"
             trim
+            lazy
           ></b-form-input>
+        </div>
+
+        <div class="mt-2 ml-2" v-if="this.arcgisAddress">
+          <span class="font-italic">{{ this.arcgisAddress.address }}.</span> ¿Sobreescribir coordenadas? <input class="lg" type="checkbox" v-model="overrideCoordinates" />
         </div>
 
         <div class="mt-3">
@@ -544,6 +549,7 @@ import { AlertsService } from "@/services";
 import frozen from "@/mixins/frozen.js"
 import coordinates from "@/mixins/coordinates.js"
 import { v4 as uuidv4 } from 'uuid';
+import GeocodeService from '@/services/geocode-service.js';
 
 export default {
   mixins: [frozen, coordinates],
@@ -594,7 +600,14 @@ export default {
       riesgoPercibido: "",
       institucionesEnum: [],
       institucionOtra: "",
+      arcgisAddress: '',
+      overrideCoordinates: false
     };
+  },
+  watch:{
+  municipioOcurrencia: function(val) {
+      this.lookForCoordinates(val);
+    },
   },
   methods: {
     requiredFieldsCompleted() {
@@ -662,7 +675,14 @@ export default {
       return true;
     },
     wrapAlert() {
-      let alert = `[{ "geometry" : {"x": ${this.getCoordinates(this.municipioOcurrencia).x},"y": ${this.getCoordinates(this.municipioOcurrencia).y},"spatialReference": {"wkid": 4326}},"attributes" : {`;
+      let alert = '[{';
+
+      if (this.overrideCoordinates)
+        alert += `"geometry" : {"x": ${this.arcgisAddress.x},"y": ${this.arcgisAddress.y},"spatialReference": {"wkid": 4326}},`;
+      else 
+        alert += '"geometry" : {"x": -74.063644,"y": 4.624335,"spatialReference": {"wkid": 4326}},';
+
+      alert += '"attributes" : {';
       alert += '"verificado":"True",';
       alert += '"idAlerta":"' + this.FormatForDB(this.idAlerta) + '",';
       alert += '"codigoAnansi":"' + this.FormatForDB(this.codigoAnansi) + '",';
@@ -724,11 +744,26 @@ export default {
       const response = await AlertsService.saveAlert(this.wrapAlert());
       //console.log(response);
       if(response.addResults[0].success) {
-        this.$router.push({name:'Home'})
+        this.$store.commit('SET_UPDATE_NEEDED', true);
+        this.$router.push({ path: '/' });
       }
       else{
         this.$store.commit('SET_APP_ERROR', response.addResults[0].error.description)
       } 
+    },
+    async lookForCoordinates(mun) {
+      //console.log('LookForCoordinates of ' + mun);
+      if (this.geocodeBusy) return;
+
+      this.geocodeBusy = true;
+      const response = await GeocodeService.getCoordinates(this.$store.getters.arcgisToken, mun);
+      //console.log('Coordinates ', response);
+
+      if (response && response.locations[0] && response.locations[0].address) {
+        this.arcgisAddress = { address: response.locations[0].address, x: response.locations[0].location.x, y: response.locations[0].location.y };
+      }
+
+      this.geocodeBusy = false;
     },
   },
   created () {
