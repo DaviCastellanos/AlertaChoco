@@ -16,8 +16,9 @@
 import WebMap from '@/components/WebMap.vue';
 import ChartAlertEvents from '@/components/ChartAlertsEvents.vue';
 import VictimsSituation from '@/components/VictimsSituation.vue';
-import { AlertsService } from '@/services';
-import { PolicyService } from '@/services';
+import AlertsService from '@/services/alerts-service.js';
+import PolicyService from '@/services/policy-service.js';
+import helpers from '@/mixins/helpers.js';
 
 export default {
   name: 'App',
@@ -26,6 +27,7 @@ export default {
     ChartAlertEvents,
     VictimsSituation
   },
+  mixins: [helpers],
   methods: {
     async alertsRequest() {
       const response = await AlertsService.getAlerts(this.$store.getters.arcgisToken, this.userAccess);
@@ -35,16 +37,16 @@ export default {
         return;
       }
       this.$store.commit('SET_ALERTS', response.features);
+    },
+    async policiesRequest() {
+      const response = await PolicyService.getPolicies(this.$store.getters.arcgisToken, this.userAccess);
+      if (!response) {
+        console.error('Policies response is null');
+        return;
+      }
+      //console.log('policies are ', response.features);
+      this.$store.commit('SET_POLICIES', response.features);
     }
-  },
-  async policiesRequest() {
-    const response = await PolicyService.getPolicies(this.$store.getters.arcgisToken, this.userAccess);
-    if (!response) {
-      console.error('Policies response is null');
-      return;
-    }
-    //console.log('policies are ', response.features);
-    this.$store.commit('SET_POLICIES', response.features);
   },
   mounted() {
     if (this.$store.getters.updateNeeded == true) {

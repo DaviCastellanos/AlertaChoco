@@ -2230,7 +2230,10 @@ export default {
   },
   methods: {
     getPolicyTexts(obj, code) {
-      return _.find(obj, { value: code }).text;
+      //console.log('Ppolicy texts ', obj, code);
+      const entry = _.find(obj, { value: code });
+      if (entry) return entry.text;
+      return '';
     },
     getObjectByMunicipio(mun) {
       if (mun === 'toda_la_subregión') return this.opcionesIniciativasSubregion;

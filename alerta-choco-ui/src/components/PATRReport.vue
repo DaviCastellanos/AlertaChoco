@@ -262,11 +262,11 @@
       <b-row>
         <b-col v-if="userAccessIsPrivate">
           <div class="mt-3">
-            <b-button size="lg" class="text-light my-2 my-sm-0" variant="warning">Editar</b-button>
+            <b-button size="lg" :to="editURL" class="text-light my-2 my-sm-0" variant="warning">Editar</b-button>
           </div>
         </b-col>
         <b-col v-if="userIsAdmin">
-          <div class="mt-3">
+          <div class="mt-3 mb-3">
             <b-button size="lg" :to="deleteURL" class="text-light my-2 my-sm-0" variant="danger">Eliminar</b-button>
           </div>
         </b-col>
@@ -362,6 +362,9 @@ export default {
     }
   },
   computed: {
+    editURL() {
+      return '/editpatrreport/' + this.$route.params.id;
+    },
     deleteURL() {
       return '/deletepatrreport/' + this.$route.params.id;
     },

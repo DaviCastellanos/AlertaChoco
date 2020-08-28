@@ -7,9 +7,10 @@
 <script>
 import { BTable } from 'bootstrap-vue';
 import froze from '../mixins/frozen.js';
+import PublicPolicyOptions from '../mixins/public-policy-options.js';
 
 export default {
-  mixins: [froze],
+  mixins: [froze, PublicPolicyOptions],
   components: {
     BTable
   },
@@ -28,8 +29,8 @@ export default {
         { key: 'subregion', tdClass: 'w-5', label: 'Subregion', sortable: true },
         { key: 'municipio', tdClass: 'w-5', label: 'Departamento' },
         { key: 'pilar', tdClass: 'w-3', label: 'Pilar' },
-        { key: 'iniciativa', tdClass: 'w-5', label: 'Iniciativa' },
-        { key: 'tipoReporte', tdClass: 'w-5', label: 'Tipo de Reporte' }
+        { key: 'tipoReporte', tdClass: 'w-5', label: 'Tipo de Reporte' },
+        { key: 'iniciativa', tdClass: 'w-5', label: 'Iniciativa' }
       ];
       return headers;
     },
@@ -37,7 +38,7 @@ export default {
       const features = this.policies;
       let items = [];
 
-      if (features != undefined && features.length > 1) {
+      if (features != undefined && features.length >= 1) {
         for (var i = 0; i < features.length; i++) {
           items.push(this.getPublicItems(features[i].attributes));
         }
@@ -50,7 +51,7 @@ export default {
         subregion: this.FormatForHuman(feature.subregion),
         municipio: this.FormatForHuman(feature.municipio),
         pilar: this.FormatForHuman(feature.pilar),
-        iniciativa: this.FormatForHuman(feature.codigoIniciativa),
+        iniciativa: this.getPolicyTexts(this.getObjectByMunicipio(feature.municipio), feature.codigoIniciativa),
         tipoReporte: this.FormatForHuman(feature.tipoReporte),
         OBJECTID: feature.OBJECTID
       };

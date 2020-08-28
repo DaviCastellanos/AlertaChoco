@@ -11,6 +11,7 @@ import PATRReportDelete from '@/components/PATRReportDelete.vue';
 import DDHHReportCreate from '@/components/DDHHReportCreate.vue';
 import PATRReportCreate from '@/components/PATRReportCreate.vue';
 import PATRReport from '@/components/PATRReport.vue';
+import PATRReportEdit from '@/components/PATRReportEdit.vue';
 
 Vue.use(Router);
 
@@ -55,6 +56,11 @@ export default new Router({
       path: '/verify/:id',
       name: 'Verification',
       component: Verification
+    },
+    {
+      path: '/editpatrreport/:id',
+      name: 'PATRReportEdit',
+      component: PATRReportEdit
     },
     {
       path: '/followup/:id',

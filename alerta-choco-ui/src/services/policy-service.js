@@ -35,9 +35,33 @@ export default {
 
     const policies = await policyHandler.postRequest(access, data2, headers);
 
-    //console.log('Policies reponse is ', policies.features[0]);
+    console.log('Policies reponse is ', policies.features);
 
     return policies;
+  },
+  async updatePolicy(policy) {
+    const tokenData = qs.stringify({
+      grant_type: 'client_credentials',
+      client_id: process.env.VUE_APP_ARCGIS_CLIENT_ID,
+      client_secret: process.env.VUE_APP_ARCGIS_CLIENT_SECRET
+    });
+
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    };
+
+    const response = await tokenHandler.postRequest(`https://www.arcgis.com/sharing/rest/oauth2/token`, tokenData, header);
+
+    const updateData = qs.stringify({
+      f: 'json',
+      token: response.access_token,
+      updates: policy
+    });
+
+    const updateResponse = await policyHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/applyEdits`, updateData, header);
+    //console.log("alerts is " + alerts.features);
+
+    return updateResponse;
   },
   async deletePolicy(OBJECTID) {
     const tokenData = qs.stringify({
