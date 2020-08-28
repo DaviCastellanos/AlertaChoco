@@ -7,8 +7,7 @@
     </div>
     <div id="conventions">
       <span><img style="width:18px" src="@/images/eventosDDHH.png" /> Evento DDHH </span>
-      <span><img style="width:20px" src="@/images/alertasDDHH.png" /> Alerta DDHH </span>
-      <span><img style="width:20px" src="@/images/PATR.png" /> PATR </span>
+      <span><img style="width:20px" src="@/images/PATR.png" /> Evento PATR </span>
     </div>
   </div>
 </template>
@@ -74,7 +73,6 @@ export default {
           color: 'green',
           style: 'triangle',
           outline: {
-            // autocasts as new SimpleLineSymbol()
             width: 0.5,
             color: 'white'
           }
@@ -82,19 +80,49 @@ export default {
       };
 
       var alertPopup = {
-        title: '{tipoEvento}',
-        content: '<b>Categoría:</b> {categoria}'
+        title: 'Evento de DDHH',
+        content: '<b>Fecha:</b> {fechaReporte} <br> <b>Tipo de evento:</b> {tipoEvento}'
       };
 
       var alertas = new FeatureLayer({
         url: 'https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer',
         renderer: alertRenderer,
-        outFields: ['tipoEvento', 'categoriaEvento'],
+        outFields: ['fechaReporte', 'tipoEvento'],
         popupTemplate: alertPopup,
         id: 'alertas'
       });
 
       map.add(alertas);
+
+      var patrRenderer = {
+        type: 'simple',
+        symbol: {
+          type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
+          size: 10,
+          color: 'orange',
+          style: 'triangle',
+          outline: {
+            width: 0.5,
+            color: 'white'
+          }
+        }
+      };
+
+      var patrPopup = {
+        title: 'Evento de PATR',
+        content: '<b>Fecha:</b> {fechaOcurrencia} <br> <b>Tipo de reporte:</b> {tipoReporte}'
+      };
+
+      var patrs = new FeatureLayer({
+        url: 'https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/politicas/FeatureServer',
+        renderer: patrRenderer,
+        outFields: ['fechaOcurrencia', 'tipoReporte'],
+        popupTemplate: patrPopup,
+        id: 'alertas'
+      });
+
+      map.add(patrs);
+
       this.mapLoading = false;
     }
   },
@@ -123,7 +151,7 @@ export default {
   margin: 0;
   margin-top: 2px;
   width: 100%;
-  height: 700px;
+  height: 750px;
   align: center;
 }
 #root {

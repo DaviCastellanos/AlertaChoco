@@ -9,8 +9,8 @@ export default {
           value: 'Implementación autónoma, comunitaria o de cooperación',
           text: 'Implementación autónoma, comunitaria o de cooperación'
         },
-        { value: 'Implementación de Política Pública ', text: 'Implementación de Política Pública' },
-        { value: 'Bloqueo institucional ', text: 'Bloqueo institucional' }
+        { value: 'Implementación de Política Pública', text: 'Implementación de Política Pública' },
+        { value: 'Bloqueo institucional', text: 'Bloqueo institucional' }
       ],
       opcionesSubregion: [
         { value: '', text: 'Selecciona una' },

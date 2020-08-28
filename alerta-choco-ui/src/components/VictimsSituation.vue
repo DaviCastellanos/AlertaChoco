@@ -1,8 +1,6 @@
 <template>
-  <div class="chartElem">
-    <div class="row">
-      <highcharts class="chart" :constructor-type="'chart'" :options="chartOptions"></highcharts>
-    </div>
+  <div>
+    <highcharts class="chart" :constructor-type="'chart'" :options="chartOptions"></highcharts>
   </div>
 </template>
 <script>
