@@ -2231,6 +2231,35 @@ export default {
   methods: {
     getPolicyTexts(obj, code) {
       return _.find(obj, { value: code }).text;
+    },
+    getObjectByMunicipio(mun) {
+      if (mun === 'toda_la_subregión') return this.opcionesIniciativasSubregion;
+      if (mun === 'acandí') return this.opcionesIniciativasAcandi;
+      if (mun === 'bojayá') return this.opcionesIniciativasBojaya;
+      if (mun === 'carmen_del_darien') return this.opcionesIniciativasCarmenDelDarien;
+      if (mun === 'condoto') return this.opcionesIniciativasCondoto;
+      if (mun === 'el_litoral_del_san_juan') return this.opcionesIniciativasElLitoralDelSanJuan;
+      if (mun === 'istmina') return this.opcionesIniciativasIstmina;
+      if (mun === 'medio_atrato') return this.opcionesIniciativasMedioAtrato;
+      if (mun === 'medio_san_juan') return this.opcionesIniciativasMedioSanJuan;
+      if (mun === 'murindó') return this.opcionesIniciativasMurindo;
+      if (mun === 'novitá') return this.opcionesIniciativasNovita;
+      if (mun === 'riosucio') return this.opcionesIniciativasRiosucio;
+      if (mun === 'sipí') return this.opcionesIniciativasSipi;
+      if (mun === 'unguía') return this.opcionesIniciativasUnguia;
+      if (mun === 'vigía_del_fuerte') return this.opcionesIniciativasVigiaDelFuerte;
+    },
+    getInstitucionesTexts(values) {
+      if (!values) return 'N/A';
+      values = values.split(',');
+      let obj = this.opcionesInstituciones;
+
+      let str = '';
+      for (var i = 0; i < values.length; i++) {
+        str += obj[parseInt(values[i]) + 1].text.toLowerCase();
+        if (i < values.length - 1) str += ' - ';
+      }
+      return str;
     }
   }
 };

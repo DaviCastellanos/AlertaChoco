@@ -14,6 +14,7 @@
 import NavBar from './components/NavBar.vue';
 import Footer from './components/Footer.vue';
 import AlertsService from '@/services/alerts-service.js';
+import PolicyService from '@/services/policy-service.js';
 import UsersService from '@/services/users-service.js';
 import FollowUpsService from '@/services/follow-ups-service.js';
 
@@ -27,6 +28,7 @@ export default {
     userAccess(val) {
       if (val) {
         this.alertsRequest();
+        this.policiesRequest();
       }
     }
   },
@@ -50,18 +52,25 @@ export default {
       this.$store.commit('SET_ARCGIS_TOKEN', token);
       this.alertsRequest();
       this.followUpIdsRequest();
+      this.policiesRequest();
     },
     async alertsRequest() {
       const response = await AlertsService.getAlerts(this.$store.getters.arcgisToken, this.userAccess);
-
       if (!response) {
         console.error('Alerts response is null');
         return;
       }
-
       //console.log(response.features);
-
       this.$store.commit('SET_ALERTS', response.features);
+    },
+    async policiesRequest() {
+      const response = await PolicyService.getPolicies(this.$store.getters.arcgisToken, this.userAccess);
+      if (!response) {
+        console.error('Policies response is null');
+        return;
+      }
+      //console.log('policies are ', response.features);
+      this.$store.commit('SET_POLICIES', response.features);
     },
     async usersRequest() {
       const response = await UsersService.getUsers(this.$store.getters.arcgisToken);

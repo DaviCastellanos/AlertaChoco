@@ -17,7 +17,8 @@ export default new Vuex.Store({
     appError: String,
     users: null,
     followUpIds: null,
-    updateNeeded: false
+    updateNeeded: false,
+    policies: null
   },
   getters: {
     updateNeeded(state) {
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     },
     followUpIds(state) {
       return state.followUpIds;
+    },
+    policies(state) {
+      return state.policies;
     },
     currentView(state) {
       return state.currentView;
@@ -47,6 +51,10 @@ export default new Vuex.Store({
     alertById: state => id => {
       return _.find(state.alerts, { attributes: { idAlerta: id } });
     },
+    policyById: state => id => {
+      id = parseInt(id);
+      return _.find(state.policies, { attributes: { OBJECTID: id } });
+    },
     findUserByEmail: state => email => {
       return _.find(state.users, { attributes: { email: email } });
     }
@@ -55,11 +63,15 @@ export default new Vuex.Store({
     SET_USER(state, newUser) {
       this.state.user = newUser;
     },
+    SET_POLICIES(state, policies) {
+      //console.log('policies', policies);
+      this.state.policies = policies;
+    },
     SET_UPDATE_NEEDED(state, bool) {
       this.state.updateNeeded = bool;
     },
     SET_ALERTS(state, alerts) {
-      //console.log(alerts);
+      //console.log('alerts', alerts);
       this.state.alerts = alerts;
     },
     SET_USERS(state, users) {

@@ -14,6 +14,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import './style/custom.scss';
 import router from './router';
 import frozen from './mixins/frozen.js';
+import PublicPolicyOptions from './mixins/public-policy-options.js';
 import helpers from './mixins/helpers.js';
 
 Vue.config.productionTip = false;
@@ -82,7 +83,7 @@ new Vue({
   router,
   store,
   render: h => h(App),
-  mixins: [frozen, helpers],
+  mixins: [frozen, helpers, PublicPolicyOptions],
   created() {
     firebase.initializeApp({
       apiKey: 'AIzaSyBlZRLdDeTs76Ntzm3udLA5tPwzCyUJke0',

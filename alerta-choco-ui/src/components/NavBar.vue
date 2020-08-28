@@ -10,12 +10,12 @@
 
           <b-nav-item-dropdown class="text-light" text="Ver reportes" no-caret right>
             <b-dropdown-item size="sm" class="text-light my-2 my-sm-0" to="/seeddhhreports" type="submit"> DDHH </b-dropdown-item>
-            <b-dropdown-item size="sm" class="text-light my-2 my-sm-0" type="submit"> PATR </b-dropdown-item>
+            <b-dropdown-item size="sm" class="text-light my-2 my-sm-0" to="/seepatrreports" type="submit"> PATR </b-dropdown-item>
           </b-nav-item-dropdown>
 
           <b-nav-item-dropdown class="text-light" text="Crear reporte" no-caret right>
-            <b-dropdown-item size="sm" class="text-light my-2 my-sm-0" type="submit"> DDHH </b-dropdown-item>
-            <b-dropdown-item size="sm" class="text-light my-2 my-sm-0" type="submit"> PATR </b-dropdown-item>
+            <b-dropdown-item size="sm" class="text-light my-2 my-sm-0" to="/createddhhreport" type="submit"> DDHH </b-dropdown-item>
+            <b-dropdown-item size="sm" class="text-light my-2 my-sm-0" to="/createpatrreport" type="submit"> PATR </b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
 

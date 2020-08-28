@@ -576,7 +576,7 @@
           variant="warning"
           block
           :disabled="requiredFieldsCompleted()"
-          >Crear</b-button
+          >Crear reporte PATR</b-button
         >
   </b-container>
 </template>

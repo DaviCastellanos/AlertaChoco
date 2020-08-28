@@ -24,8 +24,8 @@ export default {
     },
     getFields() {
       let headers = [
-        { key: 'fechaReporte', tdClass: 'w-5', label: 'Ingresó al sistema', sortable: true },
-        { key: 'verificado', tdClass: 'w-5', label: 'Verificado por analista', sortable: true },
+        { key: 'fechaReporte', tdClass: 'w-5', label: 'Fecha de alerta', sortable: true },
+        { key: 'verificado', tdClass: 'w-5', label: 'Validado', sortable: true },
         { key: 'departamentoOcurrencia', tdClass: 'w-5', label: 'Departamento' },
         { key: 'municipioOcurrencia', tdClass: 'w-3', label: 'Municipio' },
         { key: 'categoriaEvento', tdClass: 'w-5', label: 'Categoría' },
@@ -60,28 +60,6 @@ export default {
   computed: {
     alerts() {
       return this.$store.getters.alerts;
-    },
-    userCanVerify() {
-      if (this.userAccess == 'private') return true;
-
-      return false;
-    },
-    userAccess() {
-      if (!this.$store.getters.user || !this.$store.getters.user.role) return 'public';
-      const role = this.$store.getters.user.role;
-      if (role === 'admin' || role === 'analista') return 'private';
-      if (role === 'defensor') return 'sensitive';
-      return null;
-    },
-    userIsAdmin() {
-      if (!this.$store.getters.user) return false;
-
-      return this.$store.getters.user.role == 'admin';
-    },
-    userIsAuthenticated() {
-      if (!this.$store.getters.user) return false;
-
-      return true;
     }
   }
 };

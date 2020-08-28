@@ -40,9 +40,6 @@
           ></b-form-input>
         </div>
 
-      </b-col>
-
-      <b-col>
         <div class="mt-3">
           <h6>Qué pasó:</h6>
           <b-form-input
@@ -104,8 +101,6 @@
           ></b-form-datepicker>
         </div>
 
-      </b-col>
-      <b-col>
         <div class="mt-3">
           <h6>Fecha de ocurrencia:</h6>
           <b-form-datepicker
@@ -154,9 +149,7 @@
             :state="lengthState(entornoOcurrencia)"
           ></b-form-select>
         </div>
-      </b-col>
 
-      <b-col>
         <div class="mt-3">
           <h6>Territorio colectivo:</h6>
           <b-form-input
@@ -198,8 +191,7 @@
             :state="lengthState(subcategoriaEventoEnum)"
           ></b-form-select>
         </div>
-      </b-col>
-      <b-col>
+
         <div class="mt-3">
             <h6>¿Otra subcategoría? ¿cuál?: </h6>
             <b-form-input
@@ -309,9 +301,6 @@
           ></b-form-input>
         </div>
 
-      </b-col>
-      <b-col>
-
         <div class="mt-3">
           <h6>Pertenencia étnica: {{FormatForm(this.etniaVictima)}}</h6>
           <b-form-select
@@ -410,8 +399,7 @@
             trim
           ></b-form-input>
         </div>
-      </b-col>  
-      <b-col>
+
         <div class="mt-3">
           <h6>Pertenencia étnica de afectados:</h6>
           <b-form-select
@@ -432,19 +420,19 @@
             trim
           ></b-form-input>
         </div>
-      </b-col>
-    </b-row>
-    <b-row>
-      <div class="m-3">
-        <h6>Derechos límitados:</h6>
-        <b-form-select
-          v-model="derechosDDHEnum"
-          :options="this.opcionesDerechos"
-          multiple
-          :select-size="10"
-          :state="lengthState(derechosDDHEnum)"
-        ></b-form-select>
-      </div>
+
+        <div class="mt-3">
+          <h6>Derechos límitados:</h6>
+          <b-form-select
+            v-model="derechosDDHEnum"
+            :options="this.opcionesDerechos"
+            multiple
+            :select-size="10"
+            :state="lengthState(derechosDDHEnum)"
+          ></b-form-select>
+        </div>
+
+     </b-col>
     </b-row>
       <hr />
 
@@ -464,8 +452,7 @@
             :state="lengthState(tipoResponsableEnum)"
           ></b-form-select>
         </div>
-      </b-col>
-      <b-col>
+
         <div class="mt-3">
           <h6>Presunto responsable:</h6>
           <b-form-input
@@ -504,8 +491,6 @@
             :state="lengthState(institucionesEnum)"
           ></b-form-select>
         </div>
-      </b-col>
-      <b-col>
 
         <div class="mt-3">
           <h6>¿Otra institución? ¿cuál?</h6>
@@ -550,7 +535,7 @@
           variant="warning"
           block
           :disabled="requiredFieldsCompleted()"
-          >Crear</b-button
+          >Crear reporte DDHH</b-button
         >
   </b-container>
 </template>
