@@ -6,8 +6,8 @@
 
 <script>
 import { BTable } from 'bootstrap-vue';
-import froze from '../mixins/frozen.js';
-import PublicPolicyOptions from '../mixins/public-policy-options.js';
+import froze from '@/mixins/frozen.js';
+import PublicPolicyOptions from '@/mixins/public-policy-options.js';
 
 export default {
   mixins: [froze, PublicPolicyOptions],

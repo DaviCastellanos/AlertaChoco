@@ -5,7 +5,7 @@
 
       <b-navbar-nav class="ml-auto">
         <b-navbar-nav>
-          <b-nav-item to="/" @click="changeView('map')">Tablero</b-nav-item>
+          <b-nav-item to="/" @click="changeView('map')">Inicio</b-nav-item>
           <b-nav-item to="/" @click="changeView('map')" v-if="userIsAdmin">Usuarios</b-nav-item>
 
           <b-nav-item-dropdown class="text-light" text="Ver reportes" no-caret right>

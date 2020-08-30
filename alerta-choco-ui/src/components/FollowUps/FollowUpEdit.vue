@@ -20,6 +20,7 @@
             v-model="tipoSeguimientoEnum"
             :options="this.opcionesTipoSeguimiento"
             :state="lengthState(tipoSeguimientoEnum)"
+            multiple
           ></b-form-select>
         </div>
       </b-col>
@@ -44,7 +45,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Tipo de evolucion de la situación: </h6>
+          <h6>Tipo de evolucion de la situación: {{ FormatForm(this.evolucionSituacion) }}</h6>
           <b-form-select
             v-model="evolucionSituacion"
             :options="this.opcionesEvolucionSituacion"
@@ -115,11 +116,10 @@
       <b-col>
 
         <div class="mt-3">
-          <h6>Tipo de acción de seguimiento:</h6>
+          <h6>Tipo de acción de seguimiento: {{ FormatForm(this.accionSeguimiento) }}</h6>
           <b-form-select
             v-model="accionSeguimiento"
             :options="this.opcionesAccion"
-            :select-size="3"
             :state="lengthState(accionSeguimiento)"
           ></b-form-select>
         </div>
@@ -318,7 +318,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>¿Contribuye la respuesta a mitigar el riesgo? </h6>
+          <h6>¿Contribuye la respuesta a mitigar el riesgo? {{ FormatForm(this.mitigaRiesgo) }}</h6>
           <b-form-select
             v-model="mitigaRiesgo"
             :options="this.opcionesVictimas"
@@ -327,7 +327,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>¿Contribuye la respuesta a proteger defensores y defensoras? </h6>
+          <h6>¿Contribuye la respuesta a proteger defensores y defensoras? {{ FormatForm(this.protegeDefensores) }} </h6>
           <b-form-select
             v-model="protegeDefensores"
             :options="this.opcionesVictimas"
@@ -336,7 +336,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>¿Se espera otras respuestas de esta u otras instituciones? </h6>
+          <h6>¿Se espera otras respuestas de esta u otras instituciones? {{ FormatForm(this.esperaOtraRespuesta) }}</h6>
           <b-form-select
             v-model="esperaOtraRespuesta"
             :options="this.opcionesVictimas"
@@ -415,11 +415,10 @@
         </div>
 
          <div class="mt-3">
-          <h6>¿Cómo se sintió tratada la/s persona/s que recibieron la respuesta?:</h6>
+          <h6>¿Cómo se sintió tratada la/s persona/s que recibieron la respuesta?: {{ FormatForm(this.tratoRespuesta) }}</h6>
           <b-form-select
             v-model="tratoRespuesta"
             :options="this.opcionesTrato"
-            :select-size="3"
             :state="lengthState(tratoRespuesta)"
           ></b-form-select>
         </div>
@@ -431,13 +430,13 @@
       </b-col>
     </b-row>
     <b-button
-          @click="this.save"
+          @click="this.update"
           size="lg"
           class="text-light mt-5 mb-3"
           variant="warning"
           :disabled="this.requiredFieldsCompleted"
           block
-          >Crear seguimiento</b-button
+          >Guardar seguimiento</b-button
         >
   </b-container>
 </template>
@@ -449,6 +448,7 @@ export default {
   mixins: [frozen],
   data() {
     return {
+      followUp: null,
       idAlerta: '',
       tipoSeguimientoEnum: [],
       fechaAccionRespuesta: '',
@@ -502,6 +502,7 @@ export default {
     },
     wrapFollowUp() {
       let alert = '[{ "geometry" : {"x": 1,"y": -1,"spatialReference": {"wkid": 4326}},"attributes" : {';
+      alert += '"OBJECTID":"' + this.followUp.OBJECTID + '",';
       alert += '"idAlerta":"' + this.idAlerta + '",';
       alert += '"tipoSeguimientoEnum":"' + this.FormatForDB(this.tipoSeguimientoEnum) + '",';
       alert += '"fechaAccionRespuesta":"' + this.FormatDateForDB(this.fechaAccionRespuesta) + '",';
@@ -547,16 +548,71 @@ export default {
       //console.log(alert);
       return alert;
     },
-    async save() {
-      const response = await FollowUpsService.save(this.wrapFollowUp());
+    async update() {
+      console.log(this.wrapFollowUp());
+      const response = await FollowUpsService.update(this.wrapFollowUp());
       console.log(response);
-      if(response.addResults[0].success) {
-        this.$router.push({name:'Home'})
+      if(response.updateResults[0].success) {
+        this.$router.push({ path: '/' });
       }
       else{
-        this.$store.commit('SET_APP_ERROR', response.addResults[0].error.description)
+        this.$store.commit('SET_APP_ERROR', response.updateResults[0].error.description)
       } 
     },
+    validateData(data, obj) {
+      if (obj) {
+        if (!data) return [];
+        return data.split(',');
+      }
+
+      if (!data) return '';
+
+      if (typeof data === 'number') data = data.toString();
+
+      return this.FormatForm(data);
+    },
+    fillForm() {
+      this.idAlerta = this.validateData(this.followUp.idAlerta),
+      this.tipoSeguimientoEnum = this.validateData(this.followUp.tipoSeguimientoEnum, true),
+      this.fechaAccionRespuesta = this.validateData(this.followUp.fechaAccionRespuesta),
+      this.descripcionSituacion = this.validateData(this.followUp.descripcionSituacion),
+      this.evolucionSituacion = this.validateData(this.followUp.evolucionSituacion),
+      this.actoresInvolucrados = this.validateData(this.followUp.actoresInvolucrados ), 
+      this.accionesMitigacion = this.validateData(this.followUp.accionesMitigacion),
+      this.riesgoPercibido = this.validateData(this.followUp.riesgoPercibido),
+      this.institucionesInformadasEnum = this.validateData(this.followUp.institucionesInformadasEnum, true),
+      this.otraInstitucion = this.validateData(this.followUp.otraInstitucion ),
+      this.accionSeguimiento = this.validateData(this.followUp.accionSeguimiento),
+      this.otraAccionSeguimiento = this.validateData(this.followUp.otraAccionSeguimiento),
+      this.descripcionAccion = this.validateData(this.followUp.descripcionAccion ),
+      this.entidadesAccionEnum = this.validateData(this.followUp.entidadesAccionEnum, true),
+      this.otraEntidad = this.validateData(this.followUp.otraEntidad),
+      this.dependenciaEntidad = this.validateData(this.followUp.dependenciaEntidad),
+      this.resultadoEsperado = this.validateData(this.followUp.resultadoEsperado),
+      this.tiempoEsperado = this.validateData(this.followUp.tiempoEsperado),
+      this.quienPresentaAccion = this.validateData(this.followUp.quienPresentaAccion),
+      this.personaContacto = this.validateData(this.followUp.personaContacto),
+      this.telefonoContacto = this.validateData(this.followUp.telefonoContacto),
+      this.emailContacto = this.validateData(this.followUp.emailContacto),
+      this.trato = this.validateData(this.followUp.trato),
+      this.tipoRespuesta = this.validateData(this.followUp.tipoRespuesta),
+      this.otraRespuesta = this.validateData(this.followUp.otraRespuesta),
+      this.entidadesRespuestaEnum = this.validateData(this.followUp.entidadesRespuestaEnum, true),
+      this.otraEntidadRespuesta = this.validateData(this.followUp.otraEntidadRespuesta),
+      this.dependenciaEntidadRespuesta = this.validateData(this.followUp.dependenciaEntidadRespuesta),
+      this.descripcionRespuesta = this.validateData(this.followUp.descripcionRespuesta),
+      this.mitigaRiesgo = this.validateData(this.followUp.mitigaRiesgo),
+      this.protegeDefensores = this.validateData(this.followUp.protegeDefensores),
+      this.esperaOtraRespuesta = this.validateData(this.followUp.esperaOtraRespuesta),
+      this.personaContactoInstitucion = this.validateData(this.followUp.personaContactoInstitucion),
+      this.telefonoContactoInstitucion = this.validateData(this.followUp.telefonoContactoInstitucion),
+      this.emailContactoInstitucion = this.validateData(this.followUp.emailContactoInstitucion),
+      this.quienRecibeRespuesta = this.validateData(this.followUp.quienRecibeRespuesta),
+      this.personaRecibeRespuesta = this.validateData(this.followUp.personaRecibeRespuesta),
+      this.telefonoContactoRespuesta = this.validateData(this.followUp.telefonoContactoRespuesta ),
+      this.emailContactoRespuesta = this.validateData(this.followUp.emailContactoRespuesta),
+      this.tratoRespuesta = this.validateData(this.followUp.tratoRespuesta)
+    }
   },
   computed: {
     requiredFieldsCompleted() {
@@ -590,8 +646,13 @@ export default {
       return false;
     },
   },
-  created () {
-      this.idAlerta = this.$route.params.id;
+  mounted () {
+      if (this.$store.getters.followUps) {
+      this.followUp = this.$store.getters.followUpById(this.$route.params.id);
+      //console.log('This followUp', this.followUp);
+      this.fillForm();
+    }
+
   }
 };
 </script>

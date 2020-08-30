@@ -35,7 +35,7 @@ export default {
 
     const policies = await policyHandler.postRequest(access, data2, headers);
 
-    console.log('Policies reponse is ', policies.features);
+    //console.log('Policies reponse is ', policies.features);
 
     return policies;
   },

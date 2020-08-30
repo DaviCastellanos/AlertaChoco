@@ -254,7 +254,7 @@
         </div>
       </b-col>
     </b-row>
-    <div v-for="value in followUps" v-bind:key="value.OBJECTID">
+    <div v-for="value in this.$store.getters.followUps" v-bind:key="value.OBJECTID">
       <hr />
       <div class="mt-3">
         <h4>Seguimiento</h4>
@@ -274,7 +274,7 @@
           </div>
 
           <div class="mt-3">
-            <b-button size="sm" class="text-light my-2 my-sm-0" type="submit">Ver seguimiento</b-button>
+            <b-button size="sm" :to="value.route" class="text-light my-2 my-sm-0" type="submit">Ver seguimiento</b-button>
           </div>
         </b-col>
       </b-row>
@@ -312,8 +312,7 @@ export default {
   mixins: [frozen, helpers],
   data() {
     return {
-      alert: Number,
-      followUps: null
+      alert: Number
     };
   },
   methods: {
@@ -330,11 +329,12 @@ export default {
       let followUps = [];
       for (var i = 0; i < alertFollowUps.length; i++) {
         const followUp = await FollowUpsService.getFollowUpInfo(this.$store.getters.arcgisToken, alertFollowUps[i].attributes.OBJECTID);
-        //console.log('followUp is ', followUp);
-        followUps.push(followUp);
+        const complete = Object.assign({ route: `/seefollowup/${followUp.OBJECTID}` }, followUp);
+        //console.log('followUp is ', complete);
+        followUps.push(complete);
       }
 
-      this.followUps = followUps;
+      this.$store.commit('SET_FOLLOW_UPS', followUps);
     }
   },
   watch: {

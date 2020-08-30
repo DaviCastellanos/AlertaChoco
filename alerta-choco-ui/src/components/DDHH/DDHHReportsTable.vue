@@ -6,7 +6,7 @@
 
 <script>
 import { BTable } from 'bootstrap-vue';
-import froze from '../mixins/frozen.js';
+import froze from '@/mixins/frozen.js';
 
 export default {
   mixins: [froze],

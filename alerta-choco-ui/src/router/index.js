@@ -2,16 +2,22 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Dashboard from '@/components/Dashboard.vue';
 import Verification from '@/components/Verification.vue';
-import FollowUp from '@/components/FollowUp.vue';
-import DDHHReportsTable from '@/components/DDHHReportsTable.vue';
-import PATRReportsTable from '@/components/PATRReportsTable.vue';
-import DDHHReport from '@/components/DDHHReport.vue';
-import DDHHReportDelete from '@/components/DDHHReportDelete.vue';
-import PATRReportDelete from '@/components/PATRReportDelete.vue';
-import DDHHReportCreate from '@/components/DDHHReportCreate.vue';
-import PATRReportCreate from '@/components/PATRReportCreate.vue';
-import PATRReport from '@/components/PATRReport.vue';
-import PATRReportEdit from '@/components/PATRReportEdit.vue';
+
+import FollowUpCreate from '@/components/FollowUps/FollowUpCreate.vue';
+import FollowUpDetail from '@/components/FollowUps/FollowUpDetail.vue';
+import FollowUpEdit from '@/components/FollowUps/FollowUpEdit.vue';
+import FollowUpDelete from '@/components/FollowUps/FollowUpDelete.vue';
+
+import DDHHReportsTable from '@/components/DDHH/DDHHReportsTable.vue';
+import DDHHReport from '@/components/DDHH/DDHHReport.vue';
+import DDHHReportDelete from '@/components/DDHH/DDHHReportDelete.vue';
+import DDHHReportCreate from '@/components/DDHH/DDHHReportCreate.vue';
+
+import PATRReportsTable from '@/components/PATR/PATRReportsTable.vue';
+import PATRReportDelete from '@/components/PATR/PATRReportDelete.vue';
+import PATRReportCreate from '@/components/PATR/PATRReportCreate.vue';
+import PATRReport from '@/components/PATR/PATRReport.vue';
+import PATRReportEdit from '@/components/PATR/PATRReportEdit.vue';
 
 Vue.use(Router);
 
@@ -64,8 +70,23 @@ export default new Router({
     },
     {
       path: '/followup/:id',
-      name: 'FollowUp',
-      component: FollowUp
+      name: 'FollowUpCreate',
+      component: FollowUpCreate
+    },
+    {
+      path: '/deletefollowup/:id',
+      name: 'FollowUpDelete',
+      component: FollowUpDelete
+    },
+    {
+      path: '/seefollowup/:id',
+      name: 'FollowUpDetail',
+      component: FollowUpDetail
+    },
+    {
+      path: '/editfollowup/:id',
+      name: 'FollowUpEdit',
+      component: FollowUpEdit
     },
     {
       path: '/createddhhreport',
