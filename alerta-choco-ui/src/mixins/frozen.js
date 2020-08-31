@@ -178,8 +178,7 @@ export default {
         { value: '11', text: 'Ejercer legitimamente la ocupación o profesión de defensor de derechos humanos' },
         {
           value: '12',
-          text:
-            'Obtener protección eficaz de las leyes nacionales al reaccionar u oponerse, por medios pacíficos, a actividades y actos, con inclusión de las omisiones, imputables a los Estados que causen violaciones de los derechos humanos'
+          text: 'Obtener protección eficaz de las leyes nacionales al reaccionar u oponerse, por medios pacíficos, a actividades y actos, con inclusión de las omisiones, imputables a los Estados que causen violaciones de los derechos humanos'
         },
         { value: '13', text: 'Solicitar, recibir y utilizar recursos con el objeto de proteger los derechos humanos' }
       ],
@@ -254,7 +253,7 @@ export default {
       }
       let str = '';
       for (var i = 0; i < values.length; i++) {
-        str += obj[parseInt(values[i]) + 1].text.toLowerCase();
+        str += obj[parseInt(values[i]) + 1].text;
         if (i < values.length - 1) str += ' - ';
       }
       return str;

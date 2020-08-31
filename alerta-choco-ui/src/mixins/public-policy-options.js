@@ -2259,7 +2259,7 @@ export default {
 
       let str = '';
       for (var i = 0; i < values.length; i++) {
-        str += obj[parseInt(values[i]) + 1].text.toLowerCase();
+        str += obj[parseInt(values[i]) + 1].text;
         if (i < values.length - 1) str += ' - ';
       }
       return str;

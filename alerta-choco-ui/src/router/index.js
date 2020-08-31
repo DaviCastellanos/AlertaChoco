@@ -110,5 +110,8 @@ export default new Router({
       name: 'PATRReportCreate',
       component: PATRReportCreate
     }
-  ]
+  ],
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  }
 });

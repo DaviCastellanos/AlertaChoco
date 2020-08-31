@@ -80,6 +80,8 @@ Vue.mixin({
 
       if (str.includes('whatsapp')) str = str.replace('whatsapp:', '');
 
+      str = str.charAt(0).toUpperCase() + str.slice(1);
+
       return str.replace(/_/g, ' ');
     }
   }
