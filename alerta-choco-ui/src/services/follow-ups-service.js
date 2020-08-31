@@ -23,6 +23,40 @@ export default {
 
     return followUps;
   },
+  async getAllFollowUps(token, userAccess) {
+    let fields = process.env.VUE_APP_FOLLOWUP_PUBLIC_INFO;
+
+    if (userAccess === 'private') fields = process.env.VUE_APP_FOLLOWUP_PRIVATE_INFO;
+
+    if (userAccess === 'sensitive') fields = process.env.VUE_APP_FOLLOWUP_SENSITIVE_INFO;
+
+    let req = 'https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/seguimientos/FeatureServer/0/query';
+
+    const tokenData = qs.stringify({
+      grant_type: 'client_credentials',
+      client_id: process.env.VUE_APP_ARCGIS_CLIENT_ID,
+      client_secret: process.env.VUE_APP_ARCGIS_CLIENT_SECRET
+    });
+
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    };
+
+    const response = await tokenHandler.postRequest(`https://www.arcgis.com/sharing/rest/oauth2/token`, tokenData, header);
+
+    const data = qs.stringify({
+      f: 'json',
+      where: '1=1',
+      token: response.access_token,
+      outFields: fields
+    });
+
+    const followUps = await followUpHandler.postRequest(req, data, header);
+
+    //console.log('FollowUps reponse is ', followUps.features[0].attributes);
+
+    return followUps.features;
+  },
   async getFollowUpInfo(token, OBJECTID, userAccess) {
     let fields = process.env.VUE_APP_FOLLOWUP_PUBLIC_INFO;
 

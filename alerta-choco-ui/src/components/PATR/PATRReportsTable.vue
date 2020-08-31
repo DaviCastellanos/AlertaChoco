@@ -3,6 +3,7 @@
     <h4>REPORTES DE DDHH</h4>
     <br />
     <b-table responsive sticky-header="700px" striped hover light selectable :items="this.getItems()" :fields="this.getFields()" @row-selected="onRowSelected"> </b-table>
+    <excel-helper tableType="PATR" title="Descargar reportes PATR" />
   </div>
 </template>
 
@@ -10,11 +11,13 @@
 import { BTable } from 'bootstrap-vue';
 import froze from '@/mixins/frozen.js';
 import PublicPolicyOptions from '@/mixins/public-policy-options.js';
+import ExcelHelper from '@/components/ExcelHelper.vue';
 
 export default {
   mixins: [froze, PublicPolicyOptions],
   components: {
-    BTable
+    BTable,
+    ExcelHelper
   },
   data() {
     return {

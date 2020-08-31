@@ -69,48 +69,6 @@ export default {
       this.validatePassword = null;
       this.role = null;
       this.displayName = null;
-    },
-    csvExport() {
-      const arrData = this.alertsItems();
-      let csvContent = 'data:text/csv;charset=utf-8,';
-      csvContent += [Object.keys(arrData[0]).join(';'), ...arrData.map(item => Object.values(item).join(';'))].join('\n').replace(/(^\[)|(\]$)/gm, '');
-
-      const data = encodeURI(csvContent);
-      const link = document.createElement('a');
-      link.setAttribute('href', data);
-      link.setAttribute('download', 'ALERTAS_RED_ANANSI.csv');
-      link.click();
-    },
-    alertsItems() {
-      let items = [];
-      let val = JSON.parse(JSON.stringify(this.$store.getters.alerts));
-      val.forEach(el => {
-        el.attributes.fechaReporte = this.FormatAsDate(el.attributes.fechaReporte);
-
-        if (el.attributes.fechaOcurrencia) el.attributes.fechaOcurrencia = this.FormatAsDate(el.attributes.fechaOcurrencia);
-        if (el.attributes.fechaValidacion) el.attributes.fechaValidacion = this.FormatAsDate(el.attributes.fechaValidacion);
-        if (el.attributes.subcategoriaEventoEnum) el.attributes.subcategoriaEventoEnum = this.getObjectTexts('opcionesSubcategoria', el.attributes.subcategoriaEventoEnum);
-
-        if (el.attributes.rolVictimaEnum) el.attributes.rolVictimaEnum = this.getObjectTexts('opcionesRol', el.attributes.rolVictimaEnum);
-
-        if (el.attributes.discapacidadEnum) el.attributes.discapacidadEnum = this.getObjectTexts('opcionesDiscapacidad', el.attributes.discapacidadEnum);
-
-        if (el.attributes.tipoResponsableEnum) el.attributes.tipoResponsableEnum = this.getObjectTexts('opcionesResponsables', el.attributes.tipoResponsableEnum);
-
-        if (el.attributes.afectadosEnum) el.attributes.afectadosEnum = this.getObjectTexts('opcionesAfectados', el.attributes.afectadosEnum);
-
-        if (el.attributes.etniaAfectadosEnum) el.attributes.etniaAfectadosEnum = this.getObjectTexts('opcionesEtniaAfectados', el.attributes.etniaAfectadosEnum);
-
-        if (el.attributes.derechosDDHEnum) el.attributes.derechosDDHEnum = this.getObjectTexts('opcionesDerechos', el.attributes.derechosDDHEnum);
-
-        if (el.attributes.institucionesEnum) el.attributes.institucionesEnum = this.getObjectTexts('opcionesInstituciones', el.attributes.institucionesEnum);
-
-        if (el.attributes.telefono) el.attributes.telefono = el.attributes.telefono.replace('whatsapp:', '');
-
-        items.push(el.attributes);
-      });
-      console.log('alert items ', items);
-      return items;
     }
   },
   watch: {

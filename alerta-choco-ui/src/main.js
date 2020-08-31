@@ -16,6 +16,7 @@ import router from './router';
 import frozen from './mixins/frozen.js';
 import PublicPolicyOptions from './mixins/public-policy-options.js';
 import helpers from './mixins/helpers.js';
+import excel from 'vue-excel-export';
 
 Vue.config.productionTip = false;
 
@@ -24,6 +25,7 @@ darkUnica(Highcharts);
 Vue.use(IconsPlugin);
 Vue.use(HighchartsVue);
 Vue.use(BootstrapVue);
+Vue.use(excel);
 
 Vue.mixin({
   methods: {
@@ -63,14 +65,18 @@ Vue.mixin({
       const lower = str.toString().toLowerCase();
       return lower.replace(/ /g, '_');
     },
-    FormatForHuman(str) {
+    FormatForHuman(str, isExcel) {
       if (!str || typeof str !== 'string') return 'N/A';
 
       if (str === 'True') return 'Si';
 
       if (str === 'False') return 'No';
 
-      if (str.includes('firebase')) return `<a href="${str}" target="_blank">Multimedia</a>`;
+      if (str.includes('firebase')) {
+        if (!isExcel) return `<a href="${str}" target="_blank">Multimedia</a>`;
+
+        return 'Enlace: ' + str;
+      }
 
       if (str.includes('whatsapp')) str = str.replace('whatsapp:', '');
 
