@@ -347,9 +347,9 @@ export default {
       return alert;
     },
     async update() {
-      console.log(this.wrapFollowUp());
+      //console.log(this.wrapFollowUp());
       const response = await FollowUpsService.update(this.wrapFollowUp());
-      console.log(response);
+      //console.log(response);
       if (response.updateResults[0].success) {
         this.$router.push({ path: '/' });
       } else {

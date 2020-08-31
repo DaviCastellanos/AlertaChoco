@@ -391,15 +391,14 @@ export default {
   watch: {
     municipio: function(val) {
       //console.log('mun ' + val + ' ' + this.hasInited);
-      if (this.hasInitied && val != 'Otro') this.lookForCoordinates(val);
+      if (this.hasInited && val != 'Otro') this.lookForCoordinates(val);
+
+      this.hasInited = true;
     },
     municipioOtro: function(val) {
       //console.log('Otromun ' + val + ' ' + this.hasInited);
-      if (this.hasInitied) this.lookForCoordinates(val);
+      if (this.hasInited) this.lookForCoordinates(val);
     }
-    // codigoIniciativa: function(val) {
-    //   //console.log('Código iniciativa ' + val);
-    // }
   },
   methods: {
     requiredFieldsCompleted() {
@@ -469,10 +468,10 @@ export default {
     wrapPolicy() {
       let alert = '[{';
 
-      if (this.overrideCoordinates) alert += `"geometry" : {"x": ${this.arcgisAddress.x},"y": ${this.arcgisAddress.y},"spatialReference": {"wkid": 4326}},`;
-      else alert += '"geometry" : {"x": -74.063644,"y": 4.624335,"spatialReference": {"wkid": 4326}},';
+      if (this.overrideCoordinates) alert += `"geometry" : {"x": ${this.arcgisAddress.x},"y": ${this.arcgisAddress.y},"spatialReference": {"wkid": 4326}},"attributes" : {`;
+      else alert += '"geometry" : {"x": -74.063644,"y": 4.624335,"spatialReference": {"wkid": 4326}},"attributes" : {';
 
-      alert += '"attributes" : {"OBJECTID":"' + this.policy.attributes.OBJECTID + '",';
+      alert += '"OBJECTID":"' + this.policy.attributes.OBJECTID + '",';
       alert += '"tipoReporte":"' + this.FormatForDB(this.tipoReporte) + '",';
       alert += '"subregion":"' + this.FormatForDB(this.subregion) + '",';
       alert += '"pilar":"' + this.FormatForDB(this.pilar) + '",';
@@ -531,9 +530,9 @@ export default {
       return alert;
     },
     async update() {
-      console.log(this.wrapPolicy());
+      //console.log(this.wrapPolicy());
       const response = await PolicyService.updatePolicy(this.wrapPolicy());
-      console.log(response);
+      //console.log(response);
       if (response.updateResults[0].success) {
         this.$store.commit('SET_UPDATE_NEEDED', true);
         this.$router.push({ path: '/' });
@@ -651,8 +650,6 @@ export default {
       //console.log('This policy', this.policy);
       this.fillForm();
     }
-
-    this.hasInitied = true;
   }
 };
 </script>

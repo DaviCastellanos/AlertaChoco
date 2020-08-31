@@ -58,7 +58,7 @@ export default {
       updates: policy
     });
 
-    const updateResponse = await policyHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/alertas/FeatureServer/0/applyEdits`, updateData, header);
+    const updateResponse = await policyHandler.postRequest(`https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/politicas/FeatureServer/0/applyEdits`, updateData, header);
     //console.log("alerts is " + alerts.features);
 
     return updateResponse;
