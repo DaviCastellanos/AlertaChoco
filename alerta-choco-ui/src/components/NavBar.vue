@@ -1,8 +1,8 @@
 <template>
   <div id="navBar">
     <b-navbar toggleable="lg" type="light" style="background-color: #FFFFFF;" fixed="top">
-      <b-navbar-brand> <img src="@/images/logo-codhes.png" height="30" /> <img src="@/images/logo-fisch.png" height="40" /> Anansi: red de protección y monitoreo</b-navbar-brand>
-
+      <b-navbar-brand> <img src="@/images/codhes.png" height="28" /> <img src="@/images/fisch.png" height="40" /> </b-navbar-brand>
+      <b-navbar-brand> Anansi: red de protección y monitoreo</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
