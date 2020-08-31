@@ -1,10 +1,10 @@
 <template>
-  <b-container fluid>
+  <b-container fluid id="dashboard">
     <b-row>
-      <b-col>
+      <b-col md="12" lg="6">
         <web-map />
       </b-col>
-      <b-col>
+      <b-col md="12" lg="6">
         <chart-alert-events />
         <victims-situation />
       </b-col>
@@ -63,6 +63,12 @@ html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
+}
+#dashboard {
+  margin: 0;
+  padding: 2%;
   height: 100%;
   width: 100%;
 }

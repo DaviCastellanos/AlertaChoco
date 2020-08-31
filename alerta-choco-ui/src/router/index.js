@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Dashboard from '@/components/Dashboard.vue';
-import Verification from '@/components/Verification.vue';
 import UserPanel from '@/components/UserPanel.vue';
 import UsersTable from '@/components/UsersTable.vue';
 
@@ -10,6 +9,7 @@ import FollowUpDetail from '@/components/FollowUps/FollowUpDetail.vue';
 import FollowUpEdit from '@/components/FollowUps/FollowUpEdit.vue';
 import FollowUpDelete from '@/components/FollowUps/FollowUpDelete.vue';
 
+import DDHHReportEdit from '@/components/DDHH/DDHHReportEdit.vue';
 import DDHHReportsTable from '@/components/DDHH/DDHHReportsTable.vue';
 import DDHHReport from '@/components/DDHH/DDHHReport.vue';
 import DDHHReportDelete from '@/components/DDHH/DDHHReportDelete.vue';
@@ -72,8 +72,8 @@ export default new Router({
     },
     {
       path: '/verify/:id',
-      name: 'Verification',
-      component: Verification
+      name: 'DDHHReportEdit',
+      component: DDHHReportEdit
     },
     {
       path: '/editpatrreport/:id',

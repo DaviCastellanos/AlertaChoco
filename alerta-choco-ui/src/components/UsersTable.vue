@@ -105,9 +105,7 @@ export default {
 
 <style scoped>
 #table {
-  padding: 0;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  padding: 2%;
   width: 100%;
   height: 100%;
 }

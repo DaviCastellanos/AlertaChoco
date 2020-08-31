@@ -1,5 +1,8 @@
 <template>
-  <b-container fluid id="form" v-if="this.policy">
+  <b-container fluid id="reporte" v-if="this.policy">
+    <h4>FICHA REPORTE PATR</h4>
+    <br />
+
     <div class="mt-3">
       <h4>General</h4>
     </div>
@@ -262,12 +265,12 @@
       <b-row>
         <b-col v-if="userAccessIsPrivate">
           <div class="mt-3">
-            <b-button size="lg" :to="editURL" class="text-light my-2 my-sm-0" variant="warning">Editar</b-button>
+            <b-button size="lg" :to="editURL" class="text-light my-2 my-sm-0" variant="warning">Editar reporte</b-button>
           </div>
         </b-col>
         <b-col v-if="userIsAdmin">
           <div class="mt-3 mb-3">
-            <b-button size="lg" :to="deleteURL" class="text-light my-2 my-sm-0" variant="danger">Eliminar</b-button>
+            <b-button size="lg" :to="deleteURL" class="text-light my-2 my-sm-0" variant="danger">Eliminar reporte</b-button>
           </div>
         </b-col>
       </b-row>
@@ -412,9 +415,8 @@ export default {
 </script>
 
 <style>
-#form {
-  padding: 50px;
-  margin: 2px;
+#reporte {
+  padding: 2%;
   width: 100%;
   height: 100%;
 }

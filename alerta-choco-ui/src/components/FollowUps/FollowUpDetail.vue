@@ -1,5 +1,8 @@
 <template>
-  <div fluid id="form" v-if="this.followUp">
+  <div fluid id="Seguimiento" v-if="this.followUp">
+    <h4>FICHA DE SEGUIMIENTO</h4>
+    <br />
+
     <div class="mt-3">
       <h4>Tipo</h4>
     </div>
@@ -182,12 +185,12 @@
       <b-row>
         <b-col v-if="userAccessIsPrivate">
           <div class="mt-3">
-            <b-button size="lg" :to="editURL" class="text-light my-2 my-sm-0" variant="warning"> Editar </b-button>
+            <b-button size="lg" :to="editURL" class="text-light my-2 my-sm-0" variant="warning"> Editar seguimiento</b-button>
           </div>
         </b-col>
         <b-col v-if="userIsAdmin">
           <div class="mt-3">
-            <b-button size="lg" :to="deleteURL" class="text-light my-2 my-sm-0" variant="danger">Eliminar</b-button>
+            <b-button size="lg" :to="deleteURL" class="text-light my-2 my-sm-0" variant="danger">Eliminar seguimiento</b-button>
           </div>
         </b-col>
       </b-row>
@@ -361,8 +364,8 @@ export default {
 </script>
 
 <style>
-#form {
-  padding: 50px;
+#Seguimiento {
+  padding: 2%;
   margin: 2px;
   width: 100%;
   height: 100%;

@@ -1,5 +1,7 @@
 <template>
-  <b-container fluid id="form" v-if="this.alert">
+  <div id="report" v-if="this.alert">
+    <h4>EDITAR O VERIFICAR REPORTE DDHH</h4>
+    <br />
     <div class="mt-3">
       <h4>Alerta</h4>
     </div>
@@ -238,13 +240,12 @@
           <h6>No. de personas afectadas:</h6>
           <b-form-input type="number" v-model="numeroPersonas" :state="lengthState(numeroPersonas)" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
+
+        <div class="mt-3">
+          <h6>Derechos límitados:</h6>
+          <b-form-select v-model="derechosDDHEnum" :options="this.opcionesDerechos" multiple :select-size="10" :state="lengthState(derechosDDHEnum)"></b-form-select>
+        </div>
       </b-col>
-    </b-row>
-    <b-row>
-      <div class="m-3">
-        <h6>Derechos límitados:</h6>
-        <b-form-select v-model="derechosDDHEnum" :options="this.opcionesDerechos" multiple :select-size="10" :state="lengthState(derechosDDHEnum)"></b-form-select>
-      </div>
     </b-row>
     <hr />
 
@@ -302,17 +303,18 @@
         </b-form-invalid-feedback>
       </b-col>
     </b-row>
-    <b-button @click="this.validate" size="lg" class="text-light mt-5 mb-3" variant="warning" block>{{ buttonText }}</b-button>
-  </b-container>
+    <b-button v-if="userAccessIsPrivate" @click="this.validate" size="lg" class="text-light mt-5 mb-3" variant="warning" block>{{ buttonText }}</b-button>
+  </div>
 </template>
 <script>
 import { AlertsService } from '@/services';
 import GeocodeService from '@/services/geocode-service.js';
 import frozen from '@/mixins/frozen.js';
 import coordinates from '@/mixins/coordinates.js';
+import helpers from '@/mixins/helpers.js';
 
 export default {
-  mixins: [frozen, coordinates],
+  mixins: [frozen, coordinates, helpers],
   data() {
     return {
       geocodeBusy: false,
@@ -533,8 +535,8 @@ export default {
   },
   computed: {
     buttonText() {
-      if (this.alert.attributes.verificado == 'True') return 'Guardar';
-      return 'Validar';
+      if (this.alert.attributes.verificado == 'True') return 'Guardar cambios en el reporte';
+      return 'Validar alerta';
     },
     userAccess() {
       if (!this.$store.getters.user || !this.$store.getters.user.role) return 'public';
@@ -551,9 +553,9 @@ export default {
 </script>
 
 <style>
-#form {
+#report {
   margin: 0;
-  padding: 0;
+  padding: 2%;
   height: 100%;
   width: 100%;
 }

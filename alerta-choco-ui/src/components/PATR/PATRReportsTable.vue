@@ -1,5 +1,7 @@
 <template>
   <div id="table">
+    <h4>REPORTES DE DDHH</h4>
+    <br />
     <b-table responsive sticky-header="700px" striped hover light selectable :items="this.getItems()" :fields="this.getFields()" @row-selected="onRowSelected"> </b-table>
   </div>
 </template>
@@ -30,7 +32,8 @@ export default {
         { key: 'municipio', tdClass: 'w-5', label: 'Departamento' },
         { key: 'pilar', tdClass: 'w-3', label: 'Pilar' },
         { key: 'tipoReporte', tdClass: 'w-5', label: 'Tipo de Reporte' },
-        { key: 'iniciativa', tdClass: 'w-5', label: 'Iniciativa' }
+        { key: 'iniciativa', tdClass: 'w-5', label: 'Iniciativa' },
+        { key: 'ver', tdClass: 'w-5', label: '' }
       ];
       return headers;
     },
@@ -53,7 +56,8 @@ export default {
         pilar: this.FormatForHuman(feature.pilar),
         iniciativa: this.getPolicyTexts(this.getObjectByMunicipio(feature.municipio), feature.codigoIniciativa),
         tipoReporte: this.FormatForHuman(feature.tipoReporte),
-        OBJECTID: feature.OBJECTID
+        OBJECTID: feature.OBJECTID,
+        ver: 'Ver'
       };
     }
   },
@@ -67,7 +71,7 @@ export default {
 
 <style scoped>
 #table {
-  padding: 0;
+  padding: 2%;
   margin: 2px;
   width: 100%;
   height: 100%;

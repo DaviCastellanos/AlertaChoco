@@ -1,5 +1,8 @@
 <template>
-  <b-container fluid id="form">
+  <b-container fluid id="reporte">
+    <h4>EDITAR REPORTE PATR</h4>
+    <br />
+
     <div class="mt-3">
       <h4>General</h4>
     </div>
@@ -314,16 +317,17 @@
         </b-form-invalid-feedback>
       </b-col>
     </b-row>
-    <b-button @click="this.update" size="lg" class="text-light mt-5 mb-5" variant="warning" block :disabled="requiredFieldsCompleted()">Guardar reporte PATR</b-button>
+    <b-button v-if="userIsAuthenticated" @click="this.update" size="lg" class="text-light mt-5 mb-5" variant="warning" block :disabled="requiredFieldsCompleted()">Guardar cambios en reporte</b-button>
   </b-container>
 </template>
 <script>
 import PolicyService from '@/services/policy-service.js';
 import PublicPolicyOptions from '@/mixins/public-policy-options.js';
 import GeocodeService from '@/services/geocode-service.js';
+import helpers from '@/mixins/helpers.js';
 
 export default {
-  mixins: [PublicPolicyOptions],
+  mixins: [PublicPolicyOptions, helpers],
   data() {
     return {
       policy: null,
@@ -652,12 +656,3 @@ export default {
   }
 };
 </script>
-
-<style>
-#form {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
-</style>

@@ -1,5 +1,8 @@
 <template>
   <div id="report" v-if="this.alert.attributes">
+    <h4>FICHA DE REPORTE DE DDHH</h4>
+    <br />
+
     <div class="mt-3">
       <h4>Alerta</h4>
     </div>
@@ -290,12 +293,12 @@
         </b-col>
         <b-col v-if="userIsAuthenticated">
           <div class="mt-3">
-            <b-button size="lg" :to="followUpURL" class="text-light my-2 my-sm-0" variant="warning">Seguir</b-button>
+            <b-button size="lg" :to="followUpURL" class="text-light my-2 my-sm-0" variant="warning">Hacer nuevo seguimiento</b-button>
           </div>
         </b-col>
         <b-col v-if="userIsAdmin">
           <div class="mt-3">
-            <b-button size="lg" :to="deleteURL" class="text-light my-2 my-sm-0" variant="danger">Eliminar</b-button>
+            <b-button size="lg" :to="deleteURL" class="text-light my-2 my-sm-0" variant="danger">Eliminar reporte</b-button>
           </div>
         </b-col>
       </b-row>
@@ -356,8 +359,8 @@ export default {
       return '/deletereport/' + this.alert.attributes.OBJECTID;
     },
     buttonText() {
-      if (this.alert.attributes.verificado == 'True') return 'Editar';
-      return 'Validar';
+      if (this.alert.attributes.verificado == 'True') return 'Editar reporte';
+      return 'Validar alerta';
     },
     alerts() {
       return this.$store.getters.alerts;
@@ -377,8 +380,7 @@ export default {
 
 <style scoped>
 #report {
-  padding: 50px;
-  margin: 2px;
+  padding: 2%;
   width: 100%;
   height: 100%;
 }

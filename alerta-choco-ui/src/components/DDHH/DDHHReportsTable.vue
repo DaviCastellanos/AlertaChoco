@@ -1,5 +1,7 @@
 <template>
   <div id="table">
+    <h4>REPORTES DE DDHH</h4>
+    <br />
     <b-table responsive sticky-header="700px" striped hover light selectable :items="this.getItems()" :fields="this.getFields()" @row-selected="onRowSelected"> </b-table>
   </div>
 </template>
@@ -29,7 +31,8 @@ export default {
         { key: 'departamentoOcurrencia', tdClass: 'w-5', label: 'Departamento' },
         { key: 'municipioOcurrencia', tdClass: 'w-3', label: 'Municipio' },
         { key: 'categoriaEvento', tdClass: 'w-5', label: 'Categoría' },
-        { key: 'subcategoriaEventoEnum', tdClass: 'w-5', label: 'Subcategoría' }
+        { key: 'subcategoriaEventoEnum', tdClass: 'w-5', label: 'Subcategoría' },
+        { key: 'ver', tdClass: 'w-5', label: '' }
       ];
       return headers;
     },
@@ -53,7 +56,8 @@ export default {
         municipioOcurrencia: this.FormatForHuman(feature.municipioOcurrencia),
         categoriaEvento: this.FormatForHuman(feature.categoriaEvento),
         subcategoriaEventoEnum: this.getObjectTexts('opcionesSubcategoria', feature.subcategoriaEventoEnum),
-        idAlerta: feature.idAlerta
+        idAlerta: feature.idAlerta,
+        ver: 'Ver'
       };
     }
   },
@@ -67,7 +71,7 @@ export default {
 
 <style scoped>
 #table {
-  padding: 0;
+  padding: 2%;
   margin: 2px;
   width: 100%;
   height: 100%;
