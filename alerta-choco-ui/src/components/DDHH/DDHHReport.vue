@@ -331,7 +331,7 @@ export default {
 
       let followUps = [];
       for (var i = 0; i < alertFollowUps.length; i++) {
-        const followUp = await FollowUpsService.getFollowUpInfo(this.$store.getters.arcgisToken, alertFollowUps[i].attributes.OBJECTID);
+        const followUp = await FollowUpsService.getFollowUpInfo(this.$store.getters.arcgisToken, alertFollowUps[i].attributes.OBJECTID, this.userAccess);
         const complete = Object.assign({ route: `/seefollowup/${followUp.OBJECTID}` }, followUp);
         //console.log('followUp is ', complete);
         followUps.push(complete);

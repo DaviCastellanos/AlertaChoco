@@ -390,16 +390,16 @@ export default {
   },
   watch: {
     municipio: function(val) {
-      console.log('mun ' + val + ' ' + this.hasInited);
+      //console.log('mun ' + val + ' ' + this.hasInited);
       if (this.hasInitied && val != 'Otro') this.lookForCoordinates(val);
     },
     municipioOtro: function(val) {
-      console.log('Otromun ' + val + ' ' + this.hasInited);
+      //console.log('Otromun ' + val + ' ' + this.hasInited);
       if (this.hasInitied) this.lookForCoordinates(val);
-    },
-    codigoIniciativa: function(val) {
-      console.log('Código iniciativa ' + val);
     }
+    // codigoIniciativa: function(val) {
+    //   //console.log('Código iniciativa ' + val);
+    // }
   },
   methods: {
     requiredFieldsCompleted() {
