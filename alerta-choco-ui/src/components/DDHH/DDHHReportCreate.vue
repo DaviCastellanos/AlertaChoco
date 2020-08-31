@@ -59,6 +59,7 @@
             trim
           ></b-form-input>
         </div>
+        
 
         <div class="mt-3">
           <h6>A quién le pasó:</h6>
@@ -95,9 +96,9 @@
           <h6>Fecha de Reporte:</h6>
           <b-form-datepicker
             id="datepicker"
-            v-model="fechaValidacion"
-            :state="lengthState(fechaValidacion)"
-            :placeholder="FormatAsDate(this.fechaValidacion)"
+            v-model="fechaReporte"
+            :state="lengthState(fechaReporte)"
+            :placeholder="FormatAsDate(this.fechaReporte)"
           ></b-form-datepicker>
         </div>
 
@@ -147,7 +148,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Entorno de ocurrencia: {{ FormatForm(this.entornoOcurrencia) }}</h6>
+          <h6>Entorno de ocurrencia: </h6>
           <b-form-select
             v-model="entornoOcurrencia"
             :options="this.opcionesEntorno"
@@ -208,7 +209,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Categoría: {{FormatForm(this.categoriaEvento)}}</h6>
+          <h6>Categoría:</h6>
           <b-form-select
             v-model="categoriaEvento"
             :options="this.opcionesCategoria"
@@ -217,7 +218,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Tipo de evento: {{FormatForm(this.tipoEvento)}}</h6>
+          <h6>Tipo de evento:</h6>
           <b-form-select
             v-model="tipoEvento"
             :options="this.opcionesTipo"
@@ -254,6 +255,8 @@
             :state="lengthState(edadVictima)"
             aria-describedby="input-live-feedback"
             trim
+            type="number"
+            min="0"
           ></b-form-input>
         </div>
 
@@ -269,7 +272,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Sexo: {{FormatForm(this.sexo)}}</h6>
+          <h6>Sexo:</h6>
           <b-form-select
             v-model="sexo"
             :options="this.opcionesSexo"
@@ -288,7 +291,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Otras víctimas: {{ FormatForm(this.otrasVictimas)}}</h6>
+          <h6>Otras víctimas:</h6>
           <b-form-select
             v-model="otrasVictimas"
             :options="this.opcionesVictimas"
@@ -307,7 +310,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Pertenencia étnica: {{FormatForm(this.etniaVictima)}}</h6>
+          <h6>Pertenencia étnica:</h6>
           <b-form-select
             v-model="etniaVictima"
             :options="this.opcionesEtnia"
@@ -336,7 +339,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Identidad de género: {{FormatForm(this.identidadGenero)}}</h6>
+          <h6>Identidad de género:</h6>
           <b-form-select
             v-model="identidadGenero"
             :options="this.opcionesIdentidad"
@@ -345,7 +348,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Medidas de protección existentes: {{ FormatForm(this.medidasProteccionExistentes)}}</h6>
+          <h6>Medidas de protección existentes:</h6>
           <b-form-select
             v-model="medidasProteccionExistentes"
             :options="this.opcionesMedidas"
@@ -360,6 +363,8 @@
             :state="lengthState(totalVictimas)"
             aria-describedby="input-live-feedback"
             trim
+            type="number"
+            min="0"
           ></b-form-input>
         </div>
 
@@ -402,6 +407,8 @@
             :state="lengthState(familias)"
             aria-describedby="input-live-feedback"
             trim
+            type="number"
+            min="0"
           ></b-form-input>
         </div>
 
@@ -423,6 +430,8 @@
             :state="lengthState(numeroPersonas)"
             aria-describedby="input-live-feedback"
             trim
+            type="number"
+            min="0"
           ></b-form-input>
         </div>
 
@@ -564,7 +573,7 @@ export default {
       relatoDonde:"",
       relatoQuien:"",
       fechaOcurrencia: "",
-      fechaValidacion: "",
+      fechaReporte: "",
       departamentoOcurrencia: "",
       municipioOcurrencia: "",
       entornoOcurrencia: "",
@@ -619,7 +628,7 @@ export default {
       !this.relatoDonde ||
       !this.relatoQuien ||
       !this.fechaOcurrencia ||
-      !this.fechaValidacion ||
+      !this.fechaReporte ||
       !this.departamentoOcurrencia ||
       !this.municipioOcurrencia ||
       !this.entornoOcurrencia ||
@@ -692,14 +701,14 @@ export default {
       alert += '"relatoQue":"' + this.FormatForDB(this.relatoQue) + '",';
       alert += '"relatoQuien":"' + this.FormatForDB(this.relatoQuien) + '",';
       alert += '"situacionActual":"' + this.FormatForDB(this.situacionActual) + '",';      
-      alert += '"fechaReporte":"' + this.FormatDateForDB(this.fechaValidacion) + '",';      
-      alert += '"relatoCuando":"N/A",';      
+      alert += '"fechaReporte":"' + this.FormatDateForDB(this.fechaReporte) + '",';      
+      alert += '"relatoCuando":"N/A",';        
       alert += '"puedeReportar":"N/A",';    
       alert += '"recibeLlamada":"N/A",';      
       alert += '"primerMensaje":"N/A",';     
       alert += '"completado":"True",';   
       alert += '"fechaOcurrencia":"' + this.FormatDateForDB(this.fechaOcurrencia) + '",';
-      alert += '"fechaValidacion":"' + this.FormatDateForDB(this.fechaValidacion) + '",';
+      alert += '"fechaValidacion":"' + this.FormatDateForDB(this.fechaReporte) + '",';
       alert += '"departamentoOcurrencia":"' + this.FormatForDB(this.departamentoOcurrencia) + '",';
       alert += '"municipioOcurrencia":"' + this.FormatForDB(this.municipioOcurrencia) + '",';
       alert += '"entornoOcurrencia":"' + this.FormatForDB(this.entornoOcurrencia) + '",';

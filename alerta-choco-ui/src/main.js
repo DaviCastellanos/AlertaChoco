@@ -93,11 +93,14 @@ new Vue({
       storageBucket: 'alertachoco.appspot.com'
     });
     firebase.auth().onAuthStateChanged(user => {
-      if (user) {
+      //console.log(user);
+      if (user && user.displayName) {
         const params = user.displayName.split('/');
         const newUser = {
           email: user.email,
           id: user.uid,
+          tel: params[4],
+          anansiCode: params[3],
           role: params[1],
           OBJECTID: params[2],
           displayName: params[0]

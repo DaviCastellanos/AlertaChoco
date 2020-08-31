@@ -1,42 +1,30 @@
 <template>
   <div id="navBar">
-    <b-navbar toggleable="lg" type="dark" style="background-color: #00473B;" fixed="top">
-      <b-navbar-brand>Sistema de monitoreo Red de proteccion Anansi</b-navbar-brand>
+    <b-navbar toggleable="lg" type="light" style="background-color: #FFFFFF;" fixed="top">
+      <b-navbar-brand> <img src="@/images/logo-codhes.png" height="30" /> <img src="@/images/logo-fisch.png" height="30" /> Anansi: red de protección y monitoreo</b-navbar-brand>
 
-      <b-navbar-nav class="ml-auto">
-        <b-navbar-nav>
-          <b-nav-item to="/" @click="changeView('map')">Inicio</b-nav-item>
-          <b-nav-item to="/" @click="changeView('map')" v-if="userIsAdmin">Usuarios</b-nav-item>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item to="/">Inicio</b-nav-item>
+          <b-nav-item to="/userstable" v-if="userIsAdmin">Usuarios</b-nav-item>
 
           <b-nav-item-dropdown class="text-light" text="Ver reportes" no-caret right>
             <b-dropdown-item size="sm" class="text-light my-2 my-sm-0" to="/seeddhhreports" type="submit"> DDHH </b-dropdown-item>
             <b-dropdown-item size="sm" class="text-light my-2 my-sm-0" to="/seepatrreports" type="submit"> PATR </b-dropdown-item>
           </b-nav-item-dropdown>
 
-          <b-nav-item-dropdown class="text-light" text="Crear reporte" no-caret right>
+          <b-nav-item-dropdown v-if="userAccessIsPrivate" class="text-light" text="Crear reporte" no-caret right>
             <b-dropdown-item size="sm" class="text-light my-2 my-sm-0" to="/createddhhreport" type="submit"> DDHH </b-dropdown-item>
             <b-dropdown-item size="sm" class="text-light my-2 my-sm-0" to="/createpatrreport" type="submit"> PATR </b-dropdown-item>
           </b-nav-item-dropdown>
+
+          <b-button v-if="!userIsAuthenticated" v-b-modal.login size="sm" class="text-light my-2 my-sm-0" type="submit" variant="warning">Entrar</b-button>
+          <b-button v-if="userIsAuthenticated" to="/userpanel" size="sm" class="m-1" type="submit" variant="outline-warning">{{ userName }}</b-button>
         </b-navbar-nav>
-
-        <b-button v-if="!isUserAuthenticated" v-b-modal.login size="sm" class="text-light my-2 my-sm-0" type="submit" variant="warning">Entrar</b-button>
-        <b-dropdown class="text-light" variant="warning" right v-if="isUserAuthenticated">
-          <b-dropdown-item disabled>{{ userName }}</b-dropdown-item>
-          <b-dropdown-item v-if="isUserAuthenticated" @click="csvExport()" size="sm" class="text-light my-2 my-sm-0" type="submit">Exportar datos</b-dropdown-item>
-
-          <b-dropdown-item v-if="userIsAdmin" v-b-modal.create size="sm" class="text-light my-2 my-sm-0 mr-2" type="submit">Crear otro usuario</b-dropdown-item>
-
-          <b-dropdown-item v-if="isUserAuthenticated" @click="onSignOut()" size="sm" class="text-light my-2 my-sm-0" type="submit">Salir</b-dropdown-item>
-
-          <b-dropdown-item v-if="isUserAuthenticated" @click="showDeleteUserModal()" size="sm" class="text-light my-2 my-sm-0" type="submit">Eliminar usuario</b-dropdown-item>
-        </b-dropdown>
-      </b-navbar-nav>
+      </b-collapse>
     </b-navbar>
-
-    <b-modal id="delete-user" title="Eliminar Usuario" ok-title="Eliminar" cancel-title="Cancelar" ok-variant="danger" @ok="deleteUser()">
-      <h6>¿Seguro deseas eliminar este usuario?</h6>
-      <h6>Esta acción no se puede deshacer.</h6>
-    </b-modal>
 
     <b-modal ref="error-modal" title="Error" ok-only header-bg-variant="danger" body-bg-variant="danger" header-text-variant="light" body-text-variant="light" :hide-footer="true">
       <p>{{ appError }}</p>
@@ -46,38 +34,20 @@
       <b-form-input :type="'email'" placeholder="email" v-model="email"> </b-form-input>
       <b-form-input :type="'password'" placeholder="contraseña" v-model="password" class="mt-2"> </b-form-input>
     </b-modal>
-
-    <b-modal id="create" title="CREAR USUARIO" ok-only ok-title="CREAR" :hide-footer="!(this.passwordLength() && this.passwordMatch())" @ok="onSignUp()" @close="cleanInput()" @hide="cleanInput()">
-      <b-form-input :type="'text'" placeholder="nombre" v-model="displayName" class="mt-2"> </b-form-input>
-
-      <b-form-select v-model="role" :options="opcionesRol" class="mt-2"></b-form-select>
-
-      <b-form-input :type="'email'" placeholder="email" v-model="email" class="mt-2"> </b-form-input>
-      <b-form-input :type="'password'" placeholder="contraseña" v-model="password" class="mt-2" :state="passwordLength()"> </b-form-input>
-      <b-form-input :type="'password'" placeholder="validar contraseña" v-model="validatePassword" class="mt-2" :state="passwordMatch()"> </b-form-input>
-    </b-modal>
   </div>
 </template>
 
 <script>
 import { BNavbar, BModal, BFormInput } from 'bootstrap-vue';
 import froze from '../mixins/frozen.js';
+import helpers from '@/mixins/helpers.js';
 
 export default {
-  mixins: [froze],
+  mixins: [froze, helpers],
   data() {
     return {
       email: null,
-      password: null,
-      validatePassword: null,
-      displayName: null,
-      role: null,
-      opcionesRol: [
-        { value: '', text: 'Selecciona una' },
-        { value: 'defensor', text: 'Defensor/a' },
-        { value: 'analista', text: 'Analista' },
-        { value: 'admin', text: 'Administrador' }
-      ]
+      password: null
     };
   },
   components: {
@@ -86,15 +56,6 @@ export default {
     BFormInput
   },
   methods: {
-    onSignUp() {
-      this.$store.dispatch('signUserUp', {
-        email: this.email,
-        password: this.password,
-        displayName: this.displayName,
-        role: this.role
-      });
-      this.cleanInput();
-    },
     onSignIn() {
       this.$store.dispatch('signUserIn', {
         email: this.email,
@@ -102,30 +63,12 @@ export default {
       });
       this.cleanInput();
     },
-    onSignOut() {
-      this.$store.dispatch('signUserOut');
-    },
-    showDeleteUserModal() {
-      this.$bvModal.show('delete-user');
-    },
-    deleteUser() {
-      this.$store.dispatch('deleteAccount');
-    },
     cleanInput() {
       this.email = null;
       this.password = null;
       this.validatePassword = null;
       this.role = null;
       this.displayName = null;
-    },
-    changeView(val) {
-      this.$store.commit('SET_CURRENT_VIEW', val);
-    },
-    passwordLength() {
-      return this.password && this.password.length > 6;
-    },
-    passwordMatch() {
-      return this.validatePassword && this.password === this.validatePassword;
     },
     csvExport() {
       const arrData = this.alertsItems();
@@ -180,17 +123,8 @@ export default {
     appError() {
       return this.$store.getters.appError;
     },
-    isUserAuthenticated() {
-      return this.$store.getters.user !== null && this.$store.getters.user !== undefined;
-    },
-    userIsAdmin() {
-      return this.isUserAuthenticated && this.$store.getters.user.role === 'admin';
-    },
-    userAccessIsPrivate() {
-      return this.isUserAuthenticated && (this.$store.getters.user.role === 'admin' || this.$store.getters.user.role === 'analista');
-    },
     userName() {
-      if (this.$store.getters.user) return this.$store.getters.user.email;
+      if (this.$store.getters.user) return this.$store.getters.user.displayName;
       else return '';
     }
   }

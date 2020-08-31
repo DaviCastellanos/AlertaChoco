@@ -30,6 +30,8 @@ export default {
         this.alertsRequest();
         this.policiesRequest();
       }
+
+      if (this.$store.getters.user && this.$store.getters.user.role == 'admin') this.usersRequest();
     }
   },
   computed: {

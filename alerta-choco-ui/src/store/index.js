@@ -132,6 +132,31 @@ export default new Vuex.Store({
           console.error('Error signing out' + err);
         });
     },
+    async changeUserPassword(obj, payload) {
+      await firebase.auth().signInWithEmailAndPassword(payload.email, payload.oldPassword);
+
+      var user = firebase.auth().currentUser;
+
+      if (!user) {
+        console.error('Error signing in user is null');
+        this.state.appError = 'User is null';
+        return new Promise(() => {
+          setTimeout(() => {
+            this.state.appError = null;
+          }, 5000);
+        });
+      }
+
+      user.updatePassword(payload.password).catch(function(err) {
+        console.error('Error signing in', err);
+        this.state.appError = err;
+        return new Promise(() => {
+          setTimeout(() => {
+            this.state.appError = null;
+          }, 5000);
+        });
+      });
+    },
     signUserIn(obj, payload) {
       firebase
         .auth()
@@ -147,6 +172,7 @@ export default new Vuex.Store({
         });
     },
     async signUserUp(obj, payload) {
+      //console.log('Signing user up with', payload);
       var secondaryApp = firebase.initializeApp(
         {
           apiKey: 'AIzaSyBlZRLdDeTs76Ntzm3udLA5tPwzCyUJke0',
@@ -171,10 +197,10 @@ export default new Vuex.Store({
         return;
       }
 
-      const arcgisUser = await UsersService.saveUser(payload.email, payload.role);
+      const arcgisUser = await UsersService.saveUser(payload.email, payload.role, payload.anansiCode, payload.tel);
 
       secondaryApp.auth().currentUser.updateProfile({
-        displayName: payload.displayName + '/' + payload.role + '/' + arcgisUser.addResults[0].objectId
+        displayName: payload.displayName + '/' + payload.role + '/' + arcgisUser.addResults[0].objectId + '/' + payload.anansiCode + '/' + payload.tel
       });
 
       secondaryApp.auth().signOut();

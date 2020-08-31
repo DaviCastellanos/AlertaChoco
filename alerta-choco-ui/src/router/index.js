@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Dashboard from '@/components/Dashboard.vue';
 import Verification from '@/components/Verification.vue';
+import UserPanel from '@/components/UserPanel.vue';
+import UsersTable from '@/components/UsersTable.vue';
 
 import FollowUpCreate from '@/components/FollowUps/FollowUpCreate.vue';
 import FollowUpDetail from '@/components/FollowUps/FollowUpDetail.vue';
@@ -23,6 +25,16 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: '/userpanel',
+      name: 'UserPanel',
+      component: UserPanel
+    },
+    {
+      path: '/userstable',
+      name: 'UsersTable',
+      component: UsersTable
+    },
     {
       path: '/',
       name: 'Dashboard',
