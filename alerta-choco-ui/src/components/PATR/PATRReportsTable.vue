@@ -32,7 +32,7 @@ export default {
       let headers = [
         { key: 'fechaOcurrencia', tdClass: 'w-5', label: 'Fecha reporte', sortable: true },
         { key: 'subregion', tdClass: 'w-5', label: 'Subregion', sortable: true },
-        { key: 'municipio', tdClass: 'w-5', label: 'Departamento' },
+        { key: 'municipio', tdClass: 'w-5', label: 'Municipio' },
         { key: 'pilar', tdClass: 'w-3', label: 'Pilar' },
         { key: 'tipoReporte', tdClass: 'w-5', label: 'Tipo de Reporte' },
         { key: 'iniciativa', tdClass: 'w-5', label: 'Iniciativa' },

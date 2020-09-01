@@ -5,8 +5,9 @@
         <web-map />
       </b-col>
       <b-col md="12" lg="6">
+        <chart-patr />
         <chart-alert-events />
-        <victims-situation />
+        <chart-victims-situation />
       </b-col>
     </b-row>
   </b-container>
@@ -14,8 +15,9 @@
 
 <script>
 import WebMap from '@/components/WebMap.vue';
+import ChartPatr from '@/components/ChartPATR.vue';
 import ChartAlertEvents from '@/components/ChartAlertsEvents.vue';
-import VictimsSituation from '@/components/VictimsSituation.vue';
+import ChartVictimsSituation from '@/components/ChartVictimsSituation.vue';
 import AlertsService from '@/services/alerts-service.js';
 import PolicyService from '@/services/policy-service.js';
 import helpers from '@/mixins/helpers.js';
@@ -25,7 +27,8 @@ export default {
   components: {
     WebMap,
     ChartAlertEvents,
-    VictimsSituation
+    ChartVictimsSituation,
+    ChartPatr
   },
   mixins: [helpers],
   methods: {

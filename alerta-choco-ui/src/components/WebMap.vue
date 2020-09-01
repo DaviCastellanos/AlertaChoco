@@ -151,7 +151,7 @@ export default {
   margin: 0;
   margin-top: 2px;
   width: 100%;
-  height: 750px;
+  height: 1200px;
   align: center;
 }
 #root {
