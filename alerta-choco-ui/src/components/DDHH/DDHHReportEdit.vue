@@ -363,7 +363,10 @@ export default {
   },
   watch: {
     municipioOcurrencia: function(val) {
+      if (this.alert.attributes.verificado === 'False') this.lookForCoordinates(val);
+
       if (this.hasInited) this.lookForCoordinates(val);
+
       this.hasInited = true;
     },
     userAccess() {

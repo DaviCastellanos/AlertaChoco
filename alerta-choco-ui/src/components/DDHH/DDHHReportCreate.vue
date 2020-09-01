@@ -85,7 +85,7 @@
         </div>
 
         <div class="mt-2 ml-2" v-if="this.arcgisAddress">
-          <span class="font-italic">{{ this.arcgisAddress.address }}.</span> ¿Sobreescribir coordenadas? <input class="lg" type="checkbox" v-model="overrideCoordinates" />
+          <span class="font-italic">{{ this.arcgisAddress.address }}.</span> ¿Guardar coordenadas? <input class="lg" type="checkbox" v-model="overrideCoordinates" />
         </div>
 
         <div class="mt-3">

@@ -153,6 +153,7 @@ export default {
   },
   mounted() {
     this.drawChart(this.$store.getters.alerts);
+    //console.log('Alerts', this.$store.getters.alerts);
   }
 };
 </script>
