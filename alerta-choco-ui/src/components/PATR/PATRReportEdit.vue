@@ -469,7 +469,7 @@ export default {
       let alert = '[{';
 
       if (this.overrideCoordinates) alert += `"geometry" : {"x": ${this.arcgisAddress.x},"y": ${this.arcgisAddress.y},"spatialReference": {"wkid": 4326}},"attributes" : {`;
-      else alert += '"geometry" : {"x": -74.063644,"y": 4.624335,"spatialReference": {"wkid": 4326}},"attributes" : {';
+      else alert += '"attributes" : {';
 
       alert += '"OBJECTID":"' + this.policy.attributes.OBJECTID + '",';
       alert += '"tipoReporte":"' + this.FormatForDB(this.tipoReporte) + '",';

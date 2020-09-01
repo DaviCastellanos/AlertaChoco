@@ -193,7 +193,7 @@ export default {
           if (policies[i].attributes.pilar[0] === '5') partialSeries[0].data[4].y++;
           if (policies[i].attributes.pilar[0] === '6') partialSeries[0].data[5].y++;
           if (policies[i].attributes.pilar[0] === '7') partialSeries[0].data[6].y++;
-          if (policies[i].attributes.pilar[0] === '8') partialSeries[0].data[6].y++;
+          if (policies[i].attributes.pilar[0] === '8') partialSeries[0].data[7].y++;
         }
         if (policies[i].attributes.tipoReporte === 'implementación_autónoma,_comunitaria_o_de_cooperación') {
           if (policies[i].attributes.pilar[0] === '1') partialSeries[1].data[0].y++;
@@ -203,7 +203,7 @@ export default {
           if (policies[i].attributes.pilar[0] === '5') partialSeries[1].data[4].y++;
           if (policies[i].attributes.pilar[0] === '6') partialSeries[1].data[5].y++;
           if (policies[i].attributes.pilar[0] === '7') partialSeries[1].data[6].y++;
-          if (policies[i].attributes.pilar[0] === '8') partialSeries[1].data[6].y++;
+          if (policies[i].attributes.pilar[0] === '8') partialSeries[1].data[7].y++;
         }
         if (policies[i].attributes.tipoReporte === 'implementación_de_política_pública') {
           if (policies[i].attributes.pilar[0] === '1') partialSeries[2].data[0].y++;
@@ -213,7 +213,7 @@ export default {
           if (policies[i].attributes.pilar[0] === '5') partialSeries[2].data[4].y++;
           if (policies[i].attributes.pilar[0] === '6') partialSeries[2].data[5].y++;
           if (policies[i].attributes.pilar[0] === '7') partialSeries[2].data[6].y++;
-          if (policies[i].attributes.pilar[0] === '8') partialSeries[2].data[6].y++;
+          if (policies[i].attributes.pilar[0] === '8') partialSeries[2].data[7].y++;
         }
         if (policies[i].attributes.tipoReporte === 'bloqueo_institucional') {
           if (policies[i].attributes.pilar[0] === '1') partialSeries[3].data[0].y++;
@@ -223,7 +223,7 @@ export default {
           if (policies[i].attributes.pilar[0] === '5') partialSeries[3].data[4].y++;
           if (policies[i].attributes.pilar[0] === '6') partialSeries[3].data[5].y++;
           if (policies[i].attributes.pilar[0] === '7') partialSeries[3].data[6].y++;
-          if (policies[i].attributes.pilar[0] === '8') partialSeries[3].data[6].y++;
+          if (policies[i].attributes.pilar[0] === '8') partialSeries[3].data[7].y++;
         }
       }
       //console.log('partial ', partialSeries);
@@ -232,7 +232,7 @@ export default {
   },
   watch: {
     policies(newPolicies) {
-      console.log('policies is ', newPolicies);
+      //console.log('policies is ', newPolicies);
       if (newPolicies) this.drawChart(newPolicies);
     }
   },
@@ -243,13 +243,13 @@ export default {
     chartOptions() {
       return {
         chart: {
-          type: 'column'
+          type: 'bar'
         },
         credits: {
           enabled: false
         },
         plotOptions: {
-          column: {
+          series: {
             stacking: 'normal'
           }
         },
@@ -258,16 +258,15 @@ export default {
           fontWeight: 'bold'
         },
         xAxis: {
-          title: {},
-          type: 'category'
+          categories: ['Pilar 1', 'Pilar 2', 'Pilar 3', 'Pilar 4', 'Pilar 5', 'Pilar 6', 'Pilar 7', 'Pilar 8']
         },
         yAxis: [
           {
+            allowDecimals: false,
+            min: 0,
             title: {
               text: 'Número de reportes'
-            },
-            min: 0,
-            allowDecimals: false
+            }
           }
         ],
         series: this.customSeries
@@ -275,7 +274,7 @@ export default {
     }
   },
   mounted() {
-    if (this.alerts) this.drawChart(this.alerts);
+    if (this.policies) this.drawChart(this.policies);
   }
 };
 </script>

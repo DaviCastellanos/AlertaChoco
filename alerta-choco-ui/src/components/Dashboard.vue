@@ -5,9 +5,13 @@
         <web-map />
       </b-col>
       <b-col md="12" lg="6">
-        <chart-patr />
         <chart-alert-events />
         <chart-victims-situation />
+        <div id="chartText">
+          <h6 style="text-align: center">Monitoreo al PATR</h6>
+          <p>Seguimiento a la incidencia, bloqueos o implementación del Plan de Acción para la Transformación Regional.</p>
+        </div>
+        <chart-patr />
       </b-col>
     </b-row>
   </b-container>
@@ -74,5 +78,9 @@ body {
   padding: 2%;
   height: 100%;
   width: 100%;
+}
+#chartText {
+  padding: 4%;
+  font: 'Roboto' !important;
 }
 </style>

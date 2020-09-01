@@ -1,13 +1,13 @@
 <template>
   <div id="root">
+    <div id="conventions">
+      <span><img style="width:18px" src="@/images/eventosDDHH.png" /> Evento DDHH </span>
+      <span><img style="width:20px" src="@/images/PATR.png" /> Evento PATR </span>
+    </div>
     <div id="mapDiv">
       <div class="text-center" v-if="mapLoading">
         <b-spinner variant="secondary"></b-spinner>
       </div>
-    </div>
-    <div id="conventions">
-      <span><img style="width:18px" src="@/images/eventosDDHH.png" /> Evento DDHH </span>
-      <span><img style="width:20px" src="@/images/PATR.png" /> Evento PATR </span>
     </div>
   </div>
 </template>
@@ -62,14 +62,14 @@ export default {
         container: 'mapDiv',
         map: map,
         center: [-76.781506677246, 5.9944065844109957], // longitude, latitude
-        zoom: 6
+        zoom: 7
       });
 
       var alertRenderer = {
         type: 'simple',
         symbol: {
           type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
-          size: 10,
+          size: 14,
           color: 'green',
           style: 'triangle',
           outline: {
@@ -98,7 +98,7 @@ export default {
         type: 'simple',
         symbol: {
           type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
-          size: 10,
+          size: 14,
           color: 'orange',
           style: 'triangle',
           outline: {
@@ -151,7 +151,7 @@ export default {
   margin: 0;
   margin-top: 2px;
   width: 100%;
-  height: 1200px;
+  height: 1280px;
   align: center;
 }
 #root {
