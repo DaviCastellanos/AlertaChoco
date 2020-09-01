@@ -62,7 +62,7 @@ export default {
         console.error('Alerts response is null');
         return;
       }
-      //console.log(response.features);
+
       this.$store.commit('SET_ALERTS', response.features);
     },
     async policiesRequest() {

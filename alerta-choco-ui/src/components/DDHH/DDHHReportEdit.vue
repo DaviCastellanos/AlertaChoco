@@ -532,7 +532,6 @@ export default {
       }
 
       this.alert = this.$store.getters.alertById(this.$route.params.id);
-      //console.log('this alert is ', this.alert);
       this.fillForm();
     }
   },

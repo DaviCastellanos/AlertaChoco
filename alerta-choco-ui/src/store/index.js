@@ -83,7 +83,7 @@ export default new Vuex.Store({
       this.state.updateNeeded = bool;
     },
     SET_ALERTS(state, alerts) {
-      //console.log('alerts', alerts);
+      //console.log('Setting alerts', alerts);
       this.state.alerts = alerts;
     },
     SET_USERS(state, users) {

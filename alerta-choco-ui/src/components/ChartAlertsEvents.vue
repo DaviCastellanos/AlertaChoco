@@ -16,7 +16,8 @@ export default {
     return {
       alertsQty: [],
       verificationQty: [],
-      updateArgs: [true, true, { duration: 1000 }]
+      updateArgs: [true, true, { duration: 1000 }],
+      dayRange: 7
     };
   },
   watch: {
@@ -45,7 +46,7 @@ export default {
         xAxis: {
           type: 'datetime',
           labels: {
-            format: '{value:%m-%d}',
+            format: '{value:%d/%m}',
             rotation: 0,
             align: 'center'
           },
@@ -59,14 +60,14 @@ export default {
         series: [
           {
             data: this.alertsQty,
-            pointStart: this.TodayPlusDays(-7),
+            pointStart: this.TodayPlusDays(-this.dayRange),
             pointInterval: 24 * 36e5,
             color: '#FF9914',
             name: 'Alertas'
           },
           {
             data: this.verificationQty,
-            pointStart: this.TodayPlusDays(-7),
+            pointStart: this.TodayPlusDays(-this.dayRange),
             pointInterval: 24 * 36e5,
             color: '#008001',
             name: 'Eventos DDHH'
@@ -100,7 +101,7 @@ export default {
 
       var now = new Date();
       now.setDate(now.getDate() + 1);
-      for (var d = new Date(this.TodayPlusDays(-6)); d <= now; d.setDate(d.getDate() + 1)) {
+      for (var d = new Date(this.TodayPlusDays(-(this.dayRange - 1))); d <= now; d.setDate(d.getDate() + 1)) {
         //console.log("d is " + d + ".  Now  " + now);
         if (
           groupedByReportDate[

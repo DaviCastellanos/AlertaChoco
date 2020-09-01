@@ -20,9 +20,9 @@ export default {
   methods: {
     weekDateName(date) {
       //console.log(date);
-      const until = date.getDate() + '-' + (date.getMonth() + 1);
+      const until = date.getDate() + '/' + (date.getMonth() + 1);
       date = new Date(date.setDate(date.getDate() - 7));
-      const from = date.getDate() + '-' + (date.getMonth() + 1);
+      const from = date.getDate() + '/' + (date.getMonth() + 1);
       return from + ' - ' + until;
     },
     drawChart(alerts) {
@@ -113,33 +113,10 @@ export default {
               y: 0
             }
           ]
-        },
-        {
-          type: 'column',
-          name: 'Sin Categoría',
-          color: '#EEEEEE',
-          data: [
-            {
-              name: week1,
-              y: 0
-            },
-            {
-              name: week2,
-              y: 0
-            },
-            {
-              name: week3,
-              y: 0
-            },
-            {
-              name: week4,
-              y: 0
-            }
-          ]
         }
       ];
 
-      const categoriesAndDates = alerts.map(feature => ({ category: feature.attributes.categoriaEvento, date: feature.attributes.fechaReporte }));
+      const categoriesAndDates = alerts.map(feature => ({ category: feature.attributes.categoriaEvento, date: feature.attributes.fechaReporte, victims: feature.attributes.totalVictimas }));
 
       let week0Sunday = new Date(week1Sunday);
       week0Sunday.setDate(week0Sunday.getDate() - 7);
@@ -147,79 +124,61 @@ export default {
       //console.log('week0Sunday ', week0Sunday);
       for (var i = 0; i < categoriesAndDates.length; i++) {
         const entryDate = new Date(categoriesAndDates[i].date);
-        //console.log('entry date ', entryDate);
-        if (!categoriesAndDates[i].category) {
-          if (entryDate > week3Sunday) {
-            partialSeries[3].data[3].y++;
-            continue;
-          }
-          if (entryDate > week2Sunday) {
-            partialSeries[3].data[2].y++;
-            continue;
-          }
-          if (entryDate > week1Sunday) {
-            partialSeries[3].data[1].y++;
-            continue;
-          }
-          if (entryDate > week0Sunday) {
-            partialSeries[3].data[0].y++;
-            continue;
-          }
-        }
+        //console.log('entry date ' + entryDate + ' category ' + categoriesAndDates[i].category + ' victims ' + categoriesAndDates[i].victims);
 
         if (categoriesAndDates[i].category == 'agresion_directa') {
           if (entryDate > week3Sunday) {
-            partialSeries[0].data[3].y++;
+            partialSeries[0].data[3].y += categoriesAndDates[i].victims;
             continue;
           }
           if (entryDate > week2Sunday) {
-            partialSeries[0].data[2].y++;
+            partialSeries[0].data[2].y += categoriesAndDates[i].victims;
             continue;
           }
           if (entryDate > week1Sunday) {
-            partialSeries[0].data[1].y++;
+            partialSeries[0].data[1].y += categoriesAndDates[i].victims;
             continue;
           }
           if (entryDate > week0Sunday) {
-            partialSeries[0].data[0].y++;
+            partialSeries[0].data[0].y += categoriesAndDates[i].victims;
             continue;
           }
         }
 
         if (categoriesAndDates[i].category == 'violencia_armada') {
           if (entryDate > week3Sunday) {
-            partialSeries[1].data[3].y++;
+            partialSeries[1].data[3].y += categoriesAndDates[i].victims;
             continue;
           }
           if (entryDate > week2Sunday) {
-            partialSeries[1].data[2].y++;
+            partialSeries[1].data[2].y += categoriesAndDates[i].victims;
             continue;
           }
           if (entryDate > week1Sunday) {
-            partialSeries[1].data[1].y++;
+            partialSeries[1].data[1].y += categoriesAndDates[i].victims;
             continue;
           }
           if (entryDate > week0Sunday) {
-            partialSeries[1].data[0].y++;
+            partialSeries[1].data[0].y += categoriesAndDates[i].victims;
             continue;
           }
         }
 
         if (categoriesAndDates[i].category == 'situacion_sospechosa') {
           if (entryDate > week3Sunday) {
-            partialSeries[2].data[3].y++;
+            partialSeries[2].data[3].y += categoriesAndDates[i].victims;
             continue;
           }
           if (entryDate > week2Sunday) {
-            partialSeries[2].data[2].y++;
+            partialSeries[2].data[2].y += categoriesAndDates[i].victims;
             continue;
           }
           if (entryDate > week1Sunday) {
-            partialSeries[2].data[1].y++;
+            partialSeries[2].data[1].y += categoriesAndDates[i].victims;
             continue;
           }
           if (entryDate > week0Sunday) {
-            partialSeries[2].data[0].y++;
+            partialSeries[2].data[0].y += categoriesAndDates[i].victims;
             continue;
           }
         }
@@ -252,7 +211,7 @@ export default {
           }
         },
         title: {
-          text: 'Víctimas en situación de Derechos Humanos',
+          text: 'Víctimas verificadas en situación de Derechos Humanos',
           fontWeight: 'bold'
         },
         xAxis: {
@@ -262,7 +221,7 @@ export default {
         yAxis: [
           {
             title: {
-              text: 'Número de reportes'
+              text: 'Número de Víctimas'
             },
             min: 0,
             allowDecimals: false
@@ -273,7 +232,7 @@ export default {
     }
   },
   mounted() {
-    if (this.alerts) this.drawChart(this.alerts);
+    if (this.alerts.length > 1) this.drawChart(this.alerts);
   }
 };
 </script>

@@ -51,12 +51,12 @@ Vue.mixin({
 
         if (date[2] && date[2][0] == '0') date[2] = date[2][1];
         const newDate = date[1] + '/' + date[2] + '/' + date[0] + ' ' + '12:00:00 PM';
-        console.log('1 returning' + newDate);
+        //console.log('1 returning' + newDate);
         return newDate;
       } else {
         const dt = new Date(parseInt(str));
         const formated = dt.getUTCMonth() + 1 + '/' + dt.getUTCDate() + '/' + dt.getUTCFullYear() + ' ' + '12:00:00 PM';
-        console.log('2 returning' + formated);
+        //console.log('2 returning' + formated);
         return formated;
       }
     },
