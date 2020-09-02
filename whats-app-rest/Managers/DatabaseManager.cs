@@ -35,6 +35,11 @@ namespace whats_app_rest
             return false;
         }
 
+        public void AddAnansiCode(string newCode)
+        {
+            anansiCodes.Add(newCode);
+        }
+
         public async Task UpdateAnansiCodes()
         {
             string token = await GetDatabaseAccessToken();
@@ -49,27 +54,29 @@ namespace whats_app_rest
                 dict.Add("token", token);
                 dict.Add("where", "1=1");
                 dict.Add("outSr", "4326");
-                dict.Add("outFields", "code");
+                dict.Add("outFields", "anansiCode");
 
-                HttpResponseMessage response = await client.PostAsync(new Uri("https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/anansi_codes/FeatureServer/0/query"), new FormUrlEncodedContent(dict));
+                HttpResponseMessage response = await client.PostAsync(new Uri("https://services7.arcgis.com/AGOpm0AOkNTcqxqa/arcgis/rest/services/users/FeatureServer/0/query"), new FormUrlEncodedContent(dict));
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     anansiCodes = new List<string>();
                     string data = await response.Content.ReadAsStringAsync();
 
-                    Console.WriteLine(data);
+                    //Console.WriteLine(data);
 
                     string[] codes = data.Split("features")[1].Split("attributes");
 
                     foreach (string str in codes)
-                        if (str.Contains("code"))
+                    {
+                        if (str.Contains("anansiCode"))
                         {
                             string code = str.Split(',')[0].Substring(2).Split(':')[1].Replace("\"", "").Replace("}", "");
-                            anansiCodes.Add(code);
-                        }
 
-                    logger.LogInformation("Anansi codes updated");
+                            if(code != "null")
+                                anansiCodes.Add(code);
+                        }
+                    }
                 }
             }
         }

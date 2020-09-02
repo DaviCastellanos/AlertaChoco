@@ -28,3 +28,12 @@
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/MailKit.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/MimeKit.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/BouncyCastle.Crypto.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/FirebaseAdmin.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/Google.Api.Gax.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/Google.Api.Gax.Rest.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/Google.Apis.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/Google.Apis.Auth.PlatformServices.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/Google.Apis.Auth.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/Google.Apis.Core.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/System.Interactive.Async.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Debug/netcoreapp3.1/alertachoco-firebase-adminsdk-8mvx8-1c8bf68014.json

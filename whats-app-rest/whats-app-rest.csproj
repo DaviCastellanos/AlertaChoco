@@ -15,8 +15,12 @@
     <PackageReference Include="Twilio" Version="5.45.2" />
     <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
     <PackageReference Include="MailKit" Version="2.8.0" />
+    <PackageReference Include="FirebaseAdmin" Version="1.15.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Managers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\AlertController %28copy%29.cs" />
   </ItemGroup>
 </Project>

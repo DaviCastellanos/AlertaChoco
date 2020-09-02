@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v3.1": {
       "whats-app-rest/1.0.0": {
         "dependencies": {
+          "FirebaseAdmin": "1.15.0",
           "FirebaseStorage.net": "1.0.3",
           "MailKit": "2.8.0",
           "Twilio": "5.45.2",
@@ -160,7 +161,7 @@
           "System.Buffers.Reference": "4.0.2.0",
           "System.Collections.Concurrent.Reference": "4.0.15.0",
           "System.Collections.Reference": "4.1.2.0",
-          "System.Collections.Immutable": "1.2.5.0",
+          "System.Collections.Immutable.Reference": "1.2.5.0",
           "System.Collections.NonGeneric.Reference": "4.1.2.0",
           "System.Collections.Specialized.Reference": "4.1.2.0",
           "System.ComponentModel.Annotations": "4.3.1.0",
@@ -317,6 +318,23 @@
           "whats-app-rest.dll": {}
         }
       },
+      "FirebaseAdmin/1.15.0": {
+        "dependencies": {
+          "Google.Api.Gax": "2.7.0",
+          "Google.Api.Gax.Rest": "2.7.0",
+          "Google.Apis.Auth": "1.40.0",
+          "System.Collections.Immutable": "1.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FirebaseAdmin.dll": {
+            "assemblyVersion": "1.15.0.0",
+            "fileVersion": "1.15.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/FirebaseAdmin.dll": {}
+        }
+      },
       "FirebaseStorage.net/1.0.3": {
         "dependencies": {
           "NETStandard.Library": "1.6.1",
@@ -330,6 +348,85 @@
         },
         "compile": {
           "lib/netstandard1.1/Firebase.Storage.dll": {}
+        }
+      },
+      "Google.Api.Gax/2.7.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2",
+          "System.Interactive.Async": "3.2.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Api.Gax.dll": {
+            "assemblyVersion": "2.7.0.0",
+            "fileVersion": "2.7.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Api.Gax.dll": {}
+        }
+      },
+      "Google.Api.Gax.Rest/2.7.0": {
+        "dependencies": {
+          "Google.Api.Gax": "2.7.0",
+          "Google.Apis.Auth": "1.40.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Api.Gax.Rest.dll": {
+            "assemblyVersion": "2.7.0.0",
+            "fileVersion": "2.7.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Api.Gax.Rest.dll": {}
+        }
+      },
+      "Google.Apis/1.40.0": {
+        "dependencies": {
+          "Google.Apis.Core": "1.40.0",
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.dll": {
+            "assemblyVersion": "1.40.0.0",
+            "fileVersion": "1.40.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Apis.dll": {}
+        }
+      },
+      "Google.Apis.Auth/1.40.0": {
+        "dependencies": {
+          "Google.Apis": "1.40.0",
+          "Google.Apis.Core": "1.40.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Auth.PlatformServices.dll": {
+            "assemblyVersion": "1.40.0.0",
+            "fileVersion": "1.40.0.0"
+          },
+          "lib/netstandard2.0/Google.Apis.Auth.dll": {
+            "assemblyVersion": "1.40.0.0",
+            "fileVersion": "1.40.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/netstandard2.0/Google.Apis.Auth.dll": {}
+        }
+      },
+      "Google.Apis.Core/1.40.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Core.dll": {
+            "assemblyVersion": "1.40.0.0",
+            "fileVersion": "1.40.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Apis.Core.dll": {}
         }
       },
       "MailKit/2.8.0": {
@@ -593,6 +690,7 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
+      "System.Collections.Immutable/1.5.0": {},
       "System.Collections.NonGeneric/4.3.0": {
         "dependencies": {
           "System.Diagnostics.Debug": "4.3.0",
@@ -692,6 +790,17 @@
         },
         "compile": {
           "lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll": {}
+        }
+      },
+      "System.Interactive.Async/3.2.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Interactive.Async.dll": {
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.702"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/System.Interactive.Async.dll": {}
         }
       },
       "System.IO/4.3.0": {
@@ -2141,7 +2250,7 @@
         },
         "compileOnly": true
       },
-      "System.Collections.Immutable/1.2.5.0": {
+      "System.Collections.Immutable.Reference/1.2.5.0": {
         "compile": {
           "System.Collections.Immutable.dll": {}
         },
@@ -3043,12 +3152,54 @@
       "serviceable": false,
       "sha512": ""
     },
+    "FirebaseAdmin/1.15.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HSAJ3ReRuqsa1tGBfaOqtsBde7ykTuNkygaaPOwBCTTqrXxXk8P62BMtwAY5tlYp8f0hUDSm+ZTe6xD2Z7RLZQ==",
+      "path": "firebaseadmin/1.15.0",
+      "hashPath": "firebaseadmin.1.15.0.nupkg.sha512"
+    },
     "FirebaseStorage.net/1.0.3": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-SupDHNUwNqcVwEo/HdFEWAXveQe3fU16q4wrrCxUVwP0a77zaddKp7vo2sHIW56DAsJn/gUfjDK3w0MuBhvzjQ==",
       "path": "firebasestorage.net/1.0.3",
       "hashPath": "firebasestorage.net.1.0.3.nupkg.sha512"
+    },
+    "Google.Api.Gax/2.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HDZFdXYrAUukdQnF3gMl9oAazq1oHWlbbNoLJ7aYIJFPlznmbsUE+VD+tn5S/4qYJat7jUNrraUOX4meoTE4Qw==",
+      "path": "google.api.gax/2.7.0",
+      "hashPath": "google.api.gax.2.7.0.nupkg.sha512"
+    },
+    "Google.Api.Gax.Rest/2.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KtJKFJ40BzmceVwB/MyhtjAq3Y9+9Wxbe9Vlp050x4NAfP6zapcrhSDbeHV6pY/KoHIGvOI7wkgql543X/LZNg==",
+      "path": "google.api.gax.rest/2.7.0",
+      "hashPath": "google.api.gax.rest.2.7.0.nupkg.sha512"
+    },
+    "Google.Apis/1.40.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+5wjbYtte08ZZlJKyxfRiMAf27aqSTnvBjE3Tf31uyRqS5AVqsLw6ss4qi/51x+ZFT+wiZRsfWPlLY8uAeTF9A==",
+      "path": "google.apis/1.40.0",
+      "hashPath": "google.apis.1.40.0.nupkg.sha512"
+    },
+    "Google.Apis.Auth/1.40.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-P1l8gncejwYDdGa2ycMgq7/P3Gb441Jls/7jaxiOUlHWj0ImDzS0iJbR3g1tbLxyAKYfqJ3t5Vu921S32l0MjA==",
+      "path": "google.apis.auth/1.40.0",
+      "hashPath": "google.apis.auth.1.40.0.nupkg.sha512"
+    },
+    "Google.Apis.Core/1.40.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ys3ENDOBtB9brBx72aR4B3c9kfwUkisB1CSmcs4XHDpyOIXtdeAXcpAEz1hzDdM5+6jdND7d4eSVtg7B9wksYw==",
+      "path": "google.apis.core/1.40.0",
+      "hashPath": "google.apis.core.1.40.0.nupkg.sha512"
     },
     "MailKit/2.8.0": {
       "type": "package",
@@ -3274,6 +3425,13 @@
       "path": "system.collections.concurrent/4.3.0",
       "hashPath": "system.collections.concurrent.4.3.0.nupkg.sha512"
     },
+    "System.Collections.Immutable/1.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EXKiDFsChZW0RjrZ4FYHu9aW6+P4MCgEDCklsVseRfhoO0F+dXeMSsMRAlVXIo06kGJ/zv+2w1a2uc2+kxxSaQ==",
+      "path": "system.collections.immutable/1.5.0",
+      "hashPath": "system.collections.immutable.1.5.0.nupkg.sha512"
+    },
     "System.Collections.NonGeneric/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -3350,6 +3508,13 @@
       "sha512": "sha512-EdcMk+36u9gQtbwTiPQ7ckIfiADBwOmCZ6rGD2rfkaozIdW1t7vbXk/FPVAu2r9KgCQZ5245Z+P0YMM/0Q0G2g==",
       "path": "system.identitymodel.tokens.jwt/5.3.0",
       "hashPath": "system.identitymodel.tokens.jwt.5.3.0.nupkg.sha512"
+    },
+    "System.Interactive.Async/3.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-C07p0dAA5lGqYUPiPCK3paR709gqS4aMDDsje0v0pvffwzLaxmsn5YQTfZbyNG5qrudPx+BCxTqISnncQ3wIoQ==",
+      "path": "system.interactive.async/3.2.0",
+      "hashPath": "system.interactive.async.3.2.0.nupkg.sha512"
     },
     "System.IO/4.3.0": {
       "type": "package",
@@ -4394,7 +4559,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Collections.Immutable/1.2.5.0": {
+    "System.Collections.Immutable.Reference/1.2.5.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +19,7 @@ namespace whats_app_rest
 
             TwilioClient.Init(Environment.GetEnvironmentVariable("TWILIO_ACCOUNT_SID"),
                               Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN"));
+             
         }
 
         public IConfiguration Configuration { get; }
@@ -30,6 +34,7 @@ namespace whats_app_rest
             services.AddSingleton<DatabaseManager>();
             services.AddSingleton<AlertResponses>();
             services.AddSingleton<MailManager>();
+            services.AddSingleton<FirebaseAdminManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
