@@ -17,7 +17,7 @@ export default {
       alertsQty: [],
       verificationQty: [],
       updateArgs: [true, true, { duration: 1000 }],
-      dayRange: 7
+      monthRange: -6
     };
   },
   watch: {
@@ -38,6 +38,14 @@ export default {
         title: {
           text: 'Monitoreo de situaciones de derechos humanos'
         },
+        tooltip: {
+          formatter: function() {
+            const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+            return this.y + ' en ' + months[new Date(this.x).getMonth()];
+          },
+          shared: false
+        },
         yAxis: {
           title: {
             text: 'Cantidad'
@@ -46,7 +54,7 @@ export default {
         xAxis: {
           type: 'datetime',
           labels: {
-            format: '{value:%d/%m}',
+            format: '{value: %m/%y}',
             rotation: 0,
             align: 'center'
           },
@@ -60,15 +68,15 @@ export default {
         series: [
           {
             data: this.alertsQty,
-            pointStart: this.TodayPlusDays(-this.dayRange),
-            pointInterval: 24 * 36e5,
+            pointStart: this.TodayPlusMonths(this.monthRange),
+            pointIntervalUnit: 'month',
             color: '#FF9914',
             name: 'Alertas'
           },
           {
             data: this.verificationQty,
-            pointStart: this.TodayPlusDays(-this.dayRange),
-            pointInterval: 24 * 36e5,
+            pointStart: this.TodayPlusMonths(this.monthRange),
+            pointIntervalUnit: 'month',
             color: '#008001',
             name: 'Eventos DDHH'
           }
@@ -83,7 +91,6 @@ export default {
       this.verificationQty = [];
       const groupedByReportDate = _.groupBy(alerts, feature =>
         new Date(feature.attributes.fechaReporte).toLocaleDateString('en-GB', {
-          day: 'numeric',
           month: 'numeric',
           year: 'numeric'
         })
@@ -91,7 +98,6 @@ export default {
 
       const groupedByVerificationDate = _.groupBy(alerts, feature =>
         new Date(feature.attributes.fechaValidacion).toLocaleDateString('en-GB', {
-          day: 'numeric',
           month: 'numeric',
           year: 'numeric'
         })
@@ -101,12 +107,11 @@ export default {
 
       var now = new Date();
       now.setDate(now.getDate() + 1);
-      for (var d = new Date(this.TodayPlusDays(-(this.dayRange - 1))); d <= now; d.setDate(d.getDate() + 1)) {
+      for (var d = new Date(this.TodayPlusMonths(this.monthRange)); d <= now; d.setMonth(d.getMonth() + 1)) {
         //console.log("d is " + d + ".  Now  " + now);
         if (
           groupedByReportDate[
             d.toLocaleDateString('en-GB', {
-              day: 'numeric',
               month: 'numeric',
               year: 'numeric'
             })
@@ -115,7 +120,6 @@ export default {
           this.alertsQty.push([
             groupedByReportDate[
               d.toLocaleDateString('en-GB', {
-                day: 'numeric',
                 month: 'numeric',
                 year: 'numeric'
               })
@@ -126,7 +130,6 @@ export default {
         if (
           groupedByVerificationDate[
             d.toLocaleDateString('en-GB', {
-              day: 'numeric',
               month: 'numeric',
               year: 'numeric'
             })
@@ -135,7 +138,6 @@ export default {
           this.verificationQty.push([
             groupedByVerificationDate[
               d.toLocaleDateString('en-GB', {
-                day: 'numeric',
                 month: 'numeric',
                 year: 'numeric'
               })
@@ -146,9 +148,9 @@ export default {
 
       //console.log('alertsQty is ', this.alertsQty);
     },
-    TodayPlusDays(value) {
+    TodayPlusMonths(value) {
       var d = new Date();
-      d.setDate(d.getDate() + value);
+      d.setMonth(d.getMonth() + value);
       return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
     }
   },

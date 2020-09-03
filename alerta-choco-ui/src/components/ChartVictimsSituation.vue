@@ -18,32 +18,17 @@ export default {
     };
   },
   methods: {
-    weekDateName(date) {
-      //console.log(date);
-      const until = date.getDate() + '/' + (date.getMonth() + 1);
-      date = new Date(date.setDate(date.getDate() - 7));
-      const from = date.getDate() + '/' + (date.getMonth() + 1);
-      return from + ' - ' + until;
-    },
     drawChart(alerts) {
       if (alerts.length <= 1) return;
 
-      const curr = new Date();
-      const first = curr.getDate() - curr.getDay();
-      const lastSunday = new Date(curr.setDate(first));
+      const current = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
-      let week4Sunday = new Date(lastSunday);
-      const week4 = this.weekDateName(new Date(week4Sunday.setDate(week4Sunday.getDate() + 7)));
-      //console.log('week4Sunday ' + week4Sunday);
-      let week3Sunday = new Date(lastSunday);
-      const week3 = this.weekDateName(new Date(week3Sunday.setDate(week3Sunday.getDate())));
-      //console.log('week3Sunday ' + week3Sunday);
-      let week2Sunday = new Date(lastSunday);
-      const week2 = this.weekDateName(new Date(week2Sunday.setDate(week2Sunday.getDate() - 7)));
-      //console.log('week2Sunday ' + week2Sunday);
-      let week1Sunday = new Date(lastSunday);
-      const week1 = this.weekDateName(new Date(week1Sunday.setDate(week1Sunday.getDate() - 14)));
-      //console.log('week1Sunday ' + week1Sunday);
+      const month1 = new Date(current.setMonth(current.getMonth()));
+      const month2 = new Date(current.setMonth(current.getMonth() - 1));
+      const month3 = new Date(current.setMonth(current.getMonth() - 1));
+      const month4 = new Date(current.setMonth(current.getMonth() - 1));
+      const month5 = new Date(current.setMonth(current.getMonth() - 1));
+      const month6 = new Date(current.setMonth(current.getMonth() - 1));
 
       let partialSeries = [
         {
@@ -51,19 +36,27 @@ export default {
           color: '#FF9914',
           data: [
             {
-              name: week1,
+              name: month6.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             },
             {
-              name: week2,
+              name: month5.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             },
             {
-              name: week3,
+              name: month4.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             },
             {
-              name: week4,
+              name: month3.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
+              y: 0
+            },
+            {
+              name: month2.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
+              y: 0
+            },
+            {
+              name: month1.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             }
           ]
@@ -74,19 +67,27 @@ export default {
           color: '#1C6194',
           data: [
             {
-              name: week1,
+              name: month6.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             },
             {
-              name: week2,
+              name: month5.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             },
             {
-              name: week3,
+              name: month4.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             },
             {
-              name: week4,
+              name: month3.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
+              y: 0
+            },
+            {
+              name: month2.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
+              y: 0
+            },
+            {
+              name: month1.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             }
           ]
@@ -97,19 +98,27 @@ export default {
           color: '#008001',
           data: [
             {
-              name: week1,
+              name: month6.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             },
             {
-              name: week2,
+              name: month5.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             },
             {
-              name: week3,
+              name: month4.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             },
             {
-              name: week4,
+              name: month3.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
+              y: 0
+            },
+            {
+              name: month2.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
+              y: 0
+            },
+            {
+              name: month1.toLocaleDateString('en-GB', { month: 'numeric', year: '2-digit' }),
               y: 0
             }
           ]
@@ -118,8 +127,8 @@ export default {
 
       const categoriesAndDates = alerts.map(feature => ({ category: feature.attributes.categoriaEvento, date: feature.attributes.fechaReporte, victims: feature.attributes.totalVictimas }));
 
-      let week0Sunday = new Date(week1Sunday);
-      week0Sunday.setDate(week0Sunday.getDate() - 7);
+      //let week0Sunday = new Date(week1Sunday);
+      //week0Sunday.setDate(week0Sunday.getDate() - 7);
 
       //console.log('week0Sunday ', week0Sunday);
       for (var i = 0; i < categoriesAndDates.length; i++) {
@@ -127,57 +136,80 @@ export default {
         //console.log('entry date ' + entryDate + ' category ' + categoriesAndDates[i].category + ' victims ' + categoriesAndDates[i].victims);
 
         if (categoriesAndDates[i].category == 'agresion_directa') {
-          if (entryDate > week3Sunday) {
+          if (entryDate > month1) {
+            partialSeries[0].data[5].y += categoriesAndDates[i].victims;
+            continue;
+          }
+          if (entryDate > month2) {
+            partialSeries[0].data[4].y += categoriesAndDates[i].victims;
+            continue;
+          }
+          if (entryDate > month3) {
             partialSeries[0].data[3].y += categoriesAndDates[i].victims;
             continue;
           }
-          if (entryDate > week2Sunday) {
+          if (entryDate > month4) {
             partialSeries[0].data[2].y += categoriesAndDates[i].victims;
             continue;
           }
-          if (entryDate > week1Sunday) {
+          if (entryDate > month5) {
             partialSeries[0].data[1].y += categoriesAndDates[i].victims;
             continue;
           }
-          if (entryDate > week0Sunday) {
+          if (entryDate > month6) {
             partialSeries[0].data[0].y += categoriesAndDates[i].victims;
             continue;
           }
         }
-
         if (categoriesAndDates[i].category == 'violencia_armada') {
-          if (entryDate > week3Sunday) {
+          if (entryDate > month1) {
+            partialSeries[1].data[5].y += categoriesAndDates[i].victims;
+            continue;
+          }
+          if (entryDate > month2) {
+            partialSeries[1].data[4].y += categoriesAndDates[i].victims;
+            continue;
+          }
+          if (entryDate > month3) {
             partialSeries[1].data[3].y += categoriesAndDates[i].victims;
             continue;
           }
-          if (entryDate > week2Sunday) {
+          if (entryDate > month4) {
             partialSeries[1].data[2].y += categoriesAndDates[i].victims;
             continue;
           }
-          if (entryDate > week1Sunday) {
+          if (entryDate > month5) {
             partialSeries[1].data[1].y += categoriesAndDates[i].victims;
             continue;
           }
-          if (entryDate > week0Sunday) {
+          if (entryDate > month6) {
             partialSeries[1].data[0].y += categoriesAndDates[i].victims;
             continue;
           }
         }
 
         if (categoriesAndDates[i].category == 'situacion_sospechosa') {
-          if (entryDate > week3Sunday) {
+          if (entryDate > month1) {
+            partialSeries[2].data[5].y += categoriesAndDates[i].victims;
+            continue;
+          }
+          if (entryDate > month2) {
+            partialSeries[2].data[4].y += categoriesAndDates[i].victims;
+            continue;
+          }
+          if (entryDate > month3) {
             partialSeries[2].data[3].y += categoriesAndDates[i].victims;
             continue;
           }
-          if (entryDate > week2Sunday) {
+          if (entryDate > month4) {
             partialSeries[2].data[2].y += categoriesAndDates[i].victims;
             continue;
           }
-          if (entryDate > week1Sunday) {
+          if (entryDate > month5) {
             partialSeries[2].data[1].y += categoriesAndDates[i].victims;
             continue;
           }
-          if (entryDate > week0Sunday) {
+          if (entryDate > month6) {
             partialSeries[2].data[0].y += categoriesAndDates[i].victims;
             continue;
           }
