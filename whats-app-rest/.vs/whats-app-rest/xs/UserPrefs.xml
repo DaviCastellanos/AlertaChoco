@@ -1,16 +1,16 @@
 ﻿<Properties StartupConfiguration="{31EA7B65-E660-46C4-AD20-2353CC7A3DB0}|Default">
   <MonoDevelop.Ide.ItemProperties.whats-app-rest PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Managers/FirebaseAdminManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/AdminController.cs">
     <Files>
-      <File FileName="Managers/DatabaseManager.cs" Line="29" Column="14" />
-      <File FileName="Controllers/AlertController.cs" Line="30" Column="18" />
-      <File FileName="Controllers/AdminController.cs" Line="4" Column="30" />
-      <File FileName="Startup.cs" Line="21" Column="88" />
-      <File FileName="Program.cs" Line="1" Column="1" />
-      <File FileName="Properties/launchSettings.json" Line="1" Column="1" />
-      <File FileName="Managers/FirebaseAdminManager.cs" Line="30" Column="16" />
-      <File FileName="Managers/MultimediaManager.cs" Line="1" Column="1" />
-      <File FileName="Managers/MailManager.cs" Line="1" Column="1" />
+      <File FileName="Controllers/AdminController.cs" Line="55" Column="1" />
+      <File FileName="Managers/FirebaseAdminManager.cs" />
+      <File FileName="Managers/DatabaseManager.cs" />
+      <File FileName="Controllers/AlertController.cs" />
+      <File FileName="Startup.cs" />
+      <File FileName="Program.cs" />
+      <File FileName="Properties/launchSettings.json" />
+      <File FileName="Managers/MultimediaManager.cs" />
+      <File FileName="Managers/MailManager.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,10 +18,13 @@
           <Node name="whats-app-rest" expanded="True">
             <Node name="docker-compose" expanded="True" />
             <Node name="whats-app-rest" expanded="True">
-              <Node name="Dependencies" expanded="True" />
-              <Node name="Managers" expanded="True">
-                <Node name="FirebaseAdminManager.cs" selected="True" />
+              <Node name="Dependencies" expanded="True">
+                <Node name="PackageDependencies" expanded="True" selected="True" />
               </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Managers" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>

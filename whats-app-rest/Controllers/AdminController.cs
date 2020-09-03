@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Web.Http.Cors;
 
 namespace whats_app_rest.Controllers
 {
@@ -28,6 +26,7 @@ namespace whats_app_rest.Controllers
 
         [HttpPost]
         [Consumes("application/x-www-form-urlencoded")]
+        [EnableCors(origins: "http://alertachoco.web.app", headers: "*", methods: "*")]
         public async Task<ActionResult> Post([FromForm] string action, [FromForm] string user)
         {
             if (action == null || user == null)

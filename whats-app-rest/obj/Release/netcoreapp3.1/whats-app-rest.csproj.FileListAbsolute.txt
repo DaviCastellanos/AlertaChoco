@@ -28,3 +28,17 @@
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Twilio.dll
 /Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/obj/Release/netcoreapp3.1/whats-app-rest.csproj.CopyComplete
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/alertachoco-firebase-adminsdk-8mvx8-1c8bf68014.json
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/FirebaseAdmin.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Google.Api.Gax.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Google.Api.Gax.Rest.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Google.Apis.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Google.Apis.Auth.PlatformServices.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Google.Apis.Auth.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Google.Apis.Core.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/System.Interactive.Async.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/System.Web.Cors.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/System.Net.Http.Formatting.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/System.Web.Http.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/System.Web.Http.Cors.dll
+/Users/chumbimbi/Desktop/Proyectos/AlertaChoco/whats-app-rest/bin/Release/netcoreapp3.1/Newtonsoft.Json.Bson.dll

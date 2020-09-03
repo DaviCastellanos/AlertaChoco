@@ -45,6 +45,8 @@ namespace whats_app_rest
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
