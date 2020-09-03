@@ -12,11 +12,6 @@
       <b-button v-if="userIsAuthenticated" block v-b-modal.change-password size="lg" type="submit" variant="outline-warning">Cambiar contraseña</b-button>
     </div>
 
-    <b-modal id="delete-user" title="Eliminar Usuario" ok-title="Eliminar" cancel-title="Cancelar" ok-variant="danger" @ok="deleteUser()">
-      <h6>¿Seguro deseas eliminar este usuario?</h6>
-      <h6>Esta acción no se puede deshacer.</h6>
-    </b-modal>
-
     <b-modal id="change-password" title="CAMBIAR CONTRASEÑA" ok-only ok-title="GUARDAR NUEVA CONTRASEÑA" :hide-footer="!(this.passwordLength() && this.passwordMatch())" @ok="onChangePassword()" @close="cleanInput()" @hide="cleanInput()">
       <b-form-input :type="'email'" placeholder="email" v-model="email" class="mt-2"> </b-form-input>
       <b-form-input :type="'password'" placeholder="contraseña actual" v-model="oldPassword" class="mt-2" :state="passwordLength()"> </b-form-input>
@@ -51,9 +46,6 @@ export default {
     },
     onSignOut() {
       this.$store.dispatch('signUserOut');
-    },
-    showDeleteUserModal() {
-      this.$bvModal.show('delete-user');
     },
     deleteUser() {
       this.$store.dispatch('deleteAccount');

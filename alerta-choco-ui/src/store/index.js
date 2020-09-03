@@ -5,6 +5,7 @@ import 'firebase/auth';
 import _ from 'lodash';
 import { Object } from 'core-js';
 import UsersService from '@/services/users-service.js';
+import usersService from '../services/users-service';
 
 Vue.use(Vuex);
 
@@ -171,7 +172,7 @@ export default new Vuex.Store({
           });
         });
     },
-    async signUserUp(obj, payload) {
+    async signUserUp({ commit }, payload) {
       //console.log('Signing user up with', payload);
       var secondaryApp = firebase.initializeApp(
         {
@@ -205,6 +206,9 @@ export default new Vuex.Store({
 
       secondaryApp.auth().signOut();
       secondaryApp.delete();
+
+      const usersResponse = await usersService.getUsers();
+      if (usersResponse) commit('SET_USERS', usersResponse.features);
     }
   }
 });

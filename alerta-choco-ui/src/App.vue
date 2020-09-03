@@ -75,7 +75,7 @@ export default {
       this.$store.commit('SET_POLICIES', response.features);
     },
     async usersRequest() {
-      const response = await UsersService.getUsers(this.$store.getters.arcgisToken);
+      const response = await UsersService.getUsers();
 
       if (!response) {
         console.error('Users response is null');

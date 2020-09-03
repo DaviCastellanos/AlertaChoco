@@ -1,6 +1,21 @@
 <template>
   <div id="table" v-if="userIsAdmin">
-    <b-table responsive striped light :items="this.getItems()" :fields="this.getFields()"> </b-table>
+    <b-modal id="delete-user" title="Eliminar Usuario" :hideFooter="true">
+      <div v-if="!this.showSpinner">
+        <h6>¿Seguro deseas eliminar este usuario?</h6>
+        <h6>Esta acción no se puede deshacer.</h6>
+        <br />
+        <b-button size="lg" block type="submit" @click="deleteUser()" variant="danger">Eliminar</b-button>
+      </div>
+      <div v-if="this.showSpinner" class="text-center">
+        <b-spinner variant="secondary"></b-spinner>
+      </div>
+    </b-modal>
+    <b-table responsive striped light :items="this.getItems()" :fields="this.getFields()">
+      <template v-slot:cell(deleteUser)="data">
+        <b-button size="sm" @click="showDeleteUserModal(data.value)" type="submit" variant="danger">Eliminar usuario</b-button>
+      </template>
+    </b-table>
     <b-modal id="create" title="CREAR USUARIO" ok-only ok-title="CREAR" :hide-footer="!(this.passwordLength() && this.passwordMatch())" @ok="onSignUp()" @close="cleanInput()" @hide="cleanInput()">
       <b-form-input :type="'text'" placeholder="nombre" v-model="displayName" class="mt-2"> </b-form-input>
 
@@ -13,13 +28,14 @@
       <b-form-input :type="'password'" placeholder="validar contraseña" v-model="validatePassword" class="mt-2" :state="passwordMatch()"> </b-form-input>
     </b-modal>
     <br />
-    <b-button v-if="userIsAuthenticated" block v-b-modal.create size="lg" type="submit" variant="warning">Crear otro usuario</b-button>
+    <b-button block v-b-modal.create size="lg" type="submit" variant="warning">Crear otro usuario</b-button>
   </div>
 </template>
 
 <script>
 import { BTable } from 'bootstrap-vue';
 import helpers from '@/mixins/helpers.js';
+import UsersService from '@/services/users-service.js';
 
 export default {
   mixins: [helpers],
@@ -28,6 +44,8 @@ export default {
   },
   data() {
     return {
+      userToDelete: null,
+      showSpinner: false,
       email: null,
       password: null,
       validatePassword: null,
@@ -43,7 +61,30 @@ export default {
       ]
     };
   },
+  computed: {
+    users() {
+      return this.$store.getters.users;
+    }
+  },
   methods: {
+    async deleteUser() {
+      if (!this.userToDelete) return;
+      this.showSpinner = true;
+      const response = await UsersService.deleteUser(this.userToDelete);
+      if (response.deleteResults[0].success) {
+        const response = await UsersService.getUsers();
+
+        if (response) {
+          this.showSpinner = false;
+          this.$bvModal.hide('delete-user');
+          this.$store.commit('SET_USERS', response.features);
+        }
+      }
+    },
+    showDeleteUserModal(user) {
+      this.userToDelete = user;
+      this.$bvModal.show('delete-user');
+    },
     onSignUp() {
       this.$store.dispatch('signUserUp', {
         email: this.email,
@@ -76,11 +117,12 @@ export default {
         { key: 'mail', tdClass: 'w-5', label: 'Correo' },
         { key: 'role', tdClass: 'w-5', label: 'Rol' },
         { key: 'anansiCode', tdClass: 'w-5', label: 'Código Anansi' },
-        { key: 'tel', tdClass: 'w-5', label: 'Teléfono' }
+        { key: 'tel', tdClass: 'w-5', label: 'Teléfono' },
+        { key: 'deleteUser', tdClass: 'w-5', label: '' }
       ];
     },
     getItems() {
-      const users = this.$store.getters.users;
+      const users = this.users;
 
       if (!users) return;
 
@@ -93,7 +135,8 @@ export default {
             mail: users[i].attributes.email,
             role: users[i].attributes.role,
             anansiCode: users[i].attributes.anansiCode,
-            tel: users[i].attributes.tel
+            tel: users[i].attributes.tel,
+            deleteUser: { email: users[i].attributes.email, id: users[i].attributes.OBJECTID }
           });
         }
       }
