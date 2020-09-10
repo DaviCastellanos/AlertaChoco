@@ -26,22 +26,22 @@ namespace whats_app_rest
 
         public Alert GetAlertByPhoneNumber(string from)
         {
-            return alerts.Find(x => x.phoneNumber == from);
+            return alerts.Find(x => x.phoneNumber == from && !x.isTrash);
         }
 
         public Guid GetAlertIdByPhoneNumber(string from)
         {
-            return alerts.Find(x => x.phoneNumber == from).id;
+            return alerts.Find(x => x.phoneNumber == from && !x.isTrash).id;
         }
 
         public int GetAlertIndexByPhoneNumber(string from)
         {
-            return alerts.FindIndex(x => x.phoneNumber == from);
+            return alerts.FindIndex(x => x.phoneNumber == from && !x.isTrash);
         }
 
         public string GetProgressResponseByPhoneNumber(string from)
         {
-            return responses.messages[alerts.Find(x => x.phoneNumber == from).alertProgress - 1];
+            return responses.messages[alerts.Find(x => x.phoneNumber == from && !x.isTrash).alertProgress - 1];
         }
 
         public string SaveIncomingMessage(string phoneNumber, string message, string latitude, string longitude)
@@ -127,33 +127,15 @@ namespace whats_app_rest
             return new KeyValuePair<bool, string>(true, null);
         }
 
-        public bool TryToCreateNewAlert(string phoneNumber, string message)
+        public void TryToCreateNewAlert(string phoneNumber, string message)
         {
             Alert alert = GetAlertByPhoneNumber(phoneNumber);
             if (alert != null)
-            {
-                if (alert.isTrash)
-                    return false;
-
-                return true;
-            }
+                return;
 
             Alert newAlert = new Alert(phoneNumber, message, SaveAlert);
             alerts.Add(newAlert);
             ScheduleTrashCollector();
-
-            return true;
-        }
-
-        public bool TryToUpdateAnansiCodes(string message)
-        {
-            if (message.ToLower().Equals("updateanansicodes"))
-            {
-                database.UpdateAnansiCodes();
-                return true;
-            }
-
-            return false;
         }
 
         public async void SaveAlert(Alert alert)

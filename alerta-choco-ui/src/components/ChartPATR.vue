@@ -145,7 +145,7 @@ export default {
         },
         {
           name: 'Bloqueo Institucional',
-          color: '#EEEEEE',
+          color: '#f1c232',
           data: [
             {
               name: 'Pilar 1',

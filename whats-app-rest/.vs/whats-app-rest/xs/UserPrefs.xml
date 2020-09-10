@@ -1,26 +1,28 @@
 ﻿<Properties StartupConfiguration="{31EA7B65-E660-46C4-AD20-2353CC7A3DB0}|Default">
   <MonoDevelop.Ide.ItemProperties.whats-app-rest PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/AdminController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Alert.cs">
     <Files>
-      <File FileName="Controllers/AdminController.cs" Line="55" Column="1" />
+      <File FileName="Controllers/AdminController.cs" Line="1" Column="1" />
       <File FileName="Managers/FirebaseAdminManager.cs" />
       <File FileName="Managers/DatabaseManager.cs" />
-      <File FileName="Controllers/AlertController.cs" />
-      <File FileName="Startup.cs" />
+      <File FileName="Controllers/AlertController.cs" Line="44" Column="14" />
+      <File FileName="Startup.cs" Line="20" Column="77" />
       <File FileName="Program.cs" />
-      <File FileName="Properties/launchSettings.json" />
-      <File FileName="Managers/MultimediaManager.cs" />
+      <File FileName="Properties/launchSettings.json" Line="1" Column="1" />
+      <File FileName="Managers/MultimediaManager.cs" Line="17" Column="35" />
       <File FileName="Managers/MailManager.cs" />
+      <File FileName="Managers/TwilioManager.cs" Line="31" Column="21" />
+      <File FileName="Managers/AlertsManager.cs" Line="136" Column="37" />
+      <File FileName="AlertResponses.cs" Line="31" Column="45" />
+      <File FileName="Alert.cs" Line="8" Column="16" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="whats-app-rest" expanded="True">
             <Node name="docker-compose" expanded="True" />
-            <Node name="whats-app-rest" expanded="True">
-              <Node name="Dependencies" expanded="True">
-                <Node name="PackageDependencies" expanded="True" selected="True" />
-              </Node>
+            <Node name="whats-app-rest" expanded="True" selected="True">
+              <Node name="Dependencies" expanded="True" />
               <Node name="Controllers" expanded="True" />
               <Node name="Managers" expanded="True" />
               <Node name="Properties" expanded="True" />

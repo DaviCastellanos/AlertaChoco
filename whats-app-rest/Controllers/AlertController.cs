@@ -38,7 +38,7 @@ namespace whats_app_rest.Controllers
         public async Task<ActionResult> Post(
             [FromForm] string body,
             [FromForm] string from,
-            [FromForm]string mediaUrl0,
+            [FromForm] string mediaUrl0,
             [FromForm] string latitude,
             [FromForm] string longitude
             )
@@ -46,11 +46,7 @@ namespace whats_app_rest.Controllers
             if (body != null && body.Length > 255)
                 return SendTwilioMessage(from, responses.validations["LENGTH_RESPONSE"]);
 
-            if (alerts.TryToUpdateAnansiCodes(body))
-                return SendTwilioMessage(from, responses.validations["UPDATING_CODES"]);
-
-            if (!alerts.TryToCreateNewAlert(from, body))
-                return SendTwilioMessage(from, responses.validations["ALERT_SUCCESFUL"]);
+            alerts.TryToCreateNewAlert(from, body);
 
             KeyValuePair<bool, string> result = alerts.ValidateIncomingMessage(body, from);
 
