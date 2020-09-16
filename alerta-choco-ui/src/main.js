@@ -41,7 +41,7 @@ Vue.mixin({
       miliseconds = parseInt(miliseconds);
       if (!miliseconds) return 'N/A';
       const dt = new Date(miliseconds);
-      return dt.getUTCDate() + '/' + (dt.getUTCMonth() + 1) + '/' + dt.getUTCFullYear();
+      return dt.getUTCFullYear() + '-' + (dt.getUTCMonth() + 1) + '-' + dt.getUTCDate();
     },
     FormatDateForDB(str) {
       if (str.includes('-')) {

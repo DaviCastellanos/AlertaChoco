@@ -9,7 +9,12 @@
       <b-col>
         <div class="mt-3 mb-3">
           <h6>Fecha en la que ocurre acción o respuesta:</h6>
-          <b-form-datepicker id="datepicker" :state="lengthState(fechaAccionRespuesta)" v-model="fechaAccionRespuesta"></b-form-datepicker>
+          <b-input-group class="mb-3">
+            <b-form-input v-model="fechaAccionRespuesta" :disabled="true" type="text" :placeholder="FormatAsDate(this.fechaAccionRespuesta)" :state="lengthState(this.fechaAccionRespuesta)" autocomplete="off"></b-form-input>
+            <b-input-group-append>
+              <b-form-datepicker v-model="fechaAccionRespuesta" button-only right locale="es-LA" aria-controls="example-input"></b-form-datepicker>
+            </b-input-group-append>
+          </b-input-group>
         </div>
         <div class="mt-3">
           <h6>Tipo de seguimiento:</h6>

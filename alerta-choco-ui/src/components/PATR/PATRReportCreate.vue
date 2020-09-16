@@ -39,7 +39,12 @@
 
         <div class="mt-3">
           <h6>Fecha en la que ocurre el evento a reportar:</h6>
-          <b-form-datepicker id="datepicker" v-model="fechaOcurrencia" :state="lengthState(this.fechaOcurrencia)" :placeholder="FormatAsDate(this.fechaOcurrencia)"></b-form-datepicker>
+          <b-input-group class="mb-3">
+            <b-form-input v-model="fechaOcurrencia" :disabled="true" type="text" :placeholder="FormatAsDate(this.fechaOcurrencia)" :state="lengthState(this.fechaOcurrencia)" autocomplete="off"></b-form-input>
+            <b-input-group-append>
+              <b-form-datepicker v-model="fechaOcurrencia" button-only right locale="es-LA" aria-controls="example-input"></b-form-datepicker>
+            </b-input-group-append>
+          </b-input-group>
         </div>
       </b-col>
     </b-row>
