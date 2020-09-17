@@ -57,7 +57,7 @@ export default {
         { value: '', text: 'Selecciona una' },
         { value: 'defensor', text: 'Defensor/a' },
         { value: 'analista', text: 'Analista' },
-        { value: 'admin', text: 'Administrador' }
+        { value: 'admin', text: 'Administrador/a' }
       ]
     };
   },

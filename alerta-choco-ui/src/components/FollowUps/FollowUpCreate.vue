@@ -18,7 +18,7 @@
         </div>
         <div class="mt-3">
           <h6>Tipo de seguimiento:</h6>
-          <b-form-select v-model="tipoSeguimientoEnum" :options="this.opcionesTipoSeguimiento" :state="lengthState(tipoSeguimientoEnum)" multiple></b-form-select>
+          <b-form-select v-model="tipoSeguimientoEnum" :options="this.opcionesTipoSeguimiento" :state="lengthState(tipoSeguimientoEnum)"></b-form-select>
         </div>
       </b-col>
     </b-row>

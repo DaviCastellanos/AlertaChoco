@@ -85,7 +85,8 @@ export default {
         { value: 'Solicitada: en tramite', text: 'Solicitada: en trámite' },
         { value: 'Solicitada: negada', text: 'Solicitada: negada' },
         { value: 'Solicitada: otorgada', text: 'Solicitada: otorgada' },
-        { value: 'Levantada', text: 'Levantada' }
+        { value: 'Levantada', text: 'Levantada' },
+        { value: 'Vigente', text: 'Vigente' }
       ],
       opcionesSubcategoria: [
         { value: '', text: 'Selecciona varias (Usa cmd o ctrl)' },
@@ -106,7 +107,7 @@ export default {
         { value: '14', text: 'Desplazamiento forzado' },
         { value: '15', text: 'Despojo de tierras y territorios' },
         { value: '16', text: 'Detención arbitraria' },
-        { value: '17', text: 'Enamoramiento' },
+        { value: '17', text: 'Utilización emocional (enamoramiento)' },
         { value: '18', text: 'Estigmatización' },
         { value: '19', text: 'Explotación sexual' },
         { value: '20', text: 'Extorsión' },
@@ -192,7 +193,7 @@ export default {
         { value: '5', text: 'Desconocido' }
       ],
       opcionesTipoSeguimiento: [
-        { value: '', text: 'Selecciona varias (Usa cmd o ctrl)' },
+        { value: '', text: 'Selecciona una' },
         { value: '0', text: 'Evolución de la situación' },
         { value: '1', text: 'Acción de seguimiento' },
         { value: '2', text: 'Respuesta Institucional' }

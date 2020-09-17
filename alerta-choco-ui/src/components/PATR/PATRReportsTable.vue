@@ -1,6 +1,6 @@
 <template>
   <div id="table">
-    <h4>REPORTES DE DDHH</h4>
+    <h4>REPORTES DE PATR</h4>
     <br />
     <b-table responsive sticky-header="700px" striped hover light selectable :items="this.getItems()" :fields="this.getFields()" @row-selected="onRowSelected"> </b-table>
     <excel-helper tableType="PATR" title="Descargar reportes PATR" />

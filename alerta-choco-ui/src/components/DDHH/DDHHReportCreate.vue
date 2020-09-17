@@ -104,13 +104,13 @@
         </div>
 
         <div class="mt-3">
-          <h6>Territorio colectivo:</h6>
-          <b-form-input v-model="territorioColectivo" :state="lengthState(territorioColectivo)" aria-describedby="input-live-feedback" trim></b-form-input>
+          <h6>Barrio:</h6>
+          <b-form-input v-model="barrio" placeholder="Opcional" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
 
         <div class="mt-3">
-          <h6>Barrio:</h6>
-          <b-form-input v-model="barrio" :state="lengthState(barrio)" aria-describedby="input-live-feedback" trim></b-form-input>
+          <h6>Territorio colectivo:</h6>
+          <b-form-input v-model="territorioColectivo" :state="lengthState(territorioColectivo)" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
       </b-col>
     </b-row>
@@ -124,18 +124,18 @@
     <b-row>
       <b-col>
         <div class="mt-3">
+          <h6>Categoría:</h6>
+          <b-form-select v-model="categoriaEvento" :options="this.opcionesCategoria" :state="lengthState(categoriaEvento)"></b-form-select>
+        </div>
+
+        <div class="mt-3">
           <h6>Subcategoría:</h6>
           <b-form-select v-model="subcategoriaEventoEnum" :options="this.opcionesSubcategoria" multiple :select-size="10" :state="lengthState(subcategoriaEventoEnum)"></b-form-select>
         </div>
 
         <div class="mt-3">
           <h6>¿Otra subcategoría? ¿cuál?:</h6>
-          <b-form-input v-model="subcategoriaEventoOtra" aria-describedby="input-live-feedback" placeholder="opcional" trim></b-form-input>
-        </div>
-
-        <div class="mt-3">
-          <h6>Categoría:</h6>
-          <b-form-select v-model="categoriaEvento" :options="this.opcionesCategoria" :state="lengthState(categoriaEvento)"></b-form-select>
+          <b-form-input v-model="subcategoriaEventoOtra" aria-describedby="input-live-feedback" placeholder="Opcional" trim></b-form-input>
         </div>
 
         <div class="mt-3">
@@ -204,7 +204,7 @@
         </div>
 
         <div class="mt-3">
-          <h6>Identidad de género:</h6>
+          <h6>Identidad de género u orientación sexual diversa:</h6>
           <b-form-select v-model="identidadGenero" :options="this.opcionesIdentidad" :state="lengthState(identidadGenero)"></b-form-select>
         </div>
 
@@ -220,7 +220,7 @@
 
         <div class="mt-3">
           <h6>Nombres de otras víctimas:</h6>
-          <b-form-input v-model="otrasVictimasNombres" :state="lengthState(otrasVictimasNombres)" aria-describedby="input-live-feedback" trim></b-form-input>
+          <b-form-input v-model="otrasVictimasNombres" placeholder="Opcional" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
       </b-col>
     </b-row>
@@ -273,12 +273,12 @@
 
         <div class="mt-3">
           <h6>Presunto responsable:</h6>
-          <b-form-input v-model="presuntoResponsable" :state="lengthState(presuntoResponsable)" aria-describedby="input-live-feedback" trim></b-form-input>
+          <b-form-input v-model="presuntoResponsable" placeholder="Opcional" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
 
         <div class="mt-3">
           <h6>Situación asociada:</h6>
-          <b-form-input v-model="situacionAsociada" :state="lengthState(situacionAsociada)" aria-describedby="input-live-feedback" trim></b-form-input>
+          <b-form-input v-model="situacionAsociada" placeholder="Opcional" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
       </b-col>
     </b-row>
@@ -400,7 +400,6 @@ export default {
         !this.municipioOcurrencia ||
         !this.entornoOcurrencia ||
         !this.territorioColectivo ||
-        !this.barrio ||
         !this.tipoEvento ||
         !this.categoriaEvento ||
         !this.subcategoriaEventoEnum ||
@@ -421,8 +420,6 @@ export default {
         !this.etniaAfectadosEnum ||
         !this.derechosDDHEnum ||
         !this.tipoResponsableEnum ||
-        !this.presuntoResponsable ||
-        !this.situacionAsociada ||
         !this.accionesMitigacion ||
         !this.riesgoPercibido ||
         !this.institucionesEnum

@@ -29,7 +29,8 @@ export default {
         { value: 'Sur de Bolívar', text: 'Sur de Bolívar' },
         { value: 'Sur de Córdoba', text: 'Sur de Córdoba' },
         { value: 'Sur de Tolima', text: 'Sur de Tolima' },
-        { value: 'Urabá antioqueño', text: 'Urabá antioqueño' }
+        { value: 'Urabá antioqueño', text: 'Urabá antioqueño' },
+        { value: 'Ninguna', text: 'Ninguna' }
       ],
       opcionesPilar: [
         { value: '', text: 'Selecciona una' },
