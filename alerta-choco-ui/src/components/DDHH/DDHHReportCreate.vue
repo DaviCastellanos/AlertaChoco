@@ -22,13 +22,13 @@
         </div>
 
         <div class="mt-3">
-          <h6>Cómo pasó:</h6>
-          <b-form-input v-model="relatoComo" :state="lengthState(relatoComo)" aria-describedby="input-live-feedback" trim></b-form-input>
+          <h6>Qué pasó:</h6>
+          <b-form-input v-model="relatoQue" :state="lengthState(relatoQue)" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
 
         <div class="mt-3">
-          <h6>Qué pasó:</h6>
-          <b-form-input v-model="relatoQue" :state="lengthState(relatoQue)" aria-describedby="input-live-feedback" trim></b-form-input>
+          <h6>Cómo pasó:</h6>
+          <b-form-input v-model="relatoComo" :state="lengthState(relatoComo)" aria-describedby="input-live-feedback" trim></b-form-input>
         </div>
 
         <div class="mt-3">

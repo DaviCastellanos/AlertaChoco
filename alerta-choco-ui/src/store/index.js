@@ -198,7 +198,7 @@ export default new Vuex.Store({
         return;
       }
 
-      const arcgisUser = await UsersService.saveUser(payload.email, payload.role, payload.anansiCode, payload.tel);
+      const arcgisUser = await UsersService.saveUser(payload.email, payload.role, payload.anansiCode, payload.tel, payload.displayName);
 
       secondaryApp.auth().currentUser.updateProfile({
         displayName: payload.displayName + '/' + payload.role + '/' + arcgisUser.addResults[0].objectId + '/' + payload.anansiCode + '/' + payload.tel

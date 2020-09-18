@@ -114,6 +114,7 @@ export default {
     },
     getFields() {
       return [
+        { key: 'displayName', tdClass: 'w-5', label: 'Nombre' },
         { key: 'mail', tdClass: 'w-5', label: 'Correo' },
         { key: 'role', tdClass: 'w-5', label: 'Rol' },
         { key: 'anansiCode', tdClass: 'w-5', label: 'Código Anansi' },
@@ -133,6 +134,7 @@ export default {
         for (var i = 0; i < users.length; i++) {
           items.push({
             mail: users[i].attributes.email,
+            displayName: users[i].attributes.displayName,
             role: users[i].attributes.role,
             anansiCode: users[i].attributes.anansiCode,
             tel: users[i].attributes.tel,
