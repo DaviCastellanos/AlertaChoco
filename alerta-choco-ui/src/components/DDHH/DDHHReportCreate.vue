@@ -386,45 +386,45 @@ export default {
   },
   methods: {
     requiredFieldsCompleted() {
-      if (
-        !this.codigoAnansi ||
-        !this.telefono ||
-        !this.relatoComo ||
-        !this.situacionActual ||
-        !this.relatoQue ||
-        !this.relatoDonde ||
-        !this.relatoQuien ||
-        !this.fechaOcurrencia ||
-        !this.fechaReporte ||
-        !this.departamentoOcurrencia ||
-        !this.municipioOcurrencia ||
-        !this.entornoOcurrencia ||
-        !this.territorioColectivo ||
-        !this.tipoEvento ||
-        !this.categoriaEvento ||
-        !this.subcategoriaEventoEnum ||
-        !this.nombreVictima ||
-        !this.edadVictima ||
-        !this.etniaVictima ||
-        !this.rolVictimaEnum ||
-        !this.discapacidadEnum ||
-        !this.sexo ||
-        !this.identidadGenero ||
-        !this.perfilVictima ||
-        !this.medidasProteccionExistentes ||
-        !this.totalVictimas ||
-        !this.relacionVictima ||
-        !this.afectadosEnum ||
-        !this.familias ||
-        !this.numeroPersonas ||
-        !this.etniaAfectadosEnum ||
-        !this.derechosDDHEnum ||
-        !this.tipoResponsableEnum ||
-        !this.accionesMitigacion ||
-        !this.riesgoPercibido ||
-        !this.institucionesEnum
-      )
-        return true;
+      // if (
+      // !this.codigoAnansi ||
+      // !this.telefono ||
+      // !this.relatoComo ||
+      // !this.situacionActual ||
+      // !this.relatoQue ||
+      // !this.relatoDonde ||
+      // !this.relatoQuien ||
+      // !this.fechaOcurrencia ||
+      // !this.fechaReporte ||
+      // !this.departamentoOcurrencia ||
+      // !this.municipioOcurrencia ||
+      // !this.entornoOcurrencia ||
+      // !this.territorioColectivo ||
+      // !this.tipoEvento ||
+      // !this.categoriaEvento ||
+      // !this.subcategoriaEventoEnum ||
+      // !this.nombreVictima ||
+      // !this.edadVictima ||
+      // !this.etniaVictima ||
+      // !this.rolVictimaEnum ||
+      // !this.discapacidadEnum ||
+      // !this.sexo ||
+      // !this.identidadGenero ||
+      // !this.perfilVictima ||
+      // !this.medidasProteccionExistentes ||
+      // !this.totalVictimas ||
+      // !this.relacionVictima ||
+      // !this.afectadosEnum ||
+      // !this.familias ||
+      // !this.numeroPersonas ||
+      // !this.etniaAfectadosEnum ||
+      // !this.derechosDDHEnum ||
+      // !this.tipoResponsableEnum ||
+      // !this.accionesMitigacion ||
+      // !this.riesgoPercibido ||
+      // !this.institucionesEnum
+      // )
+      //   return true;
 
       return false;
     },
