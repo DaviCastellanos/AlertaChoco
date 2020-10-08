@@ -88,7 +88,7 @@ export default new Vuex.Store({
       this.state.alerts = alerts;
     },
     SET_USERS(state, users) {
-      console.log('SET_USERS', users);
+      //console.log('SET_USERS', users);
       this.state.users = users;
     },
     SET_FOLLOW_UP_IDS(state, ids) {

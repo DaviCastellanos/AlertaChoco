@@ -407,47 +407,47 @@ export default {
   },
   methods: {
     requiredFieldsCompleted() {
-      if (
-        !this.tipoReporte ||
-        !this.subregion ||
-        !this.pilar ||
-        !this.municipio ||
-        !this.codigoIniciativa ||
-        !this.fechaOcurrencia ||
-        !this.descripcionAccion ||
-        !this.entidadesEstadoEnum1 ||
-        !this.dependenciaIncidencia ||
-        !this.resultadoIncidencia ||
-        !this.tiempoIncidencia ||
-        !this.incidenciaQuien ||
-        !this.tipoImplementacion ||
-        !this.entidadesEstadoEnum2 ||
-        !this.dependenciaImplementacion ||
-        !this.describaImplementacion ||
-        !this.completado1 ||
-        !this.avanza1 ||
-        !this.retrasa1 ||
-        !this.accionNecesaria ||
-        !this.tipoImplementacion2 ||
-        !this.organizacion ||
-        !this.agencia ||
-        !this.entidadesEstado ||
-        !this.describaImplementacion2 ||
-        !this.completado2 ||
-        !this.avanza2 ||
-        !this.retrasa2 ||
-        !this.accionNecesaria2 ||
-        !this.tipoBloqueo ||
-        !this.entidadesEstadoEnum3 ||
-        !this.dependenciaBloqueo ||
-        !this.descripcionBloqueo ||
-        !this.efectoBloqueo ||
-        !this.impactoBloqueo ||
-        !this.accionesBloqueo ||
-        !this.institucionesBloqueo ||
-        !this.tiempoUnidad
-      )
-        return true;
+      // if (
+      //   !this.tipoReporte ||
+      //   !this.subregion ||
+      //   !this.pilar ||
+      //   !this.municipio ||
+      //   !this.codigoIniciativa ||
+      //   !this.fechaOcurrencia ||
+      //   !this.descripcionAccion ||
+      //   !this.entidadesEstadoEnum1 ||
+      //   !this.dependenciaIncidencia ||
+      //   !this.resultadoIncidencia ||
+      //   !this.tiempoIncidencia ||
+      //   !this.incidenciaQuien ||
+      //   !this.tipoImplementacion ||
+      //   !this.entidadesEstadoEnum2 ||
+      //   !this.dependenciaImplementacion ||
+      //   !this.describaImplementacion ||
+      //   !this.completado1 ||
+      //   !this.avanza1 ||
+      //   !this.retrasa1 ||
+      //   !this.accionNecesaria ||
+      //   !this.tipoImplementacion2 ||
+      //   !this.organizacion ||
+      //   !this.agencia ||
+      //   !this.entidadesEstado ||
+      //   !this.describaImplementacion2 ||
+      //   !this.completado2 ||
+      //   !this.avanza2 ||
+      //   !this.retrasa2 ||
+      //   !this.accionNecesaria2 ||
+      //   !this.tipoBloqueo ||
+      //   !this.entidadesEstadoEnum3 ||
+      //   !this.dependenciaBloqueo ||
+      //   !this.descripcionBloqueo ||
+      //   !this.efectoBloqueo ||
+      //   !this.impactoBloqueo ||
+      //   !this.accionesBloqueo ||
+      //   !this.institucionesBloqueo ||
+      //   !this.tiempoUnidad
+      // )
+      //   return true;
 
       return false;
     },
