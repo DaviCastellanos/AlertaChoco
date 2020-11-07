@@ -71,14 +71,14 @@ export default {
             pointStart: this.TodayPlusMonths(this.monthRange),
             pointIntervalUnit: 'month',
             color: '#FF9914',
-            name: 'Alertas'
+            name: 'Fecha de ocurrencia'
           },
           {
             data: this.verificationQty,
             pointStart: this.TodayPlusMonths(this.monthRange),
             pointIntervalUnit: 'month',
             color: '#008001',
-            name: 'Eventos DDHH'
+            name: 'Fecha de validación'
           }
         ]
       };
@@ -90,7 +90,7 @@ export default {
       this.alertsQty = [];
       this.verificationQty = [];
       const groupedByReportDate = _.groupBy(alerts, feature =>
-        new Date(feature.attributes.fechaReporte).toLocaleDateString('en-GB', {
+        new Date(feature.attributes.fechaOcurrencia).toLocaleDateString('en-GB', {
           month: 'numeric',
           year: 'numeric'
         })
@@ -104,6 +104,7 @@ export default {
       );
 
       //console.log('groupedByVerificationDate ', groupedByVerificationDate);
+      //console.log('groupedByReportDate ', groupedByReportDate);
 
       var now = new Date();
       now.setDate(now.getDate() + 1);
