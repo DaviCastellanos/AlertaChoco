@@ -1,3 +1,5 @@
+<!-- Base component to call the API services and draw the UI's outline-->
+
 <template>
   <b-container fluid>
     <b-row no-gutters>
@@ -11,6 +13,7 @@
 </template>
 
 <script>
+//Import UI components and Axios services.
 import NavBar from './components/NavBar.vue';
 import Footer from './components/Footer.vue';
 import AlertsService from '@/services/alerts-service.js';
@@ -25,6 +28,7 @@ export default {
     Footer
   },
   watch: {
+    //Listener to call the services everytime user access has changed in order to protect private information.
     userAccess(val) {
       if (val) {
         this.alertsRequest();
@@ -35,6 +39,7 @@ export default {
     }
   },
   computed: {
+    //Determine user access based on the user role state.
     userAccess() {
       if (!this.$store.getters.user || !this.$store.getters.user.role) return 'public';
       const role = this.$store.getters.user.role;
@@ -44,6 +49,7 @@ export default {
     }
   },
   methods: {
+    //Called on startup to update the database token and get the initial data.
     async tokenRequest() {
       const token = await AlertsService.getArcgisToken();
 
@@ -56,6 +62,7 @@ export default {
       this.followUpIdsRequest();
       this.policiesRequest();
     },
+    //Get the alerts information based on the user access.
     async alertsRequest() {
       const response = await AlertsService.getAlerts(this.$store.getters.arcgisToken, this.userAccess);
       if (!response) {
@@ -65,6 +72,7 @@ export default {
 
       this.$store.commit('SET_ALERTS', response.features);
     },
+    //Get the policies information based on the user access.
     async policiesRequest() {
       const response = await PolicyService.getPolicies(this.$store.getters.arcgisToken, this.userAccess);
       if (!response) {
@@ -74,6 +82,7 @@ export default {
       //console.log('policies are ', response.features);
       this.$store.commit('SET_POLICIES', response.features);
     },
+    //Get the current user information only for admin access.
     async usersRequest() {
       const response = await UsersService.getUsers();
 
@@ -84,6 +93,7 @@ export default {
 
       this.$store.commit('SET_USERS', response.features);
     },
+    //Get the followup ids regardless user access.
     async followUpIdsRequest() {
       const response = await FollowUpsService.getFollowUpIds(this.$store.getters.arcgisToken);
 
@@ -95,6 +105,7 @@ export default {
       this.$store.commit('SET_FOLLOW_UP_IDS', response.features);
     }
   },
+  //Hook triggered on startup
   mounted() {
     this.tokenRequest();
   }
