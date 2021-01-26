@@ -54,7 +54,6 @@ export default {
       const token = await AlertsService.getArcgisToken();
 
       if (!token) {
-        console.error('Arcgis token is null');
         return;
       }
       this.$store.commit('SET_ARCGIS_TOKEN', token);
@@ -66,7 +65,6 @@ export default {
     async alertsRequest() {
       const response = await AlertsService.getAlerts(this.$store.getters.arcgisToken, this.userAccess);
       if (!response) {
-        console.error('Alerts response is null');
         return;
       }
 
@@ -76,7 +74,6 @@ export default {
     async policiesRequest() {
       const response = await PolicyService.getPolicies(this.$store.getters.arcgisToken, this.userAccess);
       if (!response) {
-        console.error('Policies response is null');
         return;
       }
       //console.log('policies are ', response.features);
@@ -87,7 +84,6 @@ export default {
       const response = await UsersService.getUsers();
 
       if (!response) {
-        console.error('Users response is null');
         return;
       }
 
@@ -98,7 +94,6 @@ export default {
       const response = await FollowUpsService.getFollowUpIds(this.$store.getters.arcgisToken);
 
       if (!response) {
-        console.error('Folow up ids response is null');
         return;
       }
 
